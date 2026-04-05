@@ -96,6 +96,22 @@
   margin-bottom: 0;
 }
 
+.currently-line {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  letter-spacing: 0.04em;
+  opacity: 0.55;
+  margin-top: var(--space-lg);
+  line-height: 1.9;
+  padding-top: var(--space-sm);
+  border-top: 1px solid var(--color-border);
+}
+
+.currently-label {
+  color: var(--color-accent);
+  font-weight: 400;
+}
+
 /* ── Pillars Section ── */
 #pillars {
   /* Container for three full-height pillar blocks */
@@ -119,6 +135,16 @@
   letter-spacing: 0.1em;
   margin-bottom: var(--space-sm);
 }
+
+/* Per-pillar number colors */
+.pillar:nth-child(1) .pillar-number { color: var(--color-purple); }
+.pillar:nth-child(2) .pillar-number { color: var(--color-accent); }
+.pillar:nth-child(3) .pillar-number { color: var(--color-teal); }
+
+/* Per-pillar divider colors when expanded */
+.pillar:nth-child(1) .pillar-divider.expanded { background-color: var(--color-purple); }
+.pillar:nth-child(2) .pillar-divider.expanded { background-color: var(--color-accent); }
+.pillar:nth-child(3) .pillar-divider.expanded { background-color: var(--color-teal); }
 
 .pillar-title {
   font-family: var(--font-display);
@@ -273,6 +299,11 @@
   margin-left: var(--space-md);
 }
 
+/* Alternating note arrow colors */
+.note-entry:nth-child(1) .note-arrow { color: var(--color-accent); }
+.note-entry:nth-child(2) .note-arrow { color: var(--color-purple); }
+.note-entry:nth-child(3) .note-arrow { color: var(--color-teal); }
+
 /* ── Projects Section ── */
 #projects {
   padding: var(--space-xl) var(--space-md);
@@ -327,6 +358,17 @@
   margin-left: var(--space-sm);
   flex-shrink: 0;
   margin-top: 6px;
+}
+
+/* Per-card tag colors */
+.project-card:nth-of-type(1) .project-tag {
+  color: var(--color-rose);
+  border-color: var(--color-rose);
+}
+
+.project-card:nth-of-type(2) .project-tag {
+  color: var(--color-teal);
+  border-color: var(--color-teal);
 }
 
 .project-desc {
@@ -407,6 +449,7 @@
 
 .contact-email:hover {
   text-decoration: underline;
+  color: var(--color-purple);
 }
 
 .contact-divider-text {
@@ -425,6 +468,7 @@
 
 .contact-link:hover {
   text-decoration: underline;
+  color: var(--color-teal);
 }
 
 /* Footer */
