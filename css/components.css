@@ -48,7 +48,7 @@
   font-size: 14px;
   color: var(--color-text);
   text-decoration: none;
-  opacity: 0.65;
+  opacity: 0.72;
   transition: opacity var(--transition-fast), color var(--transition-fast);
 }
 
@@ -57,9 +57,16 @@
 }
 
 .nav-links a.active {
-  color: var(--color-purple);
   opacity: 1;
 }
+
+/* Individual nav link colours */
+.nav-links a[data-section="about"]    { color: var(--color-purple); }
+.nav-links a[data-section="pillars"]  { color: var(--color-teal); }
+.nav-links a[data-section="seen"]     { color: var(--color-rose); }
+.nav-links a[data-section="notes"]    { color: var(--color-accent); }
+.nav-links a[data-section="projects"] { color: var(--color-sky); }
+.nav-links a[data-section="contact"]  { color: var(--color-lime); }
 
 .nav-right {
   display: flex;
