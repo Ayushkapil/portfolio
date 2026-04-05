@@ -180,7 +180,7 @@
     function bgSpawnOne() {
       const bh = bgBlackHoles[0];
       const angle = Math.random() * Math.PI * 2;
-      const r = BG_RING_RADIUS * (0.8 + Math.random() * 0.6);
+      const r = BG_RING_RADIUS * (0.9 + Math.random() * 0.2);
       const x = bh.x + Math.cos(angle) * r;
       const y = bh.y + Math.sin(angle) * r;
       bgBodies.push({
