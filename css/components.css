@@ -52,13 +52,40 @@
   transition: opacity var(--transition-fast), color var(--transition-fast);
 }
 
-.nav-links a:hover {
+.nav-links a:hover,
+.nav-links a.active {
   opacity: 1;
 }
 
-.nav-links a.active {
+/* Per-link accent colors on hover and active */
+.nav-links a:nth-child(1):hover,
+.nav-links a:nth-child(1).active {
+  color: var(--color-text);
+}
+
+.nav-links a:nth-child(2):hover,
+.nav-links a:nth-child(2).active {
   color: var(--color-purple);
-  opacity: 1;
+}
+
+.nav-links a:nth-child(3):hover,
+.nav-links a:nth-child(3).active {
+  color: var(--color-teal);
+}
+
+.nav-links a:nth-child(4):hover,
+.nav-links a:nth-child(4).active {
+  color: var(--color-accent);
+}
+
+.nav-links a:nth-child(5):hover,
+.nav-links a:nth-child(5).active {
+  color: var(--color-rose);
+}
+
+.nav-links a:nth-child(6):hover,
+.nav-links a:nth-child(6).active {
+  color: var(--color-teal);
 }
 
 .nav-right {
