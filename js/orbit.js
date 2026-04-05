@@ -24,6 +24,7 @@
   const BLACKHOLE_RADIUS = 8;
   const ABSORPTION_DISTANCE = 10;
   const ESCAPE_MARGIN = 200;
+  const MAX_BODIES = 14;
 
   let TRAIL_LENGTH = 80;
 
@@ -146,7 +147,6 @@
   }, { passive: false });
 
   // ── Game Mode ──────────────────────────────────────────────
-  const MAX_BODIES = 14;
   let blackHoleCount = 2;
 
   function placeBlackHolesForCount(count) {

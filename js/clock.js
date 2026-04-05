@@ -45,10 +45,7 @@
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(
       function (pos) {
-        fetchTemperature(
-          pos.coords.latitude.toFixed(4),
-          pos.coords.longitude.toFixed(4)
-        );
+        fetchTemperature(pos.coords.latitude, pos.coords.longitude);
       },
       function () {
         /* geolocation denied — keep --°C */
