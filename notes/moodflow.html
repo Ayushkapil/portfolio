@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Building an AI music therapist in 36 hours — Ayush Kapil</title>
+  <meta name="description" content="Notes from building MoodFlow at a hackathon." />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=DM+Mono:wght@400&family=DM+Sans:wght@400;500&family=Lora:ital,wght@0,400;1,400&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="../css/variables.css" />
+  <link rel="stylesheet" href="../css/reset.css" />
+  <link rel="stylesheet" href="../css/base.css" />
+  <link rel="stylesheet" href="../css/components.css" />
+  <link rel="stylesheet" href="../css/animations.css" />
+
+  <script>
+    (function () {
+      var stored = localStorage.getItem('portfolio-theme');
+      var theme = stored === 'dark' || stored === 'light'
+        ? stored
+        : (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+      document.documentElement.classList.add(theme);
+    }());
+  </script>
+</head>
+<body>
+
+  <nav class="reading-nav">
+    <a class="back-link" href="../index.html#notes">← Notes</a>
+    <button class="nav-theme-toggle" aria-label="Toggle dark mode">☾</button>
+  </nav>
+
+  <main class="reading-container">
+    <div class="reading-meta">Mar 2026</div>
+    <h1 class="reading-title">Building an AI music therapist in 36 hours</h1>
+
+    <div class="reading-body">
+      <p>The idea came from a conversation about what music actually does. Not what it feels like to listen to music — most people know that — but the mechanism. The way a tempo change shifts your physiological state. The way a song in a minor key at a slow tempo creates a specific kind of sadness, different from the sadness created by a fast song in the same key. Music therapists have been working with this for decades. We were sitting around at a hackathon wondering if an LLM could be given enough context to approximate it.</p>
+
+      <p>The core idea for MoodFlow was a journey structure. Not just "here's music that matches your mood," which is what every playlist recommendation engine does. Instead: "here's where you are right now, here's where you want to be, and here is a four-stage path from one to the other." Each stage would transition the listener gradually — tempo, key, energy — until they arrived. We called the LLM's role the music therapist persona: a voice that understood the clinical logic of the journey and could explain each stage in terms of what it was trying to do to you.</p>
+
+      <p>The hardest problem we hit was diversity. The LLM had trained on enough music recommendation data that it had strong priors — strong, narrow priors. Ask for "melancholic indie for stage one of a calming journey" and you'd get the same five songs every time, in slightly different orders. Getting it to be genuinely surprising required a lot of explicit prompting: instruction to avoid recency bias, instruction to draw from different decades and geographies, instruction to deliberately avoid its top-three associations for a given mood. Even then it would drift back.</p>
+
+      <p>We didn't fully solve it. But we learned something about what diversity in AI recommendations actually means — it's not just a list of different songs, it's a different relationship to the space of possible songs. That's a harder thing to prompt for, and I think it's still an open problem. I keep thinking about it.</p>
+    </div>
+  </main>
+
+  <script src="../js/theme.js" defer></script>
+
+</body>
+</html>

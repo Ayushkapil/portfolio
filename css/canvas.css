@@ -1,0 +1,34 @@
+/* ============================================================
+   CANVAS — Orbit canvas positioning
+   ============================================================ */
+
+#orbit-canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 0;
+  pointer-events: auto;
+}
+
+/* Mobile: hide canvas */
+@media (max-width: 767px) {
+  #orbit-canvas {
+    display: none;
+  }
+
+  /* Fallback gradient on mobile */
+  #landing {
+    background: radial-gradient(
+      ellipse at 38% 45%,
+      rgba(var(--color-text-raw), 0.05) 0%,
+      transparent 60%
+    ),
+    radial-gradient(
+      ellipse at 65% 52%,
+      rgba(var(--color-text-raw), 0.05) 0%,
+      transparent 60%
+    );
+  }
+}

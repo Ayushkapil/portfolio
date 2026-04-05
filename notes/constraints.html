@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Why constraints make you more creative, not less — Ayush Kapil</title>
+  <meta name="description" content="A reflection on how constraints sharpen creative thinking." />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=DM+Mono:wght@400&family=DM+Sans:wght@400;500&family=Lora:ital,wght@0,400;1,400&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="../css/variables.css" />
+  <link rel="stylesheet" href="../css/reset.css" />
+  <link rel="stylesheet" href="../css/base.css" />
+  <link rel="stylesheet" href="../css/components.css" />
+  <link rel="stylesheet" href="../css/animations.css" />
+
+  <script>
+    (function () {
+      var stored = localStorage.getItem('portfolio-theme');
+      var theme = stored === 'dark' || stored === 'light'
+        ? stored
+        : (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+      document.documentElement.classList.add(theme);
+    }());
+  </script>
+</head>
+<body>
+
+  <nav class="reading-nav">
+    <a class="back-link" href="../index.html#notes">← Notes</a>
+    <button class="nav-theme-toggle" aria-label="Toggle dark mode">☾</button>
+  </nav>
+
+  <main class="reading-container">
+    <div class="reading-meta">Apr 2026</div>
+    <h1 class="reading-title">Why constraints make you more creative, not less</h1>
+
+    <div class="reading-body">
+      <p>There's a widespread belief that creativity flourishes in open space — that the more freedom you have, the more interesting things you can make. I used to half-believe this too, until tabla convinced me otherwise.</p>
+
+      <p>In tabla, everything happens inside a cycle. The cycle is called a taal, and it has a fixed number of beats, a fixed structure, and a fixed point at which it begins again. You don't get to break the cycle. You don't get to say "let me just improvise freely for a while." The cycle is the conversation partner, and the conversation partner is always there, always counting, always returning to the beginning. At first this feels like a wall. Then it starts to feel like a room. Then, eventually, it starts to feel like the only place where you can actually say something.</p>
+
+      <p>I've been thinking about why this is. The obvious answer is that constraints force you to be resourceful — you can't just reach for the easy thing, so you reach further. But I think there's something more specific happening. Constraints don't just limit where you can go. They also tell you where you are. When you know exactly what the cycle is, when you know exactly which beat you're on, you have orientation. Orientation is the precondition for meaning. Without it, variation is just noise.</p>
+
+      <p>This keeps coming up in other places. Writing with a word limit forces you to find the word that's actually doing the work, rather than the word that's almost doing it. Designing within a grid forces you to find the tension that makes a layout feel alive within a structure. Building a model with a small dataset forces you to think harder about what the data is actually telling you, instead of letting scale paper over the question.</p>
+
+      <p>I'm not saying constraints are always good or that all constraints are equal. Some constraints are just bad. But I've become suspicious of the feeling that I'd do better work if I just had more room. In my experience, that feeling is usually wrong. Usually what I need is a better cycle to work inside — one that's tight enough to give me something to push against.</p>
+    </div>
+  </main>
+
+  <script src="../js/theme.js" defer></script>
+
+</body>
+</html>

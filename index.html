@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ayush Kapil</title>
+  <meta name="description" content="Ayush Kapil — Data science student, tabla player, occasional photographer." />
+
+  <!-- Preload key fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=DM+Mono:wght@400&family=DM+Sans:wght@400;500&family=Lora:ital,wght@0,400;1,400&display=swap" rel="stylesheet" />
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="css/variables.css" />
+  <link rel="stylesheet" href="css/reset.css" />
+  <link rel="stylesheet" href="css/base.css" />
+  <link rel="stylesheet" href="css/canvas.css" />
+  <link rel="stylesheet" href="css/layout.css" />
+  <link rel="stylesheet" href="css/components.css" />
+  <link rel="stylesheet" href="css/animations.css" />
+
+  <!-- Apply theme immediately to avoid flash -->
+  <script>
+    (function () {
+      var stored = localStorage.getItem('portfolio-theme');
+      var theme = stored === 'dark' || stored === 'light'
+        ? stored
+        : (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+      document.documentElement.classList.add(theme);
+    }());
+  </script>
+</head>
+<body>
+
+  <!-- Orbit Canvas -->
+  <canvas id="orbit-canvas" aria-hidden="true"></canvas>
+
+  <!-- Theme Toggle (fixed, top-right) -->
+  <button class="theme-toggle" aria-label="Toggle dark mode">☾</button>
+
+  <!-- ─────────────────────────────────────────────────────── -->
+  <!-- STICKY NAVIGATION                                        -->
+  <!-- ─────────────────────────────────────────────────────── -->
+  <nav id="sticky-nav" role="navigation" aria-label="Site navigation">
+    <a href="#landing" class="nav-name">Ayush Kapil</a>
+    <div class="nav-links">
+      <a href="#about" data-section="about">About</a>
+      <a href="#pillars" data-section="pillars">Pillars</a>
+      <a href="#seen" data-section="seen">Seen</a>
+      <a href="#notes" data-section="notes">Notes</a>
+      <a href="#projects" data-section="projects">Work</a>
+      <a href="#contact" data-section="contact">Contact</a>
+    </div>
+    <div class="nav-right">
+      <button class="nav-theme-toggle" aria-label="Toggle dark mode">☾</button>
+    </div>
+  </nav>
+
+  <!-- ─────────────────────────────────────────────────────── -->
+  <!-- SECTION 0 — LANDING                                      -->
+  <!-- ─────────────────────────────────────────────────────── -->
+  <section id="landing">
+    <div class="landing-content">
+      <h1 class="landing-name">Ayush Kapil</h1>
+      <div class="landing-tagline">
+        <p>Data science student.</p>
+        <p>Tabla player. Occasional photographer.</p>
+        <p>Mostly just paying attention.</p>
+      </div>
+    </div>
+    <div class="scroll-indicator" aria-hidden="true">↓</div>
+  </section>
+
+  <!-- ─────────────────────────────────────────────────────── -->
+  <!-- SECTION 1 — ABOUT                                        -->
+  <!-- ─────────────────────────────────────────────────────── -->
+  <section id="about">
+    <div class="content-col">
+      <div class="section-label section-number reveal" data-delay="0">About</div>
+      <div class="about-text">
+        <p class="reveal" data-delay="1">I'm a first-year MS in Data Science student at Indiana University Bloomington. Most of my time right now goes into building things with AI and figuring out what I actually think about it.</p>
+
+        <p class="reveal" data-delay="1">I've been learning tabla for about nine years — four of those with formal training, the rest just practice and a lot of listening. I don't have my tabla with me right now, so I play rhythms on my balcony railing, which sounds ridiculous but is actually how I get through most days. Tabla taught me something I keep coming back to: you express yourself better inside constraints. Give me a fixed cycle, a specific taal, and I can find something to say inside it. Give me infinite space and it turns into noise.</p>
+
+        <p class="reveal" data-delay="1">I also take photographs — street stuff mostly. Flowers, light, reflections. I've done a couple of wildlife trips, including Masai Mara and Tanzania, and those mattered to me, but I'm not a wildlife photographer. I just like looking at things carefully.</p>
+
+        <p class="reveal" data-delay="1">Recently I helped build an app that uses AI to generate music journeys based on emotion and biometrics. I didn't plan that as some grand intersection of my interests — it just turned out the thing I wanted to build sat exactly where music and data overlap. That keeps happening.</p>
+
+        <p class="reveal" data-delay="1">I also cook. That's not a pillar. It's just true.</p>
+
+        <p class="reveal" data-delay="1">I tend to approach most things slowly.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─────────────────────────────────────────────────────── -->
+  <!-- SECTION 2 — THREE PILLARS                                -->
+  <!-- ─────────────────────────────────────────────────────── -->
+  <section id="pillars">
+
+    <!-- Pillar 01 -->
+    <div class="pillar">
+      <div class="pillar-inner">
+        <div class="pillar-number reveal" data-delay="0">01</div>
+        <h2 class="pillar-title reveal" data-delay="1">Data &amp; Patterns</h2>
+        <div class="pillar-divider reveal" data-delay="2"></div>
+        <p class="pillar-quote reveal" data-delay="3">"Most of my models don't work. The interesting part is figuring out why."</p>
+        <p class="pillar-tags reveal" data-delay="4">ML&nbsp;&nbsp;·&nbsp;&nbsp;Mathematics&nbsp;&nbsp;·&nbsp;&nbsp;Data Science</p>
+      </div>
+    </div>
+
+    <!-- Pillar 02 -->
+    <div class="pillar">
+      <div class="pillar-inner">
+        <div class="pillar-number reveal" data-delay="0">02</div>
+        <h2 class="pillar-title reveal" data-delay="1">Rhythm &amp; Constraints</h2>
+        <div class="pillar-divider reveal" data-delay="2"></div>
+        <p class="pillar-quote reveal" data-delay="3">"When a rhythm clicks, I don't want it to stop. That's how I know it worked."</p>
+        <p class="pillar-tags reveal" data-delay="4">Tabla&nbsp;&nbsp;·&nbsp;&nbsp;Taal&nbsp;&nbsp;·&nbsp;&nbsp;Listening</p>
+      </div>
+    </div>
+
+    <!-- Pillar 03 -->
+    <div class="pillar">
+      <div class="pillar-inner">
+        <div class="pillar-number reveal" data-delay="0">03</div>
+        <h2 class="pillar-title reveal" data-delay="1">Looking at Things</h2>
+        <div class="pillar-divider reveal" data-delay="2"></div>
+        <p class="pillar-quote reveal" data-delay="3">"I photograph things that remind me of a time I can't quite place. Mostly I just stop for the light."</p>
+        <p class="pillar-tags reveal" data-delay="4">Photography&nbsp;&nbsp;·&nbsp;&nbsp;Streets&nbsp;&nbsp;·&nbsp;&nbsp;Light</p>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- ─────────────────────────────────────────────────────── -->
+  <!-- SECTION 3 — THINGS I'VE SEEN                             -->
+  <!-- ─────────────────────────────────────────────────────── -->
+  <section id="seen">
+
+    <div class="seen-header">
+      <h2 class="section-heading reveal" data-delay="0">Things I've Seen</h2>
+    </div>
+
+    <!-- Full-bleed 1 -->
+    <figure class="photo-full-bleed photo-reveal">
+      <div class="photo-placeholder-div" style="background: linear-gradient(135deg, #2a1f3d 0%, #1a2a3d 40%, #3d2a1a 100%);"></div>
+      <figcaption class="photo-caption-wrap caption">The light lasted about four seconds.</figcaption>
+    </figure>
+
+    <!-- Pair -->
+    <div class="photo-pair photo-reveal">
+      <figure class="photo-item">
+        <div class="photo-placeholder-div" style="background: linear-gradient(160deg, #1f2a1f 0%, #2a3d2a 50%, #1f3d2a 100%);"></div>
+        <figcaption class="photo-caption-wrap caption">I almost walked past this.</figcaption>
+      </figure>
+      <figure class="photo-item">
+        <div class="photo-placeholder-div" style="background: linear-gradient(200deg, #3d1f1f 0%, #2a1a1a 50%, #1a1a2a 100%);"></div>
+        <figcaption class="photo-caption-wrap caption">He had been there longer than I had.</figcaption>
+      </figure>
+    </div>
+
+    <!-- Full-bleed 2 -->
+    <figure class="photo-full-bleed photo-reveal">
+      <div class="photo-placeholder-div" style="background: linear-gradient(115deg, #1a2a1f 0%, #1f1f3d 50%, #2a1f1a 100%);"></div>
+      <figcaption class="photo-caption-wrap caption">Bloomington, on a morning I nearly stayed in.</figcaption>
+    </figure>
+
+  </section>
+
+  <!-- ─────────────────────────────────────────────────────── -->
+  <!-- SECTION 4 — NOTES                                        -->
+  <!-- ─────────────────────────────────────────────────────── -->
+  <section id="notes">
+    <div class="notes-inner">
+
+      <div class="notes-header">
+        <h2 class="section-heading reveal" data-delay="0">Notes</h2>
+      </div>
+
+      <div class="notes-list">
+
+        <a class="note-entry reveal" href="notes/constraints.html" data-delay="1">
+          <div class="note-date">Apr 2026</div>
+          <div class="note-row">
+            <span class="note-title">Why constraints make you more creative, not less</span>
+            <span class="note-arrow" aria-hidden="true">→</span>
+          </div>
+        </a>
+
+        <a class="note-entry reveal" href="notes/tabla.html" data-delay="2">
+          <div class="note-date">Mar 2026</div>
+          <div class="note-row">
+            <span class="note-title">What I actually do when I don't have my tabla</span>
+            <span class="note-arrow" aria-hidden="true">→</span>
+          </div>
+        </a>
+
+        <a class="note-entry reveal" href="notes/moodflow.html" data-delay="3">
+          <div class="note-date">Mar 2026</div>
+          <div class="note-row">
+            <span class="note-title">Building an AI music therapist in 36 hours</span>
+            <span class="note-arrow" aria-hidden="true">→</span>
+          </div>
+        </a>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ─────────────────────────────────────────────────────── -->
+  <!-- SECTION 5 — PROJECTS                                     -->
+  <!-- ─────────────────────────────────────────────────────── -->
+  <section id="projects">
+    <div class="projects-inner">
+
+      <div class="projects-header">
+        <h2 class="section-heading reveal" data-delay="0">Work</h2>
+      </div>
+
+      <!-- Card 1: MoodFlow -->
+      <article class="project-card reveal-card">
+        <div class="project-header">
+          <h3 class="project-title">MoodFlow</h3>
+          <span class="project-tag">hackathon</span>
+        </div>
+        <p class="project-desc">An iOS app that builds AI-generated music journeys based on how you're feeling — emotionally and physiologically — and plays them live through Spotify. You pick your mood, enter biometrics, choose where you want to end up, and the AI builds a four-stage path to get you there. Built at an AI hackathon at IU Bloomington, team of four.</p>
+
+        <div class="project-section-label">What I did</div>
+        <p class="project-detail">Designed and iterated on the LLM prompts — the music therapist persona, the four-stage journey structure, the mood-to-music mapping logic, and the adaptive re-curation prompts that regenerate remaining stages when a user says the music isn't working.</p>
+
+        <div class="project-section-label">What I learned</div>
+        <p class="project-detail">The LLM kept recommending the same songs. Every journey, no matter the mood, same handful of tracks. Getting an AI to be genuinely diverse in its recommendations — not just correct, but surprising — turned out to be the hardest prompt engineering problem we hit.</p>
+
+        <p class="project-stack">SwiftUI&nbsp;·&nbsp;Groq / Llama 3.3&nbsp;·&nbsp;Spotify SDK&nbsp;·&nbsp;Prompt Engineering&nbsp;·&nbsp;Team of 4</p>
+      </article>
+
+      <!-- Card 2: AeroOps Copilot -->
+      <article class="project-card reveal-card">
+        <div class="project-header">
+          <h3 class="project-title">AeroOps Copilot</h3>
+          <span class="project-tag">in progress</span>
+        </div>
+        <p class="project-desc">A modular AI system for aviation safety. Three modules — SOP retrieval via RAG with cross-encoder reranking, structured incident analysis from PDF reports, and fatigue risk scoring from pilot schedules — connected through an LLM-based intent router that chains them automatically.</p>
+
+        <div class="project-section-label">What I did</div>
+        <p class="project-detail">Designed the full system: three-module architecture, cross-module chaining logic, evaluation framework with three research questions, and the data pipeline design from FAA and NASA source documents. Currently building the implementation.</p>
+
+        <div class="project-section-label">What I learned</div>
+        <p class="project-detail">I wanted to be a pilot growing up. Didn't happen, but the interest in aviation never went away. Building something for the people who are actually in that world — even as a student project — feels like the right use of what I'm learning. The system isn't built yet. But the design forced me to think about how modules should talk to each other, and I learned that architecture decisions made on paper feel very different once you start writing the first line of code.</p>
+
+        <p class="project-stack">Python&nbsp;·&nbsp;FastAPI&nbsp;·&nbsp;LangChain&nbsp;·&nbsp;pgvector&nbsp;·&nbsp;React&nbsp;·&nbsp;In Progress</p>
+      </article>
+
+    </div>
+  </section>
+
+  <!-- ─────────────────────────────────────────────────────── -->
+  <!-- SECTION 6 — CONTACT                                      -->
+  <!-- ─────────────────────────────────────────────────────── -->
+  <section id="contact">
+
+    <div class="reveal">
+      <p class="contact-quote">"If something here resonated,<br>I'd like to hear from you."</p>
+    </div>
+
+    <div class="contact-links reveal" data-delay="1">
+      <a class="contact-email" href="mailto:ayushkapileshwar@gmail.com">ayushkapileshwar@gmail.com</a>
+      <span class="contact-divider-text">·</span>
+      <a class="contact-link" href="https://www.linkedin.com/in/ayushkapil" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+      <span class="contact-divider-text">·</span>
+      <a class="contact-link" href="https://github.com/Ayushkapil" target="_blank" rel="noopener noreferrer">GitHub</a>
+    </div>
+
+    <footer class="site-footer">
+      <hr class="footer-rule" />
+      <div class="footer-inner">
+        <span class="footer-text">Ayush Kapil</span>
+        <span class="footer-text">2026</span>
+      </div>
+    </footer>
+
+  </section>
+
+  <!-- JavaScript — deferred -->
+  <script src="js/theme.js" defer></script>
+  <script src="js/orbit.js" defer></script>
+  <script src="js/nav.js" defer></script>
+  <script src="js/scroll-animations.js" defer></script>
+  <script src="js/main.js" defer></script>
+
+</body>
+</html>
