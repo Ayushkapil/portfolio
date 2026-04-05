@@ -406,7 +406,7 @@
     let bgAnimId = null;
 
     function bgGetColor() {
-      const palette = BG_COLORS[getTheme()];
+      const palette = COLORS[getTheme()];
       const c = palette[bgColorIndex % palette.length];
       bgColorIndex++;
       return c;
