@@ -3,12 +3,12 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Building an AI music therapist in 36 hours — Ayush Kapil</title>
+  <title>Building an AI music therapist in 36 hours — Ayush Kapileshwar</title>
   <meta name="description" content="Notes from building MoodFlow at a hackathon." />
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=DM+Mono:wght@400&family=DM+Sans:wght@400;500&family=Lora:ital,wght@0,400;1,400&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=DM+Mono:wght@400&family=DM+Sans:wght@400;500&family=Lora:ital,wght@0,400;1,400&family=Press+Start+2P&display=swap" rel="stylesheet" />
 
   <link rel="stylesheet" href="../css/variables.css" />
   <link rel="stylesheet" href="../css/reset.css" />
@@ -30,7 +30,14 @@
 
   <nav class="reading-nav">
     <a class="back-link" href="../index.html#notes">← Notes</a>
-    <button class="nav-theme-toggle" aria-label="Toggle dark mode">☾</button>
+    <div style="display:flex;align-items:center;gap:8px;">
+      <div id="clock-widget" class="clock-widget" aria-live="polite">
+        <span id="clock-time">00:00:00</span>
+        <span class="clock-sep">  </span>
+        <span id="clock-temp" class="clock-temp">🌡 --°C</span>
+      </div>
+      <button class="nav-theme-toggle" aria-label="Toggle dark mode">☾</button>
+    </div>
   </nav>
 
   <main class="reading-container">
@@ -49,6 +56,7 @@
   </main>
 
   <script src="../js/theme.js" defer></script>
+  <script src="../js/clock.js" defer></script>
 
 </body>
 </html>

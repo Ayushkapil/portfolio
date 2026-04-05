@@ -195,6 +195,12 @@
   margin-bottom: var(--space-md);
 }
 
+.reading-nav .clock-widget {
+  position: static;
+  top: auto;
+  right: auto;
+}
+
 /* ── Responsive: hide nav links on mobile ── */
 @media (max-width: 767px) {
   .nav-links {
@@ -212,5 +218,251 @@
   .reading-body,
   .reading-body p {
     font-size: 18px;
+  }
+}
+
+/* ── 8-bit Clock + Temperature Widget ── */
+.clock-widget {
+  position: fixed;
+  top: 16px;
+  right: 80px;
+  z-index: 200;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: 'Press Start 2P', monospace;
+  font-size: 11px;
+  padding: 4px 12px;
+  border-radius: 4px;
+  white-space: nowrap;
+  line-height: 1.4;
+}
+
+/* Light mode: black bg, orange text */
+html.light .clock-widget,
+html:not(.dark) .clock-widget {
+  background: #111111;
+  color: #F97316;
+  border: 1px solid #333333;
+}
+
+/* Dark mode: white bg, purple text */
+html.dark .clock-widget {
+  background: #F5F5F5;
+  color: #8B5CF6;
+  border: 1px solid #CCCCCC;
+}
+
+.clock-sep {
+  opacity: 0;
+  width: 8px;
+}
+
+.clock-temp {
+  font-size: 10px;
+}
+
+/* Hide temperature on mobile */
+@media (max-width: 767px) {
+  .clock-temp {
+    display: none;
+  }
+
+  .clock-sep {
+    display: none;
+  }
+
+  .clock-widget {
+    right: 76px;
+    font-size: 9px;
+    padding: 4px 8px;
+  }
+}
+
+/* ── Game Mode Button ── */
+.game-btn {
+  position: fixed;
+  top: 64px;
+  right: var(--space-md);
+  z-index: 200;
+  background: none;
+  border: 1px solid var(--color-border);
+  color: var(--color-text);
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 16px;
+  transition: border-color var(--transition-fast), opacity var(--transition-fast);
+  background-color: var(--color-bg);
+  opacity: 0.85;
+  border-radius: 0;
+}
+
+.game-btn:hover {
+  opacity: 1;
+}
+
+/* ── Game Panel ── */
+.game-panel {
+  position: fixed;
+  top: 108px;
+  right: var(--space-md);
+  z-index: 200;
+  width: 240px;
+  padding: 16px;
+  border-radius: 4px;
+  font-family: 'Press Start 2P', monospace;
+  font-size: 10px;
+  line-height: 1.8;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  display: none;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.game-panel.open {
+  display: flex;
+}
+
+/* Light mode game panel */
+html.light .game-panel,
+html:not(.dark) .game-panel {
+  background: rgba(17, 17, 17, 0.92);
+  color: #F5F5F5;
+  border: 1px solid #444444;
+}
+
+/* Dark mode game panel */
+html.dark .game-panel {
+  background: rgba(245, 245, 245, 0.92);
+  color: #111111;
+  border: 1px solid #BBBBBB;
+}
+
+.game-panel-close {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 12px;
+  line-height: 1;
+  padding: 4px;
+}
+
+html.light .game-panel-close,
+html:not(.dark) .game-panel-close {
+  color: #F5F5F5;
+}
+
+html.dark .game-panel-close {
+  color: #111111;
+}
+
+.game-panel-title {
+  font-size: 10px;
+  margin-bottom: 4px;
+  padding-right: 20px;
+}
+
+.game-panel-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  font-size: 9px;
+}
+
+.game-panel-label {
+  font-size: 9px;
+}
+
+.game-panel-note {
+  font-size: 8px;
+  opacity: 0.7;
+}
+
+.game-panel-counter {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.game-counter-btn {
+  background: none;
+  border: 1px solid currentColor;
+  cursor: pointer;
+  width: 22px;
+  height: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Press Start 2P', monospace;
+  font-size: 12px;
+  line-height: 1;
+  padding: 0;
+  border-radius: 2px;
+}
+
+html.light .game-counter-btn,
+html:not(.dark) .game-counter-btn {
+  color: #F5F5F5;
+}
+
+html.dark .game-counter-btn {
+  color: #111111;
+}
+
+.game-counter-btn:disabled {
+  opacity: 0.3;
+  cursor: default;
+}
+
+.game-counter-val {
+  font-size: 11px;
+  min-width: 16px;
+  text-align: center;
+}
+
+.game-panel-actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 4px;
+}
+
+.game-action-btn {
+  font-family: 'Press Start 2P', monospace;
+  font-size: 9px;
+  padding: 6px 10px;
+  border-radius: 2px;
+  cursor: pointer;
+  border: 1px solid currentColor;
+  background: none;
+  line-height: 1;
+}
+
+html.light .game-action-btn,
+html:not(.dark) .game-action-btn {
+  color: #F5F5F5;
+}
+
+html.dark .game-action-btn {
+  color: #111111;
+}
+
+.game-action-btn:hover {
+  opacity: 0.8;
+}
+
+/* Hide game panel and button on mobile */
+@media (max-width: 767px) {
+  .game-btn,
+  .game-panel {
+    display: none !important;
   }
 }

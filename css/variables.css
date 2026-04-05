@@ -5,14 +5,14 @@
 /* Light Mode (default) */
 html,
 html.light {
-  --color-bg: #FAF9F6;
-  --color-text: #111111;
+  --color-bg: #F5F2EB;
+  --color-text: #2C2C2C;
   --color-purple: #7C3AED;
   --color-accent: #F97316;
-  --color-border: #E5E5E5;
-  --color-bg-nav: rgba(250, 249, 246, 0.85);
-  --color-bg-raw: 250, 249, 246;
-  --color-text-raw: 17, 17, 17;
+  --color-border: #DDD8D0;
+  --color-bg-nav: rgba(245, 242, 235, 0.85);
+  --color-bg-raw: 245, 242, 235;
+  --color-text-raw: 44, 44, 44;
 }
 
 /* Dark Mode */

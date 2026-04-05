@@ -20,7 +20,7 @@
   // ── Constants ──────────────────────────────────────────────
   const G = 5000;
   const MAX_VELOCITY = 12;
-  const BODY_RADIUS = 3;
+  const BODY_RADIUS = 4;
   const BLACKHOLE_RADIUS = 8;
   const ABSORPTION_DISTANCE = 10;
   const ESCAPE_MARGIN = 200;
@@ -44,6 +44,7 @@
   let bodies = [];
   let animFrameId = null;
   let currentTheme = 'light';
+  let colorIndex = 0;
 
   // ── Init canvas size ───────────────────────────────────────
   function resizeCanvas() {
@@ -69,17 +70,19 @@
   }
 
   function getBgColor() {
-    return getTheme() === 'dark' ? '31, 31, 31' : '250, 249, 246';
+    return getTheme() === 'dark' ? '31, 31, 31' : '245, 242, 235';
   }
 
   function getTextColor() {
-    return getTheme() === 'dark' ? '#F5F5F5' : '#111111';
+    return getTheme() === 'dark' ? '#F5F5F5' : '#2C2C2C';
   }
 
   function getRandomColor() {
     const theme = getTheme();
     const palette = COLORS[theme];
-    return palette[Math.floor(Math.random() * palette.length)];
+    const color = palette[colorIndex % palette.length];
+    colorIndex++;
+    return color;
   }
 
   // ── Body factory ───────────────────────────────────────────
@@ -129,14 +132,131 @@
   }
 
   canvas.addEventListener('click', function (e) {
-    launchFromEvent(e.clientX, e.clientY);
+    if (bodies.length < MAX_BODIES) {
+      launchFromEvent(e.clientX, e.clientY);
+    }
   });
 
   canvas.addEventListener('touchstart', function (e) {
     e.preventDefault();
-    const touch = e.touches[0];
-    launchFromEvent(touch.clientX, touch.clientY);
+    if (bodies.length < MAX_BODIES) {
+      const touch = e.touches[0];
+      launchFromEvent(touch.clientX, touch.clientY);
+    }
   }, { passive: false });
+
+  // ── Game Mode ──────────────────────────────────────────────
+  const MAX_BODIES = 14;
+  let blackHoleCount = 2;
+
+  function placeBlackHolesForCount(count) {
+    const w = canvas.width;
+    const h = canvas.height;
+    if (count === 1) {
+      blackHoles = [{ x: w * 0.5, y: h * 0.5 }];
+    } else if (count === 2) {
+      blackHoles = [
+        { x: w * 0.38, y: h * 0.45 },
+        { x: w * 0.65, y: h * 0.52 }
+      ];
+    } else if (count === 3) {
+      blackHoles = [
+        { x: w * 0.5,  y: h * 0.28 },
+        { x: w * 0.3,  y: h * 0.62 },
+        { x: w * 0.7,  y: h * 0.62 }
+      ];
+    } else {
+      blackHoles = [
+        { x: w * 0.35, y: h * 0.35 },
+        { x: w * 0.65, y: h * 0.35 },
+        { x: w * 0.35, y: h * 0.65 },
+        { x: w * 0.65, y: h * 0.65 }
+      ];
+    }
+  }
+
+  const gameBtn = document.getElementById('game-btn');
+  const gamePanel = document.getElementById('game-panel');
+  const gamePanelClose = document.getElementById('game-panel-close');
+  const bhMinus = document.getElementById('bh-minus');
+  const bhPlus = document.getElementById('bh-plus');
+  const bhCountEl = document.getElementById('bh-count');
+  const bodyCountEl = document.getElementById('body-count');
+  const gameClearBtn = document.getElementById('game-clear-btn');
+
+  function updateBodyCountDisplay() {
+    if (bodyCountEl) bodyCountEl.textContent = bodies.length;
+  }
+
+  function updateBhCountDisplay() {
+    if (bhCountEl) bhCountEl.textContent = blackHoleCount;
+    if (bhMinus) bhMinus.disabled = blackHoleCount <= 1;
+    if (bhPlus) bhPlus.disabled = blackHoleCount >= 4;
+  }
+
+  if (gameBtn) {
+    gameBtn.addEventListener('click', function (e) {
+      e.stopPropagation();
+      const isOpen = gamePanel.classList.contains('open');
+      if (isOpen) {
+        gamePanel.classList.remove('open');
+        gamePanel.setAttribute('aria-hidden', 'true');
+      } else {
+        gamePanel.classList.add('open');
+        gamePanel.setAttribute('aria-hidden', 'false');
+        updateBhCountDisplay();
+        updateBodyCountDisplay();
+      }
+    });
+  }
+
+  if (gamePanelClose) {
+    gamePanelClose.addEventListener('click', function () {
+      gamePanel.classList.remove('open');
+      gamePanel.setAttribute('aria-hidden', 'true');
+    });
+  }
+
+  if (bhMinus) {
+    bhMinus.addEventListener('click', function () {
+      if (blackHoleCount > 1) {
+        blackHoleCount--;
+        placeBlackHolesForCount(blackHoleCount);
+        updateBhCountDisplay();
+      }
+    });
+  }
+
+  if (bhPlus) {
+    bhPlus.addEventListener('click', function () {
+      if (blackHoleCount < 4) {
+        blackHoleCount++;
+        placeBlackHolesForCount(blackHoleCount);
+        updateBhCountDisplay();
+      }
+    });
+  }
+
+  if (gameClearBtn) {
+    gameClearBtn.addEventListener('click', function () {
+      bodies = [];
+      autoLaunch();
+      updateBodyCountDisplay();
+    });
+  }
+
+  // Hide game button when scrolled past landing
+  window.addEventListener('scroll', function () {
+    if (gameBtn) {
+      const scrollY = window.scrollY;
+      gameBtn.style.opacity = Math.max(0, 1 - scrollY / 200);
+      gameBtn.style.pointerEvents = scrollY > 200 ? 'none' : 'auto';
+    }
+    if (gamePanel && window.scrollY > 200) {
+      gamePanel.classList.remove('open');
+      gamePanel.setAttribute('aria-hidden', 'true');
+    }
+  });
 
   // ── Physics update ─────────────────────────────────────────
   function updateBodies() {
@@ -220,7 +340,7 @@
         ctx.beginPath();
         ctx.moveTo(body.trail[i - 1].x, body.trail[i - 1].y);
         ctx.lineTo(body.trail[i].x, body.trail[i].y);
-        ctx.strokeStyle = hexToRgba(body.color, opacity * 0.8);
+        ctx.strokeStyle = hexToRgba(body.color, opacity * 0.9);
         ctx.lineWidth = 1.5;
         ctx.stroke();
       }
@@ -237,6 +357,7 @@
   function animate() {
     updateBodies();
     draw();
+    updateBodyCountDisplay();
     animFrameId = requestAnimationFrame(animate);
   }
 
