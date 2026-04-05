@@ -3,13 +3,13 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Ayush Kapil</title>
-  <meta name="description" content="Ayush Kapil — Data science student, tabla player, occasional photographer." />
+  <title>Ayush Kapileshwar</title>
+  <meta name="description" content="Ayush Kapileshwar — Data science student, tabla player, occasional photographer." />
 
   <!-- Preload key fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=DM+Mono:wght@400&family=DM+Sans:wght@400;500&family=Lora:ital,wght@0,400;1,400&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=DM+Mono:wght@400&family=DM+Sans:wght@400;500&family=Lora:ital,wght@0,400;1,400&family=Press+Start+2P&display=swap" rel="stylesheet" />
 
   <!-- CSS -->
   <link rel="stylesheet" href="css/variables.css" />
@@ -36,6 +36,13 @@
   <!-- Orbit Canvas -->
   <canvas id="orbit-canvas" aria-hidden="true"></canvas>
 
+  <!-- Clock + Temperature Widget (fixed, top-right) -->
+  <div id="clock-widget" class="clock-widget" aria-live="polite">
+    <span id="clock-time">00:00:00</span>
+    <span class="clock-sep">  </span>
+    <span id="clock-temp" class="clock-temp">🌡 --°C</span>
+  </div>
+
   <!-- Theme Toggle (fixed, top-right) -->
   <button class="theme-toggle" aria-label="Toggle dark mode">☾</button>
 
@@ -43,9 +50,9 @@
   <!-- STICKY NAVIGATION                                        -->
   <!-- ─────────────────────────────────────────────────────── -->
   <nav id="sticky-nav" role="navigation" aria-label="Site navigation">
-    <a href="#landing" class="nav-name">Ayush Kapil</a>
+    <a href="#landing" class="nav-name">Ayush Kapileshwar</a>
     <div class="nav-links">
-      <a href="#about" data-section="about">About</a>
+      <a href="#about" data-section="about">About Me</a>
       <a href="#pillars" data-section="pillars">Pillars</a>
       <a href="#seen" data-section="seen">Seen</a>
       <a href="#notes" data-section="notes">Notes</a>
@@ -62,22 +69,53 @@
   <!-- ─────────────────────────────────────────────────────── -->
   <section id="landing">
     <div class="landing-content">
-      <h1 class="landing-name">Ayush Kapil</h1>
+      <h1 class="landing-name">Ayush Kapileshwar</h1>
       <div class="landing-tagline">
-        <p>Data science student.</p>
-        <p>Tabla player. Occasional photographer.</p>
-        <p>Mostly just paying attention.</p>
+        <p>Trying to become a better student every day.</p>
+        <p>Devoted to Indian classical music.</p>
+        <p>I code sometimes; but more often, I love to capture moments that tell stories.</p>
       </div>
     </div>
-    <div class="scroll-indicator" aria-hidden="true">↓</div>
+    <!-- Game Mode Button (landing only) -->
+    <button id="game-btn" class="game-btn" aria-label="Open orbit playground">🎮</button>
+
+    <a href="#about" class="scroll-indicator" aria-label="Scroll to content">↓</a>
   </section>
+
+  <!-- Orbit Game Panel -->
+  <div id="game-panel" class="game-panel" role="dialog" aria-label="Orbit Playground" aria-hidden="true">
+    <button id="game-panel-close" class="game-panel-close" aria-label="Close panel">✕</button>
+    <div class="game-panel-title">Orbit Playground</div>
+
+    <div class="game-panel-row">
+      <span class="game-panel-label">Black Holes</span>
+      <div class="game-panel-counter">
+        <button class="game-counter-btn" id="bh-minus" aria-label="Decrease black holes">−</button>
+        <span id="bh-count" class="game-counter-val">2</span>
+        <button class="game-counter-btn" id="bh-plus" aria-label="Increase black holes">+</button>
+      </div>
+    </div>
+
+    <div class="game-panel-row">
+      <span class="game-panel-label">Planets</span>
+      <span class="game-panel-note">Tap to add · Max 14</span>
+    </div>
+
+    <div class="game-panel-row">
+      <span class="game-panel-label">Count: <span id="body-count">0</span></span>
+    </div>
+
+    <div class="game-panel-actions">
+      <button id="game-clear-btn" class="game-action-btn">Clear</button>
+    </div>
+  </div>
 
   <!-- ─────────────────────────────────────────────────────── -->
   <!-- SECTION 1 — ABOUT                                        -->
   <!-- ─────────────────────────────────────────────────────── -->
   <section id="about">
     <div class="content-col">
-      <div class="section-label section-number reveal" data-delay="0">About</div>
+      <div class="section-label section-number reveal" data-delay="0">About Me</div>
       <div class="about-text">
         <p class="reveal" data-delay="1">I'm a first-year MS in Data Science student at Indiana University Bloomington. Most of my time right now goes into building things with AI and figuring out what I actually think about it.</p>
 
@@ -276,7 +314,7 @@
     <footer class="site-footer">
       <hr class="footer-rule" />
       <div class="footer-inner">
-        <span class="footer-text">Ayush Kapil</span>
+        <span class="footer-text">Ayush Kapileshwar</span>
         <span class="footer-text">2026</span>
       </div>
     </footer>
@@ -289,6 +327,7 @@
   <script src="js/nav.js" defer></script>
   <script src="js/scroll-animations.js" defer></script>
   <script src="js/main.js" defer></script>
+  <script src="js/clock.js" defer></script>
 
 </body>
 </html>

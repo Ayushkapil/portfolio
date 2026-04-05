@@ -27,7 +27,7 @@
 
 ## 1. Project Overview
 
-This is a personal portfolio website for Ayush Kapil. The purpose of the site is to present who he is — as a data science student, tabla practitioner, and photographer — in a way that reflects his voice, thinking style, and aesthetic sensibility.
+This is a personal portfolio website for Ayush Kapileshwar. The purpose of the site is to present who he is — as a data science student, tabla practitioner, and photographer — in a way that reflects his voice, thinking style, and aesthetic sensibility.
 
 The site is not a résumé or a CV. It is a personal presence on the web. The writing, structure, and design should feel considered, calm, and distinctly personal.
 
@@ -69,11 +69,11 @@ Design inspiration: Apple's product website — specifically its use of large ty
 #### Light Mode
 | Role | Token | Hex |
 |------|-------|-----|
-| Background | --color-bg | #FAF9F6 |
-| Primary text | --color-text | #111111 |
+| Background | --color-bg | #F5F2EB |
+| Primary text | --color-text | #2C2C2C |
 | Primary accent | --color-purple | #7C3AED |
 | Secondary accent | --color-orange | #F97316 |
-| Subtle border | --color-border | #E5E5E5 |
+| Subtle border | --color-border | #DDD8D0 |
 
 #### Dark Mode
 | Role | Token | Hex |
@@ -99,6 +99,7 @@ Design inspiration: Apple's product website — specifically its use of large ty
 | Body | DM Sans | Google Fonts |
 | Quotes / Captions | Lora (italic) | Google Fonts |
 | Code / tags | DM Mono | Google Fonts |
+| 8-bit widget | Press Start 2P | Google Fonts |
 
 #### Scale
 | Element | Font | Size (desktop) | Size (mobile) | Weight |
@@ -170,23 +171,26 @@ The site is a single HTML file with all sections stacked vertically. Navigation 
 - Orbit canvas fills the entire viewport at z-index: 0
 - Text content sits at z-index: 1, centered vertically and horizontally
 - Dark/light toggle fixed at top-right
-- Subtle scroll indicator (↓) at bottom-center
+- Subtle scroll indicator (↓) at bottom-center — clickable, scrolls to #about section with smooth scroll
+- 8-bit clock + temperature widget fixed at top-right (left of theme toggle)
+- 🎮 game mode button (landing only) below theme toggle
 
 **Content:**
 ```
-Ayush Kapil
+Ayush Kapileshwar
 
-Data science student.
-Tabla player. Occasional photographer.
-Mostly just paying attention.
+Trying to become a better student every day.
+Devoted to Indian classical music.
+I code sometimes; but more often, I love to capture moments that tell stories.
 
-↓
+↓ (interactive — scrolls to #about on click)
 ```
 
 **Animation:**
 - Name appears immediately on load, fade-in 0.6s
 - Taglines fade in after 0.8s delay
 - Scroll indicator fades in after 1.4s delay
+- Scroll indicator: bounceDown animation (2s ease-in-out, infinite, starts at 2.4s)
 - Orbit simulation begins immediately in background
 
 **On scroll:**
@@ -198,11 +202,11 @@ Mostly just paying attention.
 - After scrolling past 100vh, a minimal nav fades in at the top
 - Nav contains: name (left) + section links (right) + toggle
 - Nav background: rgba(--color-bg, 0.85) with backdrop-filter: blur(12px)
-- Nav links: About · Pillars · Seen · Notes · Work · Contact
+- Nav links: About Me · Pillars · Seen · Notes · Work · Contact
 
 ---
 
-### Section 1 — About
+### Section 1 — About Me
 
 **Purpose:** Who Ayush is, how he thinks. Narrative only. No lists, no bullet points.
 
@@ -458,7 +462,7 @@ LinkedIn  ·  GitHub
 **Footer (inside this section, bottom):**
 ```
 ─────────────────────────────────────────────
-Ayush Kapil                              2026
+Ayush Kapileshwar                        2026
 ```
 Footer text: DM Mono, 12px, --color-text at 40% opacity. Nothing else in the footer.
 
@@ -507,8 +511,10 @@ Apply for each black hole independently, summing accelerations.
 | G | 5000 |
 | MAX_VELOCITY | 12 |
 | TRAIL_LENGTH | 80 frames |
-| BODY_RADIUS | 3px |
+| BODY_RADIUS | 4px |
 | BLACKHOLE_RADIUS | 8px |
+| Trail opacity multiplier | 0.9 |
+| MAX_BODIES (game mode) | 14 |
 
 Velocity cap: clamp vx and vy to ±MAX_VELOCITY each frame.
 Removal: body within 10px of black hole = absorbed. Body exits canvas by 200px = escaped.
@@ -548,7 +554,19 @@ const AUTO_LAUNCHES = [
 ```
 
 ### 5.7 Click to Launch
-On click: spawn body at click position, aimed toward nearest black hole with 0.6 radian offset (creates orbital arc, not collision).
+On click: spawn body at click position, aimed toward nearest black hole with 0.6 radian offset (creates orbital arc, not collision). Maximum 14 bodies at once (game mode cap).
+
+### 5.8 Game Mode
+🎮 button appears on landing page (fades with canvas on scroll). Opens a floating panel:
+- **Black Holes:** counter 1–4; repositions black holes in preset arrangements
+  - 1: center
+  - 2: default 0.38/0.45 and 0.65/0.52
+  - 3: triangular arrangement
+  - 4: diamond/square arrangement
+- **Planets:** shows current count, tap-to-add note, max 14
+- **Clear:** removes all bodies, resets auto-launch
+- Panel: Press Start 2P font, 10px; light mode `rgba(17,17,17,0.9)` with white text; dark mode `rgba(245,245,245,0.9)` with dark text
+- Bodies cycle through color palette for variety
 
 ### 5.8 Resize Handling
 Reposition black holes on resize. Clear in-flight bodies — acceptable.
@@ -558,6 +576,26 @@ Use touchstart for launch. Reduce trail length to 50. If < 768px width: disable 
 
 ### 5.10 Dark/Light Mode
 Update palette on toggle. Existing bodies keep color, new bodies use updated palette.
+
+### 5.11 Clock & Temperature Widget
+
+A small fixed widget sits to the left of the theme toggle at `top: 16px; right: 80px; z-index: 200`.
+
+**Clock:**
+- Format: `HH:MM:SS`, updates every second
+- Font: Press Start 2P, 11px
+
+**Temperature:**
+- Geolocation → Open-Meteo API (`https://api.open-meteo.com/v1/forecast?...&current_weather=true`)
+- Display: `🌡 XX°C` (same font, same row)
+- Fallback: `🌡 --°C` if geolocation denied
+
+**Styling:**
+- Light mode: `#111111` background, `#F97316` text, `1px solid #333333` border
+- Dark mode: `#F5F5F5` background, `#8B5CF6` text, `1px solid #CCCCCC` border
+- Padding: 4px 12px; border-radius: 4px
+
+**Mobile:** hide temperature (show clock only); adjust positioning
 
 ---
 
@@ -583,7 +621,7 @@ Staggered delays for pillar content: 0s, 0.15s, 0.3s, 0.45s, 0.6s
 - Appears after scrolling past 100vh
 - position: fixed, top: 0, z-index: 100
 - Background: var(--color-bg) at 85% opacity + backdrop-filter: blur(12px)
-- Contents: Ayush Kapil (left) | About · Pillars · Seen · Notes · Work · Contact (right) | toggle (far right)
+- Contents: Ayush Kapileshwar (left) | About Me · Pillars · Seen · Notes · Work · Contact (right) | toggle (far right)
 - Active section highlighted in purple via scroll position
 - Smooth scroll to sections
 
@@ -632,7 +670,8 @@ portfolio/
 │   ├── theme.js
 │   ├── nav.js
 │   ├── scroll-animations.js
-│   └── main.js
+│   ├── main.js
+│   └── clock.js
 ├── notes/
 │   ├── constraints.html
 │   ├── tabla.html
@@ -692,7 +731,7 @@ Non-negotiable decisions:
 1. No bullet points anywhere on the site. All content is prose or spaced plain text.
 2. No icons except dark/light toggle. No Font Awesome, no icon packs.
 3. No image borders, frames, or drop shadows. Images are raw.
-4. No looping animations on visible content — only canvas loops.
+4. No looping animations on visible content — only canvas loops. Exception: scroll indicator bouncing animation (subtle, only on landing).
 5. The Notes arrow → must be orange (light) / yellow (dark). Only instance of 5% accent.
 6. Purple only for: section numbers, project tags, hover border, active nav link.
 7. Orbit canvas fades invisible on scroll. Not visible on any other section.
