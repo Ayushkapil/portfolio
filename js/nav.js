@@ -9,13 +9,22 @@
   if (!nav) return;
 
   var landingHeight = window.innerHeight;
+  var themeToggleFixed = document.querySelector('.theme-toggle');
 
   // ── Show/hide nav after landing ──────────────────────────
   function handleNavVisibility() {
     if (window.scrollY > landingHeight * 0.85) {
       nav.classList.add('visible');
+      if (themeToggleFixed) {
+        themeToggleFixed.style.opacity = '0';
+        themeToggleFixed.style.pointerEvents = 'none';
+      }
     } else {
       nav.classList.remove('visible');
+      if (themeToggleFixed) {
+        themeToggleFixed.style.opacity = '0.85';
+        themeToggleFixed.style.pointerEvents = 'auto';
+      }
     }
   }
 
