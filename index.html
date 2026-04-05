@@ -9,7 +9,7 @@
   <!-- Preload key fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=DM+Mono:wght@400&family=DM+Sans:wght@400;500&family=Lora:ital,wght@0,400;1,400&family=Press+Start+2P&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=DM+Mono:wght@400&family=DM+Sans:wght@400;500&family=Lora:ital,wght@0,400;1,400&display=swap" rel="stylesheet" />
 
   <!-- CSS -->
   <link rel="stylesheet" href="css/variables.css" />
@@ -35,11 +35,6 @@
 
   <!-- Orbit Canvas -->
   <canvas id="orbit-canvas" aria-hidden="true"></canvas>
-
-  <!-- Clock Widget (fixed, top-right) -->
-  <div id="clock-widget" class="clock-widget" aria-live="polite">
-    <span id="clock-time">00:00:00</span>
-  </div>
 
   <!-- Theme Toggle (fixed, top-right) -->
   <button class="theme-toggle" aria-label="Toggle dark mode">☾</button>
@@ -74,37 +69,8 @@
         <p>I code sometimes; but more often, I love to capture moments that tell stories.</p>
       </div>
     </div>
-    <!-- Game Mode Button (landing only) -->
-    <button id="game-btn" class="game-btn" aria-label="Open orbit playground">🎮</button>
-
     <a href="#about" class="scroll-indicator" aria-label="Scroll to content">↓</a>
   </section>
-
-  <!-- Full-Screen Orbit Game Overlay -->
-  <div id="game-overlay" class="game-overlay" aria-hidden="true">
-    <canvas id="game-canvas" class="game-canvas"></canvas>
-
-    <!-- Game HUD - minimal, bottom of screen -->
-    <div class="game-hud">
-      <div class="game-hud-left">
-        <span class="game-hud-label">BLACK HOLES</span>
-        <div class="game-hud-counter">
-          <button class="game-hud-btn" id="bh-minus">−</button>
-          <span id="bh-count" class="game-hud-val">2</span>
-          <button class="game-hud-btn" id="bh-plus">+</button>
-        </div>
-      </div>
-      <div class="game-hud-center">
-        <span class="game-hud-hint">tap anywhere to launch planets</span>
-      </div>
-      <div class="game-hud-right">
-        <span id="body-count" class="game-hud-val">0</span>
-        <span class="game-hud-label">PLANETS</span>
-        <button id="game-clear-btn" class="game-hud-btn-text">CLEAR</button>
-        <button id="game-close-btn" class="game-hud-btn-text">EXIT</button>
-      </div>
-    </div>
-  </div>
 
   <!-- ─────────────────────────────────────────────────────── -->
   <!-- SECTION 1 — ABOUT                                        -->
@@ -124,6 +90,8 @@
         <p class="reveal" data-delay="1">I also cook. That's not a pillar. It's just true.</p>
 
         <p class="reveal" data-delay="1">I tend to approach most things slowly.</p>
+
+        <p class="reveal currently-line" data-delay="1"><span class="currently-label">Currently:</span> building AeroOps Copilot · listening to Pt. Shivkumar Sharma, Rahul Sharma &amp; Ut. Zakir Hussain in Raag Hansadhwani · cooking too much pasta</p>
       </div>
     </div>
   </section>
@@ -323,7 +291,6 @@
   <script src="js/nav.js" defer></script>
   <script src="js/scroll-animations.js" defer></script>
   <script src="js/main.js" defer></script>
-  <script src="js/clock.js" defer></script>
 
 </body>
 </html>

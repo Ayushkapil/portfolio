@@ -1,6 +1,5 @@
 /* ============================================================
-   ORBIT.JS — Full orbit simulation
-   Two modes: background (landing page) + game (full-screen overlay)
+   ORBIT.JS — Background orbit simulation
    ============================================================ */
 
 (function () {
@@ -14,17 +13,10 @@
   const BLACKHOLE_RADIUS = 8;
 
   // ── Background simulation colors ──────────────────────────
-  const BG_COLORS = {
-    dark: ['#8B5CF6', '#FACC15', '#F5F5F5'],
-    light: ['#7C3AED', '#F97316', '#111111']
+  const COLORS = {
+    dark: ['#8B5CF6', '#FACC15', '#2DD4BF', '#FB7185', '#38BDF8', '#A3E635'],
+    light: ['#7C3AED', '#F97316', '#0D9488', '#E11D48', '#0284C7', '#65A30D']
   };
-
-  // ── Game mode expanded color palette ──────────────────────
-  const GAME_COLORS = [
-    '#8B5CF6', '#FACC15', '#F97316', '#EC4899', '#14B8A6',
-    '#3B82F6', '#EF4444', '#10B981', '#F59E0B', '#6366F1',
-    '#84CC16', '#F472B6', '#22D3EE', '#A855F7'
-  ];
 
   // ── Utility helpers ────────────────────────────────────────
   function getTheme() {
@@ -178,7 +170,7 @@
     let bgAnimId = null;
 
     function bgGetColor() {
-      const palette = BG_COLORS[getTheme()];
+      const palette = COLORS[getTheme()];
       const c = palette[bgColorIndex % palette.length];
       bgColorIndex++;
       return c;
@@ -256,148 +248,6 @@
     bgAnimate();
   } else if (bgCanvas) {
     bgCanvas.style.display = 'none';
-  }
-
-  // ══════════════════════════════════════════════════════════
-  // GAME MODE (full-screen overlay canvas)
-  // ══════════════════════════════════════════════════════════
-
-  const gameOverlay = document.getElementById('game-overlay');
-  const gameCanvas  = document.getElementById('game-canvas');
-  const gameBtn     = document.getElementById('game-btn');
-  const gameCloseBtn = document.getElementById('game-close-btn');
-  const gameClearBtn = document.getElementById('game-clear-btn');
-  const bhMinusBtn  = document.getElementById('bh-minus');
-  const bhPlusBtn   = document.getElementById('bh-plus');
-  const bhCountEl   = document.getElementById('bh-count');
-  const bodyCountEl = document.getElementById('body-count');
-
-  if (gameOverlay && gameCanvas && gameBtn) {
-    const gameCtx = gameCanvas.getContext('2d');
-    const GAME_MAX_BODIES = 100;
-    const GAME_TRAIL_LENGTH = 200;
-    const GAME_BODY_RADIUS = 3;
-    const GAME_CLEAR_ALPHA = 0.03;
-
-    let gameBodies = [];
-    let gameBlackHoles = [];
-    let gameBlackHoleCount = 2;
-    let gameColorIndex = 0;
-    let gameAnimId = null;
-    let gameActive = false;
-
-    function gameGetColor() {
-      const c = GAME_COLORS[gameColorIndex % GAME_COLORS.length];
-      gameColorIndex++;
-      return c;
-    }
-
-    function gameResizeCanvas() {
-      gameCanvas.width = gameOverlay.clientWidth;
-      gameCanvas.height = gameOverlay.clientHeight;
-      gameBlackHoles = placeBlackHolesForCount(gameBlackHoleCount, gameCanvas.width, gameCanvas.height);
-    }
-
-    function updateHud() {
-      if (bhCountEl) bhCountEl.textContent = gameBlackHoleCount;
-      if (bhMinusBtn) bhMinusBtn.disabled = gameBlackHoleCount <= 1;
-      if (bhPlusBtn) bhPlusBtn.disabled = gameBlackHoleCount >= 4;
-      if (bodyCountEl) bodyCountEl.textContent = gameBodies.length;
-    }
-
-    function gameAnimate() {
-      if (!gameActive) return;
-      gameBodies = stepBodies(gameBodies, gameBlackHoles, gameCanvas, GAME_TRAIL_LENGTH);
-      drawScene(gameCtx, gameCanvas, gameBodies, gameBlackHoles, GAME_CLEAR_ALPHA, GAME_BODY_RADIUS);
-      if (bodyCountEl) bodyCountEl.textContent = gameBodies.length;
-      gameAnimId = requestAnimationFrame(gameAnimate);
-    }
-
-    function openGame() {
-      gameActive = true;
-      gameOverlay.classList.add('active');
-      gameOverlay.setAttribute('aria-hidden', 'false');
-      gameResizeCanvas();
-      gameCtx.clearRect(0, 0, gameCanvas.width, gameCanvas.height);
-      gameBodies = [];
-      updateHud();
-      if (!gameAnimId) gameAnimate();
-    }
-
-    function closeGame() {
-      gameActive = false;
-      gameOverlay.classList.remove('active');
-      gameOverlay.setAttribute('aria-hidden', 'true');
-      if (gameAnimId) { cancelAnimationFrame(gameAnimId); gameAnimId = null; }
-    }
-
-    gameBtn.addEventListener('click', function (e) {
-      e.stopPropagation();
-      openGame();
-    });
-
-    gameCloseBtn.addEventListener('click', closeGame);
-
-    gameClearBtn.addEventListener('click', function () {
-      gameBodies = [];
-      gameCtx.clearRect(0, 0, gameCanvas.width, gameCanvas.height);
-      updateHud();
-    });
-
-    if (bhMinusBtn) {
-      bhMinusBtn.addEventListener('click', function () {
-        if (gameBlackHoleCount > 1) {
-          gameBlackHoleCount--;
-          gameBlackHoles = placeBlackHolesForCount(gameBlackHoleCount, gameCanvas.width, gameCanvas.height);
-          updateHud();
-        }
-      });
-    }
-
-    if (bhPlusBtn) {
-      bhPlusBtn.addEventListener('click', function () {
-        if (gameBlackHoleCount < 4) {
-          gameBlackHoleCount++;
-          gameBlackHoles = placeBlackHolesForCount(gameBlackHoleCount, gameCanvas.width, gameCanvas.height);
-          updateHud();
-        }
-      });
-    }
-
-    gameCanvas.addEventListener('click', function (e) {
-      if (!gameActive || gameBodies.length >= GAME_MAX_BODIES) return;
-      const rect = gameCanvas.getBoundingClientRect();
-      const x = e.clientX - rect.left;
-      const y = e.clientY - rect.top;
-      const body = launchBody(x, y, gameBlackHoles, 3.5);
-      body.color = gameGetColor();
-      gameBodies.push(body);
-    });
-
-    gameCanvas.addEventListener('touchstart', function (e) {
-      e.preventDefault();
-      if (!gameActive || gameBodies.length >= GAME_MAX_BODIES) return;
-      const rect = gameCanvas.getBoundingClientRect();
-      const touch = e.touches[0];
-      const x = touch.clientX - rect.left;
-      const y = touch.clientY - rect.top;
-      const body = launchBody(x, y, gameBlackHoles, 3.5);
-      body.color = gameGetColor();
-      gameBodies.push(body);
-    }, { passive: false });
-
-    window.addEventListener('resize', function () {
-      if (gameActive) {
-        gameResizeCanvas();
-      }
-    });
-
-    // Hide game button when scrolled past landing
-    window.addEventListener('scroll', function () {
-      const scrollY = window.scrollY;
-      gameBtn.style.opacity = Math.max(0, 1 - scrollY / 200);
-      gameBtn.style.pointerEvents = scrollY > 200 ? 'none' : 'auto';
-    });
   }
 
 }());

@@ -2,6 +2,14 @@
    BASE — Global typography and body styles
    ============================================================ */
 
+/* Font rendering — prevent jitter especially in dark mode */
+*,
+*::before,
+*::after {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
 body {
   font-family: var(--font-body);
   font-size: 18px;
