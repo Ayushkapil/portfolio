@@ -172,7 +172,7 @@ The site is a single HTML file with all sections stacked vertically. Navigation 
 - Text content sits at z-index: 1, centered vertically and horizontally
 - Dark/light toggle fixed at top-right
 - Subtle scroll indicator (↓) at bottom-center — clickable, scrolls to #about section with smooth scroll
-- 8-bit clock + temperature widget fixed at top-right (left of theme toggle)
+- 8-bit minimal clock widget fixed at top-right (left of theme toggle)
 - 🎮 game mode button (landing only) below theme toggle
 
 **Content:**
@@ -510,11 +510,14 @@ Apply for each black hole independently, summing accelerations.
 |----------|---------------|
 | G | 5000 |
 | MAX_VELOCITY | 12 |
-| TRAIL_LENGTH | 80 frames |
-| BODY_RADIUS | 4px |
+| TRAIL_LENGTH (background) | 80 frames |
+| TRAIL_LENGTH (game mode) | 200 frames |
+| BODY_RADIUS (background) | 4px |
+| BODY_RADIUS (game mode) | 3px |
 | BLACKHOLE_RADIUS | 8px |
 | Trail opacity multiplier | 0.9 |
-| MAX_BODIES (game mode) | 14 |
+| MAX_BODIES (background) | 14 |
+| MAX_BODIES (game mode) | 100 |
 
 Velocity cap: clamp vx and vy to ±MAX_VELOCITY each frame.
 Removal: body within 10px of black hole = absorbed. Body exits canvas by 200px = escaped.
@@ -557,16 +560,21 @@ const AUTO_LAUNCHES = [
 On click: spawn body at click position, aimed toward nearest black hole with 0.6 radian offset (creates orbital arc, not collision). Maximum 14 bodies at once (game mode cap).
 
 ### 5.8 Game Mode
-🎮 button appears on landing page (fades with canvas on scroll). Opens a floating panel:
-- **Black Holes:** counter 1–4; repositions black holes in preset arrangements
-  - 1: center
-  - 2: default 0.38/0.45 and 0.65/0.52
-  - 3: triangular arrangement
-  - 4: diamond/square arrangement
-- **Planets:** shows current count, tap-to-add note, max 14
-- **Clear:** removes all bodies, resets auto-launch
-- Panel: Press Start 2P font, 10px; light mode `rgba(17,17,17,0.9)` with white text; dark mode `rgba(245,245,245,0.9)` with dark text
-- Bodies cycle through color palette for variety
+🎮 button appears on landing page (fades with canvas on scroll). Clicking the 🎮 button opens a **full-screen overlay** that covers the entire page:
+- **Full-screen canvas** (`#game-canvas`) fills the overlay; separate from the background simulation
+- **No auto-launch** — canvas starts empty; user taps/clicks anywhere to create planets
+- **Unlimited planets** (up to 100) in freely chosen colors from the expanded 14-color palette
+- **Persistent trails** — background clear alpha drops to 0.03 so colored traces build into art
+- **HUD bar** at the bottom of the overlay:
+  - Left: BLACK HOLES counter (1–4) with − and + buttons
+  - Center: "tap anywhere to launch planets" hint
+  - Right: PLANETS count, CLEAR button (wipes all bodies and trail art), EXIT button
+- **Black hole arrangements** (same as background mode): 1 = center, 2 = default, 3 = triangle, 4 = square
+- **Expanded color palette** (14 colors): `#8B5CF6`, `#FACC15`, `#F97316`, `#EC4899`, `#14B8A6`, `#3B82F6`, `#EF4444`, `#10B981`, `#F59E0B`, `#6366F1`, `#84CC16`, `#F472B6`, `#22D3EE`, `#A855F7`
+- Colors cycle so each new planet gets a different color
+- EXIT closes overlay and stops game animation loop; CLEAR wipes the canvas art
+
+**Game mode is desktop-only.** Hidden on screens < 768px.
 
 ### 5.8 Resize Handling
 Reposition black holes on resize. Clear in-flight bodies — acceptable.
@@ -577,25 +585,22 @@ Use touchstart for launch. Reduce trail length to 50. If < 768px width: disable 
 ### 5.10 Dark/Light Mode
 Update palette on toggle. Existing bodies keep color, new bodies use updated palette.
 
-### 5.11 Clock & Temperature Widget
+### 5.11 Clock Widget
 
-A small fixed widget sits to the left of the theme toggle at `top: 16px; right: 80px; z-index: 200`.
+A minimal fixed widget sits to the left of the theme toggle at `top: 18px; right: 76px; z-index: 200`.
 
 **Clock:**
 - Format: `HH:MM:SS`, updates every second
-- Font: Press Start 2P, 11px
-
-**Temperature:**
-- Geolocation → Open-Meteo API (`https://api.open-meteo.com/v1/forecast?...&current_weather=true`)
-- Display: `🌡 XX°C` (same font, same row)
-- Fallback: `🌡 --°C` if geolocation denied
+- Font: Press Start 2P, 7px
+- The widget is intentionally subtle — opacity 0.7, no solid background, no border
+- On hover: opacity increases to 1
 
 **Styling:**
-- Light mode: `#111111` background, `#F97316` text, `1px solid #333333` border
-- Dark mode: `#F5F5F5` background, `#8B5CF6` text, `1px solid #CCCCCC` border
-- Padding: 4px 12px; border-radius: 4px
+- Light mode: `rgba(44, 44, 44, 0.08)` background (almost transparent), `--color-text` color, no border
+- Dark mode: `rgba(245, 245, 245, 0.08)` background (almost transparent), `--color-text` color, no border
+- Padding: 3px 8px; border-radius: 3px
 
-**Mobile:** hide temperature (show clock only); adjust positioning
+**No temperature, no geolocation.** Clock only.
 
 ---
 
