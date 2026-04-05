@@ -49,16 +49,98 @@
   color: var(--color-text);
   text-decoration: none;
   opacity: 0.65;
-  transition: opacity var(--transition-fast), color var(--transition-fast);
+  padding: 6px 14px;
+  border-radius: 20px;
+  transition: opacity 0.25s ease, color 0.25s ease, background-color 0.25s ease, box-shadow 0.25s ease, backdrop-filter 0.25s ease;
+  background-color: transparent;
 }
 
 .nav-links a:hover {
   opacity: 1;
+  background-color: rgba(var(--color-text-raw), 0.06);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  box-shadow: 0 0 12px 4px rgba(var(--color-text-raw), 0.04);
 }
 
 .nav-links a.active {
-  color: var(--color-purple);
   opacity: 1;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+/* Per-link hover + active colors with glass tint */
+.nav-links a:nth-child(1):hover,
+.nav-links a:nth-child(1).active {
+  color: var(--color-text);
+  background-color: rgba(var(--color-text-raw), 0.08);
+  box-shadow: 0 0 12px 4px rgba(var(--color-text-raw), 0.05);
+}
+
+.nav-links a:nth-child(2):hover,
+.nav-links a:nth-child(2).active {
+  color: var(--color-purple);
+  background-color: rgba(124, 58, 237, 0.08);
+  box-shadow: 0 0 12px 4px rgba(124, 58, 237, 0.06);
+}
+
+.nav-links a:nth-child(3):hover,
+.nav-links a:nth-child(3).active {
+  color: var(--color-teal);
+  background-color: rgba(13, 148, 136, 0.08);
+  box-shadow: 0 0 12px 4px rgba(13, 148, 136, 0.06);
+}
+
+.nav-links a:nth-child(4):hover,
+.nav-links a:nth-child(4).active {
+  color: var(--color-accent);
+  background-color: rgba(249, 115, 22, 0.08);
+  box-shadow: 0 0 12px 4px rgba(249, 115, 22, 0.06);
+}
+
+.nav-links a:nth-child(5):hover,
+.nav-links a:nth-child(5).active {
+  color: var(--color-rose);
+  background-color: rgba(225, 29, 72, 0.08);
+  box-shadow: 0 0 12px 4px rgba(225, 29, 72, 0.06);
+}
+
+.nav-links a:nth-child(6):hover,
+.nav-links a:nth-child(6).active {
+  color: var(--color-sky);
+  background-color: rgba(14, 165, 233, 0.08);
+  box-shadow: 0 0 12px 4px rgba(14, 165, 233, 0.06);
+}
+
+/* Dark mode per-link overrides */
+html.dark .nav-links a:nth-child(2):hover,
+html.dark .nav-links a:nth-child(2).active {
+  background-color: rgba(139, 92, 246, 0.12);
+  box-shadow: 0 0 14px 5px rgba(139, 92, 246, 0.08);
+}
+
+html.dark .nav-links a:nth-child(3):hover,
+html.dark .nav-links a:nth-child(3).active {
+  background-color: rgba(45, 212, 191, 0.12);
+  box-shadow: 0 0 14px 5px rgba(45, 212, 191, 0.08);
+}
+
+html.dark .nav-links a:nth-child(4):hover,
+html.dark .nav-links a:nth-child(4).active {
+  background-color: rgba(250, 204, 21, 0.12);
+  box-shadow: 0 0 14px 5px rgba(250, 204, 21, 0.08);
+}
+
+html.dark .nav-links a:nth-child(5):hover,
+html.dark .nav-links a:nth-child(5).active {
+  background-color: rgba(251, 113, 133, 0.12);
+  box-shadow: 0 0 14px 5px rgba(251, 113, 133, 0.08);
+}
+
+html.dark .nav-links a:nth-child(6):hover,
+html.dark .nav-links a:nth-child(6).active {
+  background-color: rgba(56, 189, 248, 0.12);
+  box-shadow: 0 0 14px 5px rgba(56, 189, 248, 0.08);
 }
 
 .nav-right {
@@ -83,7 +165,7 @@
   justify-content: center;
   cursor: pointer;
   font-size: 16px;
-  transition: border-color var(--transition-fast), opacity var(--transition-fast);
+  transition: border-color var(--transition-fast), opacity 0.4s ease;
   background-color: var(--color-bg);
   opacity: 0.85;
 }
