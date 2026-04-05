@@ -62,6 +62,14 @@
   border-left-color: var(--color-purple);
 }
 
+.project-card:nth-of-type(1):hover {
+  border-left-color: var(--color-purple);
+}
+
+.project-card:nth-of-type(2):hover {
+  border-left-color: var(--color-teal);
+}
+
 /* ── Theme transition on body ── */
 body {
   transition: background-color 0.4s ease, color 0.4s ease;

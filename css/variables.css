@@ -9,6 +9,8 @@ html.light {
   --color-text: #2C2C2C;
   --color-purple: #7C3AED;
   --color-accent: #F97316;
+  --color-teal: #0D9488;
+  --color-rose: #E11D48;
   --color-border: #DDD8D0;
   --color-bg-nav: rgba(245, 242, 235, 0.85);
   --color-bg-raw: 245, 242, 235;
@@ -21,6 +23,8 @@ html.dark {
   --color-text: #F5F5F5;
   --color-purple: #8B5CF6;
   --color-accent: #FACC15;
+  --color-teal: #2DD4BF;
+  --color-rose: #FB7185;
   --color-border: #2E2E2E;
   --color-bg-nav: rgba(31, 31, 31, 0.85);
   --color-bg-raw: 31, 31, 31;
