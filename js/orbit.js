@@ -252,8 +252,6 @@
       }, 150);
     });
 
-    window.orbitUpdateTheme = function () { /* existing bodies keep color */ };
-
     bgResize();
     bgAnimate();
   } else if (bgCanvas) {
@@ -274,134 +272,132 @@
   const bhCountEl   = document.getElementById('bh-count');
   const bodyCountEl = document.getElementById('body-count');
 
-  if (!gameOverlay || !gameCanvas || !gameBtn) return;
+  if (gameOverlay && gameCanvas && gameBtn) {
+    const gameCtx = gameCanvas.getContext('2d');
+    const GAME_MAX_BODIES = 100;
+    const GAME_TRAIL_LENGTH = 200;
+    const GAME_BODY_RADIUS = 3;
+    const GAME_CLEAR_ALPHA = 0.03;
 
-  const gameCtx = gameCanvas.getContext('2d');
-  const GAME_MAX_BODIES = 100;
-  const GAME_TRAIL_LENGTH = 200;
-  const GAME_BODY_RADIUS = 3;
-  const GAME_CLEAR_ALPHA = 0.03;
+    let gameBodies = [];
+    let gameBlackHoles = [];
+    let gameBlackHoleCount = 2;
+    let gameColorIndex = 0;
+    let gameAnimId = null;
+    let gameActive = false;
 
-  let gameBodies = [];
-  let gameBlackHoles = [];
-  let gameBlackHoleCount = 2;
-  let gameColorIndex = 0;
-  let gameAnimId = null;
-  let gameActive = false;
-
-  function gameGetColor() {
-    const c = GAME_COLORS[gameColorIndex % GAME_COLORS.length];
-    gameColorIndex++;
-    return c;
-  }
-
-  function gameResizeCanvas() {
-    gameCanvas.width = gameOverlay.clientWidth;
-    gameCanvas.height = gameOverlay.clientHeight;
-    gameBlackHoles = placeBlackHolesForCount(gameBlackHoleCount, gameCanvas.width, gameCanvas.height);
-  }
-
-  function updateHud() {
-    if (bhCountEl) bhCountEl.textContent = gameBlackHoleCount;
-    if (bhMinusBtn) bhMinusBtn.disabled = gameBlackHoleCount <= 1;
-    if (bhPlusBtn) bhPlusBtn.disabled = gameBlackHoleCount >= 4;
-    if (bodyCountEl) bodyCountEl.textContent = gameBodies.length;
-  }
-
-  function gameAnimate() {
-    if (!gameActive) return;
-    gameBodies = stepBodies(gameBodies, gameBlackHoles, gameCanvas, GAME_TRAIL_LENGTH);
-    drawScene(gameCtx, gameCanvas, gameBodies, gameBlackHoles, GAME_CLEAR_ALPHA, GAME_BODY_RADIUS);
-    if (bodyCountEl) bodyCountEl.textContent = gameBodies.length;
-    gameAnimId = requestAnimationFrame(gameAnimate);
-  }
-
-  function openGame() {
-    gameActive = true;
-    gameOverlay.classList.add('active');
-    gameOverlay.setAttribute('aria-hidden', 'false');
-    gameResizeCanvas();
-    gameCtx.clearRect(0, 0, gameCanvas.width, gameCanvas.height);
-    gameBodies = [];
-    updateHud();
-    if (!gameAnimId) gameAnimate();
-  }
-
-  function closeGame() {
-    gameActive = false;
-    gameOverlay.classList.remove('active');
-    gameOverlay.setAttribute('aria-hidden', 'true');
-    if (gameAnimId) { cancelAnimationFrame(gameAnimId); gameAnimId = null; }
-  }
-
-  gameBtn.addEventListener('click', function (e) {
-    e.stopPropagation();
-    openGame();
-  });
-
-  gameCloseBtn.addEventListener('click', closeGame);
-
-  gameClearBtn.addEventListener('click', function () {
-    gameBodies = [];
-    gameCtx.clearRect(0, 0, gameCanvas.width, gameCanvas.height);
-    updateHud();
-  });
-
-  if (bhMinusBtn) {
-    bhMinusBtn.addEventListener('click', function () {
-      if (gameBlackHoleCount > 1) {
-        gameBlackHoleCount--;
-        gameBlackHoles = placeBlackHolesForCount(gameBlackHoleCount, gameCanvas.width, gameCanvas.height);
-        updateHud();
-      }
-    });
-  }
-
-  if (bhPlusBtn) {
-    bhPlusBtn.addEventListener('click', function () {
-      if (gameBlackHoleCount < 4) {
-        gameBlackHoleCount++;
-        gameBlackHoles = placeBlackHolesForCount(gameBlackHoleCount, gameCanvas.width, gameCanvas.height);
-        updateHud();
-      }
-    });
-  }
-
-  gameCanvas.addEventListener('click', function (e) {
-    if (!gameActive || gameBodies.length >= GAME_MAX_BODIES) return;
-    const rect = gameCanvas.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
-    const body = launchBody(x, y, gameBlackHoles, 3.5);
-    body.color = gameGetColor();
-    gameBodies.push(body);
-  });
-
-  gameCanvas.addEventListener('touchstart', function (e) {
-    e.preventDefault();
-    if (!gameActive || gameBodies.length >= GAME_MAX_BODIES) return;
-    const rect = gameCanvas.getBoundingClientRect();
-    const touch = e.touches[0];
-    const x = touch.clientX - rect.left;
-    const y = touch.clientY - rect.top;
-    const body = launchBody(x, y, gameBlackHoles, 3.5);
-    body.color = gameGetColor();
-    gameBodies.push(body);
-  }, { passive: false });
-
-  window.addEventListener('resize', function () {
-    if (gameActive) {
-      gameResizeCanvas();
+    function gameGetColor() {
+      const c = GAME_COLORS[gameColorIndex % GAME_COLORS.length];
+      gameColorIndex++;
+      return c;
     }
-  });
 
-  // Hide game button when scrolled past landing
-  window.addEventListener('scroll', function () {
-    if (gameBtn) {
+    function gameResizeCanvas() {
+      gameCanvas.width = gameOverlay.clientWidth;
+      gameCanvas.height = gameOverlay.clientHeight;
+      gameBlackHoles = placeBlackHolesForCount(gameBlackHoleCount, gameCanvas.width, gameCanvas.height);
+    }
+
+    function updateHud() {
+      if (bhCountEl) bhCountEl.textContent = gameBlackHoleCount;
+      if (bhMinusBtn) bhMinusBtn.disabled = gameBlackHoleCount <= 1;
+      if (bhPlusBtn) bhPlusBtn.disabled = gameBlackHoleCount >= 4;
+      if (bodyCountEl) bodyCountEl.textContent = gameBodies.length;
+    }
+
+    function gameAnimate() {
+      if (!gameActive) return;
+      gameBodies = stepBodies(gameBodies, gameBlackHoles, gameCanvas, GAME_TRAIL_LENGTH);
+      drawScene(gameCtx, gameCanvas, gameBodies, gameBlackHoles, GAME_CLEAR_ALPHA, GAME_BODY_RADIUS);
+      if (bodyCountEl) bodyCountEl.textContent = gameBodies.length;
+      gameAnimId = requestAnimationFrame(gameAnimate);
+    }
+
+    function openGame() {
+      gameActive = true;
+      gameOverlay.classList.add('active');
+      gameOverlay.setAttribute('aria-hidden', 'false');
+      gameResizeCanvas();
+      gameCtx.clearRect(0, 0, gameCanvas.width, gameCanvas.height);
+      gameBodies = [];
+      updateHud();
+      if (!gameAnimId) gameAnimate();
+    }
+
+    function closeGame() {
+      gameActive = false;
+      gameOverlay.classList.remove('active');
+      gameOverlay.setAttribute('aria-hidden', 'true');
+      if (gameAnimId) { cancelAnimationFrame(gameAnimId); gameAnimId = null; }
+    }
+
+    gameBtn.addEventListener('click', function (e) {
+      e.stopPropagation();
+      openGame();
+    });
+
+    gameCloseBtn.addEventListener('click', closeGame);
+
+    gameClearBtn.addEventListener('click', function () {
+      gameBodies = [];
+      gameCtx.clearRect(0, 0, gameCanvas.width, gameCanvas.height);
+      updateHud();
+    });
+
+    if (bhMinusBtn) {
+      bhMinusBtn.addEventListener('click', function () {
+        if (gameBlackHoleCount > 1) {
+          gameBlackHoleCount--;
+          gameBlackHoles = placeBlackHolesForCount(gameBlackHoleCount, gameCanvas.width, gameCanvas.height);
+          updateHud();
+        }
+      });
+    }
+
+    if (bhPlusBtn) {
+      bhPlusBtn.addEventListener('click', function () {
+        if (gameBlackHoleCount < 4) {
+          gameBlackHoleCount++;
+          gameBlackHoles = placeBlackHolesForCount(gameBlackHoleCount, gameCanvas.width, gameCanvas.height);
+          updateHud();
+        }
+      });
+    }
+
+    gameCanvas.addEventListener('click', function (e) {
+      if (!gameActive || gameBodies.length >= GAME_MAX_BODIES) return;
+      const rect = gameCanvas.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      const body = launchBody(x, y, gameBlackHoles, 3.5);
+      body.color = gameGetColor();
+      gameBodies.push(body);
+    });
+
+    gameCanvas.addEventListener('touchstart', function (e) {
+      e.preventDefault();
+      if (!gameActive || gameBodies.length >= GAME_MAX_BODIES) return;
+      const rect = gameCanvas.getBoundingClientRect();
+      const touch = e.touches[0];
+      const x = touch.clientX - rect.left;
+      const y = touch.clientY - rect.top;
+      const body = launchBody(x, y, gameBlackHoles, 3.5);
+      body.color = gameGetColor();
+      gameBodies.push(body);
+    }, { passive: false });
+
+    window.addEventListener('resize', function () {
+      if (gameActive) {
+        gameResizeCanvas();
+      }
+    });
+
+    // Hide game button when scrolled past landing
+    window.addEventListener('scroll', function () {
       const scrollY = window.scrollY;
       gameBtn.style.opacity = Math.max(0, 1 - scrollY / 200);
       gameBtn.style.pointerEvents = scrollY > 200 ? 'none' : 'auto';
-    }
-  });
+    });
+  }
 
 }());
