@@ -1,76 +1,37 @@
 /* ============================================================
    ORBIT.JS — Full orbit simulation
-   Physics, trails, auto-launch, click-to-launch, resize, theme
+   Two modes: background (landing page) + game (full-screen overlay)
    ============================================================ */
 
 (function () {
   'use strict';
 
-  const canvas = document.getElementById('orbit-canvas');
-  if (!canvas) return;
-
-  // Disable on mobile
-  if (window.innerWidth < 768) {
-    canvas.style.display = 'none';
-    return;
-  }
-
-  const ctx = canvas.getContext('2d');
-
-  // ── Constants ──────────────────────────────────────────────
+  // ── Shared Constants ───────────────────────────────────────
   const G = 5000;
   const MAX_VELOCITY = 12;
-  const BODY_RADIUS = 4;
-  const BLACKHOLE_RADIUS = 8;
   const ABSORPTION_DISTANCE = 10;
   const ESCAPE_MARGIN = 200;
-  const MAX_BODIES = 14;
+  const BLACKHOLE_RADIUS = 8;
 
-  let TRAIL_LENGTH = 80;
-
-  const COLORS = {
+  // ── Background simulation colors ──────────────────────────
+  const BG_COLORS = {
     dark: ['#8B5CF6', '#FACC15', '#F5F5F5'],
     light: ['#7C3AED', '#F97316', '#111111']
   };
 
-  const AUTO_LAUNCHES = [
-    { x: 0.2,  y: 0.3,  vx: 2.5,  vy: 1.5  },
-    { x: 0.8,  y: 0.6,  vx: -2.0, vy: -1.8 },
-    { x: 0.5,  y: 0.1,  vx: 1.0,  vy: 3.0  },
-    { x: 0.15, y: 0.7,  vx: 3.0,  vy: -1.0 },
+  // ── Game mode expanded color palette ──────────────────────
+  const GAME_COLORS = [
+    '#8B5CF6', '#FACC15', '#F97316', '#EC4899', '#14B8A6',
+    '#3B82F6', '#EF4444', '#10B981', '#F59E0B', '#6366F1',
+    '#84CC16', '#F472B6', '#22D3EE', '#A855F7'
   ];
 
-  // ── State ──────────────────────────────────────────────────
-  let blackHoles = [];
-  let bodies = [];
-  let animFrameId = null;
-  let currentTheme = 'light';
-  let colorIndex = 0;
-
-  // ── Init canvas size ───────────────────────────────────────
-  function resizeCanvas() {
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-    placeBlackHoles();
-    // Clear bodies on resize — acceptable per spec
-    bodies = [];
-    autoLaunch();
-  }
-
-  // ── Black hole placement ───────────────────────────────────
-  function placeBlackHoles() {
-    blackHoles = [
-      { x: canvas.width * 0.38, y: canvas.height * 0.45 },
-      { x: canvas.width * 0.65, y: canvas.height * 0.52 }
-    ];
-  }
-
-  // ── Theme helpers ──────────────────────────────────────────
+  // ── Utility helpers ────────────────────────────────────────
   function getTheme() {
     return document.documentElement.classList.contains('dark') ? 'dark' : 'light';
   }
 
-  function getBgColor() {
+  function getBgColorRgb() {
     return getTheme() === 'dark' ? '31, 31, 31' : '245, 242, 235';
   }
 
@@ -78,95 +39,29 @@
     return getTheme() === 'dark' ? '#F5F5F5' : '#2C2C2C';
   }
 
-  function getRandomColor() {
-    const theme = getTheme();
-    const palette = COLORS[theme];
-    const color = palette[colorIndex % palette.length];
-    colorIndex++;
-    return color;
+  function hexToRgba(hex, alpha) {
+    const r = parseInt(hex.slice(1, 3), 16);
+    const g = parseInt(hex.slice(3, 5), 16);
+    const b = parseInt(hex.slice(5, 7), 16);
+    return 'rgba(' + r + ', ' + g + ', ' + b + ', ' + alpha + ')';
   }
 
-  // ── Body factory ───────────────────────────────────────────
-  function createBody(x, y, vx, vy) {
-    return {
-      x,
-      y,
-      vx,
-      vy,
-      color: getRandomColor(),
-      trail: []
-    };
-  }
-
-  // ── Auto-launch ────────────────────────────────────────────
-  function autoLaunch() {
-    AUTO_LAUNCHES.forEach(function (cfg) {
-      bodies.push(createBody(
-        cfg.x * canvas.width,
-        cfg.y * canvas.height,
-        cfg.vx,
-        cfg.vy
-      ));
-    });
-  }
-
-  // ── Click / touch to launch ────────────────────────────────
-  function launchFromEvent(clientX, clientY) {
-    const x = clientX;
-    const y = clientY;
-
-    // Find nearest black hole
-    let nearest = blackHoles[0];
-    let minDist = Infinity;
-    blackHoles.forEach(function (bh) {
-      const d = Math.hypot(bh.x - x, bh.y - y);
-      if (d < minDist) {
-        minDist = d;
-        nearest = bh;
-      }
-    });
-
-    // Direction toward nearest black hole + 0.6 radian offset
-    const angle = Math.atan2(nearest.y - y, nearest.x - x) + 0.6;
-    const speed = 3.5;
-    bodies.push(createBody(x, y, Math.cos(angle) * speed, Math.sin(angle) * speed));
-  }
-
-  canvas.addEventListener('click', function (e) {
-    if (bodies.length < MAX_BODIES) {
-      launchFromEvent(e.clientX, e.clientY);
-    }
-  });
-
-  canvas.addEventListener('touchstart', function (e) {
-    e.preventDefault();
-    if (bodies.length < MAX_BODIES) {
-      const touch = e.touches[0];
-      launchFromEvent(touch.clientX, touch.clientY);
-    }
-  }, { passive: false });
-
-  // ── Game Mode ──────────────────────────────────────────────
-  let blackHoleCount = 2;
-
-  function placeBlackHolesForCount(count) {
-    const w = canvas.width;
-    const h = canvas.height;
+  function placeBlackHolesForCount(count, w, h) {
     if (count === 1) {
-      blackHoles = [{ x: w * 0.5, y: h * 0.5 }];
+      return [{ x: w * 0.5, y: h * 0.5 }];
     } else if (count === 2) {
-      blackHoles = [
+      return [
         { x: w * 0.38, y: h * 0.45 },
         { x: w * 0.65, y: h * 0.52 }
       ];
     } else if (count === 3) {
-      blackHoles = [
+      return [
         { x: w * 0.5,  y: h * 0.28 },
         { x: w * 0.3,  y: h * 0.62 },
         { x: w * 0.7,  y: h * 0.62 }
       ];
     } else {
-      blackHoles = [
+      return [
         { x: w * 0.35, y: h * 0.35 },
         { x: w * 0.65, y: h * 0.35 },
         { x: w * 0.35, y: h * 0.65 },
@@ -175,113 +70,33 @@
     }
   }
 
-  const gameBtn = document.getElementById('game-btn');
-  const gamePanel = document.getElementById('game-panel');
-  const gamePanelClose = document.getElementById('game-panel-close');
-  const bhMinus = document.getElementById('bh-minus');
-  const bhPlus = document.getElementById('bh-plus');
-  const bhCountEl = document.getElementById('bh-count');
-  const bodyCountEl = document.getElementById('body-count');
-  const gameClearBtn = document.getElementById('game-clear-btn');
-
-  function updateBodyCountDisplay() {
-    if (bodyCountEl) bodyCountEl.textContent = bodies.length;
-  }
-
-  function updateBhCountDisplay() {
-    if (bhCountEl) bhCountEl.textContent = blackHoleCount;
-    if (bhMinus) bhMinus.disabled = blackHoleCount <= 1;
-    if (bhPlus) bhPlus.disabled = blackHoleCount >= 4;
-  }
-
-  if (gameBtn) {
-    gameBtn.addEventListener('click', function (e) {
-      e.stopPropagation();
-      const isOpen = gamePanel.classList.contains('open');
-      if (isOpen) {
-        gamePanel.classList.remove('open');
-        gamePanel.setAttribute('aria-hidden', 'true');
-      } else {
-        gamePanel.classList.add('open');
-        gamePanel.setAttribute('aria-hidden', 'false');
-        updateBhCountDisplay();
-        updateBodyCountDisplay();
-      }
+  function launchBody(x, y, blackHoles, speed) {
+    let nearest = blackHoles[0];
+    let minDist = Infinity;
+    blackHoles.forEach(function (bh) {
+      const d = Math.hypot(bh.x - x, bh.y - y);
+      if (d < minDist) { minDist = d; nearest = bh; }
     });
+    const angle = Math.atan2(nearest.y - y, nearest.x - x) + 0.6;
+    return {
+      x: x, y: y,
+      vx: Math.cos(angle) * speed,
+      vy: Math.sin(angle) * speed,
+      trail: []
+    };
   }
 
-  if (gamePanelClose) {
-    gamePanelClose.addEventListener('click', function () {
-      gamePanel.classList.remove('open');
-      gamePanel.setAttribute('aria-hidden', 'true');
-    });
-  }
-
-  if (bhMinus) {
-    bhMinus.addEventListener('click', function () {
-      if (blackHoleCount > 1) {
-        blackHoleCount--;
-        placeBlackHolesForCount(blackHoleCount);
-        updateBhCountDisplay();
-      }
-    });
-  }
-
-  if (bhPlus) {
-    bhPlus.addEventListener('click', function () {
-      if (blackHoleCount < 4) {
-        blackHoleCount++;
-        placeBlackHolesForCount(blackHoleCount);
-        updateBhCountDisplay();
-      }
-    });
-  }
-
-  if (gameClearBtn) {
-    gameClearBtn.addEventListener('click', function () {
-      bodies = [];
-      autoLaunch();
-      updateBodyCountDisplay();
-    });
-  }
-
-  // Hide game button when scrolled past landing
-  window.addEventListener('scroll', function () {
-    if (gameBtn) {
-      const scrollY = window.scrollY;
-      gameBtn.style.opacity = Math.max(0, 1 - scrollY / 200);
-      gameBtn.style.pointerEvents = scrollY > 200 ? 'none' : 'auto';
-    }
-    if (gamePanel && window.scrollY > 200) {
-      gamePanel.classList.remove('open');
-      gamePanel.setAttribute('aria-hidden', 'true');
-    }
-  });
-
-  // ── Physics update ─────────────────────────────────────────
-  function updateBodies() {
-    bodies = bodies.filter(function (body) {
-      // Update trail
+  function stepBodies(bodies, blackHoles, canvas, trailLength) {
+    return bodies.filter(function (body) {
       body.trail.push({ x: body.x, y: body.y });
-      if (body.trail.length > TRAIL_LENGTH) {
-        body.trail.shift();
-      }
+      if (body.trail.length > trailLength) body.trail.shift();
 
-      // Apply gravity from each black hole
-      let ax = 0;
-      let ay = 0;
-      let absorbed = false;
-
+      let ax = 0, ay = 0, absorbed = false;
       blackHoles.forEach(function (bh) {
         const dx = bh.x - body.x;
         const dy = bh.y - body.y;
         const distance = Math.sqrt(dx * dx + dy * dy);
-
-        if (distance < ABSORPTION_DISTANCE) {
-          absorbed = true;
-          return;
-        }
-
+        if (distance < ABSORPTION_DISTANCE) { absorbed = true; return; }
         const force = G / (distance * distance);
         ax += force * (dx / distance);
         ay += force * (dy / distance);
@@ -289,35 +104,25 @@
 
       if (absorbed) return false;
 
-      body.vx += ax;
-      body.vy += ay;
-
-      // Clamp velocity
-      body.vx = Math.max(-MAX_VELOCITY, Math.min(MAX_VELOCITY, body.vx));
-      body.vy = Math.max(-MAX_VELOCITY, Math.min(MAX_VELOCITY, body.vy));
-
+      body.vx = Math.max(-MAX_VELOCITY, Math.min(MAX_VELOCITY, body.vx + ax));
+      body.vy = Math.max(-MAX_VELOCITY, Math.min(MAX_VELOCITY, body.vy + ay));
       body.x += body.vx;
       body.y += body.vy;
 
-      // Remove if escaped canvas
       if (
         body.x < -ESCAPE_MARGIN || body.x > canvas.width + ESCAPE_MARGIN ||
         body.y < -ESCAPE_MARGIN || body.y > canvas.height + ESCAPE_MARGIN
       ) {
         return false;
       }
-
       return true;
     });
   }
 
-  // ── Draw ───────────────────────────────────────────────────
-  function draw() {
-    // Partial clear for trail effect
-    ctx.fillStyle = 'rgba(' + getBgColor() + ', 0.15)';
+  function drawScene(ctx, canvas, bodies, blackHoles, clearAlpha, bodyRadius) {
+    ctx.fillStyle = 'rgba(' + getBgColorRgb() + ', ' + clearAlpha + ')';
     ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-    // Draw black holes
     const textColor = getTextColor();
     blackHoles.forEach(function (bh) {
       ctx.save();
@@ -330,11 +135,8 @@
       ctx.restore();
     });
 
-    // Draw bodies and trails
     bodies.forEach(function (body) {
       if (body.trail.length < 2) return;
-
-      // Draw trail
       for (let i = 1; i < body.trail.length; i++) {
         const opacity = i / body.trail.length;
         ctx.beginPath();
@@ -344,69 +146,258 @@
         ctx.lineWidth = 1.5;
         ctx.stroke();
       }
-
-      // Draw body
       ctx.beginPath();
-      ctx.arc(body.x, body.y, BODY_RADIUS, 0, Math.PI * 2);
+      ctx.arc(body.x, body.y, bodyRadius, 0, Math.PI * 2);
       ctx.fillStyle = body.color;
       ctx.fill();
     });
   }
 
-  // ── Animation loop ─────────────────────────────────────────
-  function animate() {
-    updateBodies();
-    draw();
-    updateBodyCountDisplay();
-    animFrameId = requestAnimationFrame(animate);
-  }
+  // ══════════════════════════════════════════════════════════
+  // BACKGROUND SIMULATION (landing page canvas)
+  // ══════════════════════════════════════════════════════════
 
-  // ── Utility: hex to rgba ───────────────────────────────────
-  function hexToRgba(hex, alpha) {
-    const r = parseInt(hex.slice(1, 3), 16);
-    const g = parseInt(hex.slice(3, 5), 16);
-    const b = parseInt(hex.slice(5, 7), 16);
-    return 'rgba(' + r + ', ' + g + ', ' + b + ', ' + alpha + ')';
-  }
+  const bgCanvas = document.getElementById('orbit-canvas');
+  if (bgCanvas && window.innerWidth >= 768) {
+    const bgCtx = bgCanvas.getContext('2d');
+    const BG_MAX_BODIES = 14;
+    const BG_TRAIL_LENGTH = 80;
+    const BG_BODY_RADIUS = 4;
+    const BG_CLEAR_ALPHA = 0.15;
 
-  // ── Scroll: fade canvas ────────────────────────────────────
-  window.addEventListener('scroll', function () {
-    const scrollY = window.scrollY;
-    const opacity = Math.max(0, 1 - scrollY / 200);
-    canvas.style.opacity = opacity;
-    canvas.style.pointerEvents = opacity > 0 ? 'auto' : 'none';
-  });
+    const AUTO_LAUNCHES = [
+      { x: 0.2,  y: 0.3,  vx: 2.5,  vy: 1.5  },
+      { x: 0.8,  y: 0.6,  vx: -2.0, vy: -1.8 },
+      { x: 0.5,  y: 0.1,  vx: 1.0,  vy: 3.0  },
+      { x: 0.15, y: 0.7,  vx: 3.0,  vy: -1.0 },
+    ];
 
-  // ── Resize ─────────────────────────────────────────────────
-  let resizeTimer = null;
-  window.addEventListener('resize', function () {
-    clearTimeout(resizeTimer);
-    resizeTimer = setTimeout(function () {
-      if (window.innerWidth < 768) {
-        canvas.style.display = 'none';
-        if (animFrameId) {
-          cancelAnimationFrame(animFrameId);
-          animFrameId = null;
-        }
-      } else {
-        canvas.style.display = '';
-        resizeCanvas();
-        if (!animFrameId) {
-          animate();
-        }
+    let bgBodies = [];
+    let bgBlackHoles = [];
+    let bgColorIndex = 0;
+    let bgAnimId = null;
+
+    function bgGetColor() {
+      const palette = BG_COLORS[getTheme()];
+      const c = palette[bgColorIndex % palette.length];
+      bgColorIndex++;
+      return c;
+    }
+
+    function bgResize() {
+      bgCanvas.width = window.innerWidth;
+      bgCanvas.height = window.innerHeight;
+      bgBlackHoles = placeBlackHolesForCount(2, bgCanvas.width, bgCanvas.height);
+      bgBodies = [];
+      bgAutoLaunch();
+    }
+
+    function bgAutoLaunch() {
+      AUTO_LAUNCHES.forEach(function (cfg) {
+        const body = launchBody(
+          cfg.x * bgCanvas.width,
+          cfg.y * bgCanvas.height,
+          bgBlackHoles, 0
+        );
+        body.vx = cfg.vx;
+        body.vy = cfg.vy;
+        body.color = bgGetColor();
+        bgBodies.push(body);
+      });
+    }
+
+    bgCanvas.addEventListener('click', function (e) {
+      if (bgBodies.length < BG_MAX_BODIES) {
+        const body = launchBody(e.clientX, e.clientY, bgBlackHoles, 3.5);
+        body.color = bgGetColor();
+        bgBodies.push(body);
       }
-    }, 150);
-  });
+    });
 
-  // ── Theme update hook ──────────────────────────────────────
-  // Called from theme.js after toggle
-  window.orbitUpdateTheme = function () {
-    currentTheme = getTheme();
-    // Existing bodies keep color, new bodies will pick from updated palette
-  };
+    bgCanvas.addEventListener('touchstart', function (e) {
+      e.preventDefault();
+      if (bgBodies.length < BG_MAX_BODIES) {
+        const touch = e.touches[0];
+        const body = launchBody(touch.clientX, touch.clientY, bgBlackHoles, 3.5);
+        body.color = bgGetColor();
+        bgBodies.push(body);
+      }
+    }, { passive: false });
 
-  // ── Start ──────────────────────────────────────────────────
-  resizeCanvas();
-  animate();
+    function bgAnimate() {
+      bgBodies = stepBodies(bgBodies, bgBlackHoles, bgCanvas, BG_TRAIL_LENGTH);
+      drawScene(bgCtx, bgCanvas, bgBodies, bgBlackHoles, BG_CLEAR_ALPHA, BG_BODY_RADIUS);
+      bgAnimId = requestAnimationFrame(bgAnimate);
+    }
+
+    window.addEventListener('scroll', function () {
+      const scrollY = window.scrollY;
+      const opacity = Math.max(0, 1 - scrollY / 200);
+      bgCanvas.style.opacity = opacity;
+      bgCanvas.style.pointerEvents = opacity > 0 ? 'auto' : 'none';
+    });
+
+    let bgResizeTimer = null;
+    window.addEventListener('resize', function () {
+      clearTimeout(bgResizeTimer);
+      bgResizeTimer = setTimeout(function () {
+        if (window.innerWidth < 768) {
+          bgCanvas.style.display = 'none';
+          if (bgAnimId) { cancelAnimationFrame(bgAnimId); bgAnimId = null; }
+        } else {
+          bgCanvas.style.display = '';
+          bgResize();
+          if (!bgAnimId) bgAnimate();
+        }
+      }, 150);
+    });
+
+    bgResize();
+    bgAnimate();
+  } else if (bgCanvas) {
+    bgCanvas.style.display = 'none';
+  }
+
+  // ══════════════════════════════════════════════════════════
+  // GAME MODE (full-screen overlay canvas)
+  // ══════════════════════════════════════════════════════════
+
+  const gameOverlay = document.getElementById('game-overlay');
+  const gameCanvas  = document.getElementById('game-canvas');
+  const gameBtn     = document.getElementById('game-btn');
+  const gameCloseBtn = document.getElementById('game-close-btn');
+  const gameClearBtn = document.getElementById('game-clear-btn');
+  const bhMinusBtn  = document.getElementById('bh-minus');
+  const bhPlusBtn   = document.getElementById('bh-plus');
+  const bhCountEl   = document.getElementById('bh-count');
+  const bodyCountEl = document.getElementById('body-count');
+
+  if (gameOverlay && gameCanvas && gameBtn) {
+    const gameCtx = gameCanvas.getContext('2d');
+    const GAME_MAX_BODIES = 100;
+    const GAME_TRAIL_LENGTH = 200;
+    const GAME_BODY_RADIUS = 3;
+    const GAME_CLEAR_ALPHA = 0.03;
+
+    let gameBodies = [];
+    let gameBlackHoles = [];
+    let gameBlackHoleCount = 2;
+    let gameColorIndex = 0;
+    let gameAnimId = null;
+    let gameActive = false;
+
+    function gameGetColor() {
+      const c = GAME_COLORS[gameColorIndex % GAME_COLORS.length];
+      gameColorIndex++;
+      return c;
+    }
+
+    function gameResizeCanvas() {
+      gameCanvas.width = gameOverlay.clientWidth;
+      gameCanvas.height = gameOverlay.clientHeight;
+      gameBlackHoles = placeBlackHolesForCount(gameBlackHoleCount, gameCanvas.width, gameCanvas.height);
+    }
+
+    function updateHud() {
+      if (bhCountEl) bhCountEl.textContent = gameBlackHoleCount;
+      if (bhMinusBtn) bhMinusBtn.disabled = gameBlackHoleCount <= 1;
+      if (bhPlusBtn) bhPlusBtn.disabled = gameBlackHoleCount >= 4;
+      if (bodyCountEl) bodyCountEl.textContent = gameBodies.length;
+    }
+
+    function gameAnimate() {
+      if (!gameActive) return;
+      gameBodies = stepBodies(gameBodies, gameBlackHoles, gameCanvas, GAME_TRAIL_LENGTH);
+      drawScene(gameCtx, gameCanvas, gameBodies, gameBlackHoles, GAME_CLEAR_ALPHA, GAME_BODY_RADIUS);
+      if (bodyCountEl) bodyCountEl.textContent = gameBodies.length;
+      gameAnimId = requestAnimationFrame(gameAnimate);
+    }
+
+    function openGame() {
+      gameActive = true;
+      gameOverlay.classList.add('active');
+      gameOverlay.setAttribute('aria-hidden', 'false');
+      gameResizeCanvas();
+      gameCtx.clearRect(0, 0, gameCanvas.width, gameCanvas.height);
+      gameBodies = [];
+      updateHud();
+      if (!gameAnimId) gameAnimate();
+    }
+
+    function closeGame() {
+      gameActive = false;
+      gameOverlay.classList.remove('active');
+      gameOverlay.setAttribute('aria-hidden', 'true');
+      if (gameAnimId) { cancelAnimationFrame(gameAnimId); gameAnimId = null; }
+    }
+
+    gameBtn.addEventListener('click', function (e) {
+      e.stopPropagation();
+      openGame();
+    });
+
+    gameCloseBtn.addEventListener('click', closeGame);
+
+    gameClearBtn.addEventListener('click', function () {
+      gameBodies = [];
+      gameCtx.clearRect(0, 0, gameCanvas.width, gameCanvas.height);
+      updateHud();
+    });
+
+    if (bhMinusBtn) {
+      bhMinusBtn.addEventListener('click', function () {
+        if (gameBlackHoleCount > 1) {
+          gameBlackHoleCount--;
+          gameBlackHoles = placeBlackHolesForCount(gameBlackHoleCount, gameCanvas.width, gameCanvas.height);
+          updateHud();
+        }
+      });
+    }
+
+    if (bhPlusBtn) {
+      bhPlusBtn.addEventListener('click', function () {
+        if (gameBlackHoleCount < 4) {
+          gameBlackHoleCount++;
+          gameBlackHoles = placeBlackHolesForCount(gameBlackHoleCount, gameCanvas.width, gameCanvas.height);
+          updateHud();
+        }
+      });
+    }
+
+    gameCanvas.addEventListener('click', function (e) {
+      if (!gameActive || gameBodies.length >= GAME_MAX_BODIES) return;
+      const rect = gameCanvas.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      const body = launchBody(x, y, gameBlackHoles, 3.5);
+      body.color = gameGetColor();
+      gameBodies.push(body);
+    });
+
+    gameCanvas.addEventListener('touchstart', function (e) {
+      e.preventDefault();
+      if (!gameActive || gameBodies.length >= GAME_MAX_BODIES) return;
+      const rect = gameCanvas.getBoundingClientRect();
+      const touch = e.touches[0];
+      const x = touch.clientX - rect.left;
+      const y = touch.clientY - rect.top;
+      const body = launchBody(x, y, gameBlackHoles, 3.5);
+      body.color = gameGetColor();
+      gameBodies.push(body);
+    }, { passive: false });
+
+    window.addEventListener('resize', function () {
+      if (gameActive) {
+        gameResizeCanvas();
+      }
+    });
+
+    // Hide game button when scrolled past landing
+    window.addEventListener('scroll', function () {
+      const scrollY = window.scrollY;
+      gameBtn.style.opacity = Math.max(0, 1 - scrollY / 200);
+      gameBtn.style.pointerEvents = scrollY > 200 ? 'none' : 'auto';
+    });
+  }
 
 }());

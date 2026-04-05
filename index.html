@@ -36,11 +36,9 @@
   <!-- Orbit Canvas -->
   <canvas id="orbit-canvas" aria-hidden="true"></canvas>
 
-  <!-- Clock + Temperature Widget (fixed, top-right) -->
+  <!-- Clock Widget (fixed, top-right) -->
   <div id="clock-widget" class="clock-widget" aria-live="polite">
     <span id="clock-time">00:00:00</span>
-    <span class="clock-sep">  </span>
-    <span id="clock-temp" class="clock-temp">🌡 --°C</span>
   </div>
 
   <!-- Theme Toggle (fixed, top-right) -->
@@ -82,31 +80,29 @@
     <a href="#about" class="scroll-indicator" aria-label="Scroll to content">↓</a>
   </section>
 
-  <!-- Orbit Game Panel -->
-  <div id="game-panel" class="game-panel" role="dialog" aria-label="Orbit Playground" aria-hidden="true">
-    <button id="game-panel-close" class="game-panel-close" aria-label="Close panel">✕</button>
-    <div class="game-panel-title">Orbit Playground</div>
+  <!-- Full-Screen Orbit Game Overlay -->
+  <div id="game-overlay" class="game-overlay" aria-hidden="true">
+    <canvas id="game-canvas" class="game-canvas"></canvas>
 
-    <div class="game-panel-row">
-      <span class="game-panel-label">Black Holes</span>
-      <div class="game-panel-counter">
-        <button class="game-counter-btn" id="bh-minus" aria-label="Decrease black holes">−</button>
-        <span id="bh-count" class="game-counter-val">2</span>
-        <button class="game-counter-btn" id="bh-plus" aria-label="Increase black holes">+</button>
+    <!-- Game HUD - minimal, bottom of screen -->
+    <div class="game-hud">
+      <div class="game-hud-left">
+        <span class="game-hud-label">BLACK HOLES</span>
+        <div class="game-hud-counter">
+          <button class="game-hud-btn" id="bh-minus">−</button>
+          <span id="bh-count" class="game-hud-val">2</span>
+          <button class="game-hud-btn" id="bh-plus">+</button>
+        </div>
       </div>
-    </div>
-
-    <div class="game-panel-row">
-      <span class="game-panel-label">Planets</span>
-      <span class="game-panel-note">Tap to add · Max 14</span>
-    </div>
-
-    <div class="game-panel-row">
-      <span class="game-panel-label">Count: <span id="body-count">0</span></span>
-    </div>
-
-    <div class="game-panel-actions">
-      <button id="game-clear-btn" class="game-action-btn">Clear</button>
+      <div class="game-hud-center">
+        <span class="game-hud-hint">tap anywhere to launch planets</span>
+      </div>
+      <div class="game-hud-right">
+        <span id="body-count" class="game-hud-val">0</span>
+        <span class="game-hud-label">PLANETS</span>
+        <button id="game-clear-btn" class="game-hud-btn-text">CLEAR</button>
+        <button id="game-close-btn" class="game-hud-btn-text">EXIT</button>
+      </div>
     </div>
   </div>
 
