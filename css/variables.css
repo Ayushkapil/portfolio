@@ -1,0 +1,48 @@
+/* ============================================================
+   VARIABLES — Color tokens, typography, spacing
+   ============================================================ */
+
+/* Light Mode (default) */
+html,
+html.light {
+  --color-bg: #FAF9F6;
+  --color-text: #111111;
+  --color-purple: #7C3AED;
+  --color-accent: #F97316;
+  --color-border: #E5E5E5;
+  --color-bg-nav: rgba(250, 249, 246, 0.85);
+  --color-bg-raw: 250, 249, 246;
+  --color-text-raw: 17, 17, 17;
+}
+
+/* Dark Mode */
+html.dark {
+  --color-bg: #1F1F1F;
+  --color-text: #F5F5F5;
+  --color-purple: #8B5CF6;
+  --color-accent: #FACC15;
+  --color-border: #2E2E2E;
+  --color-bg-nav: rgba(31, 31, 31, 0.85);
+  --color-bg-raw: 31, 31, 31;
+  --color-text-raw: 245, 245, 245;
+}
+
+/* Typography tokens */
+:root {
+  --font-display: 'Cormorant Garamond', Georgia, serif;
+  --font-body: 'DM Sans', system-ui, sans-serif;
+  --font-caption: 'Lora', Georgia, serif;
+  --font-mono: 'DM Mono', 'Courier New', monospace;
+
+  /* Spacing — 8-point grid */
+  --space-xs: 8px;
+  --space-sm: 16px;
+  --space-md: 32px;
+  --space-lg: 64px;
+  --space-xl: 128px;
+
+  /* Transitions */
+  --transition-theme: background-color 0.4s ease, color 0.4s ease;
+  --transition-fast: 0.2s ease;
+  --transition-reveal: 0.6s ease;
+}
