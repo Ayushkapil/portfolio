@@ -212,7 +212,8 @@
   position: relative;
 }
 
-.photo-full-bleed .photo-placeholder {
+.photo-full-bleed .photo-placeholder,
+.photo-full-bleed img {
   width: 100%;
   height: 100%;
   object-fit: cover;
@@ -238,7 +239,8 @@
   position: relative;
 }
 
-.photo-placeholder {
+.photo-placeholder,
+.photo-item img {
   width: 100%;
   height: 100%;
   object-fit: cover;
