@@ -54,6 +54,19 @@
     var next = current === 'dark' ? 'light' : 'dark';
     localStorage.setItem(STORAGE_KEY, next);
     applyTheme(next);
+
+    // Trigger animation on all toggle buttons
+    var toggles = document.querySelectorAll('.theme-toggle, .nav-theme-toggle');
+    toggles.forEach(function (btn) {
+      btn.classList.remove('animating');
+      // Force reflow to restart animation
+      void btn.offsetWidth;
+      btn.classList.add('animating');
+      btn.addEventListener('animationend', function handler() {
+        btn.classList.remove('animating');
+        btn.removeEventListener('animationend', handler);
+      });
+    });
   }
 
   // ── Attach listeners ──────────────────────────────────────

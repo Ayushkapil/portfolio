@@ -46,13 +46,19 @@
   <!-- STICKY NAVIGATION                                        -->
   <!-- ─────────────────────────────────────────────────────── -->
   <nav id="sticky-nav" role="navigation" aria-label="Site navigation">
-    <a href="#landing" class="nav-name">Ayush Kapileshwar</a>
+    <a href="#landing" class="nav-name" aria-label="Home">
+      <svg class="nav-home-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M3 9.5L12 3l9 6.5V20a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V9.5z"/>
+        <polyline points="9 22 9 12 15 12 15 22"/>
+      </svg>
+    </a>
     <div class="nav-links">
       <a href="#about" data-section="about">About Me</a>
-      <a href="#pillars" data-section="pillars">Pillars</a>
-      <a href="#seen" data-section="seen">Seen</a>
+      <a href="#drives" data-section="drives">What Drives Me</a>
+      <a href="#gallery" data-section="gallery">Gallery</a>
+      <a href="#tools" data-section="tools">Tools</a>
+      <a href="#projects" data-section="projects">Projects</a>
       <a href="#notes" data-section="notes">Notes</a>
-      <a href="#projects" data-section="projects">Work</a>
       <a href="#contact" data-section="contact">Contact</a>
     </div>
     <div class="nav-right">
@@ -66,7 +72,8 @@
   <!-- ─────────────────────────────────────────────────────── -->
   <section id="landing">
     <div class="landing-content">
-      <h1 class="landing-name">Ayush Kapileshwar</h1>
+      <p class="landing-greeting">Hey there</p>
+      <h1 class="landing-name">I'm Ayush Kapileshwar</h1>
       <div class="landing-tagline">
         <p>Trying to become a better student every day.</p>
         <p>Devoted to Indian classical music.</p>
@@ -101,9 +108,9 @@
   </section>
 
   <!-- ─────────────────────────────────────────────────────── -->
-  <!-- SECTION 2 — THREE PILLARS                                -->
+  <!-- SECTION 2 — WHAT DRIVES ME                               -->
   <!-- ─────────────────────────────────────────────────────── -->
-  <section id="pillars">
+  <section id="drives">
 
     <!-- Pillar 01 -->
     <div class="pillar">
@@ -141,12 +148,12 @@
   </section>
 
   <!-- ─────────────────────────────────────────────────────── -->
-  <!-- SECTION 3 — THINGS I'VE SEEN                             -->
+  <!-- SECTION 3 — GALLERY                                      -->
   <!-- ─────────────────────────────────────────────────────── -->
-  <section id="seen">
+  <section id="gallery">
 
-    <div class="seen-header">
-      <h2 class="section-heading reveal" data-delay="0">Things I've Seen</h2>
+    <div class="gallery-header">
+      <h2 class="section-heading reveal" data-delay="0">Gallery</h2>
     </div>
 
     <!-- Full-bleed 1 -->
@@ -176,40 +183,85 @@
   </section>
 
   <!-- ─────────────────────────────────────────────────────── -->
-  <!-- SECTION 4 — NOTES                                        -->
+  <!-- SECTION 4 — TOOLS                                        -->
   <!-- ─────────────────────────────────────────────────────── -->
-  <section id="notes">
-    <div class="notes-inner">
-
-      <div class="notes-header">
-        <h2 class="section-heading reveal" data-delay="0">Notes</h2>
+  <section id="tools">
+    <div class="tools-inner">
+      <div class="tools-header">
+        <h2 class="section-heading reveal" data-delay="0">Tools</h2>
       </div>
 
-      <div class="notes-list">
+      <div class="tools-grid">
 
-        <a class="note-entry reveal" href="notes/constraints.html" data-delay="1">
-          <div class="note-date">Apr 2026</div>
-          <div class="note-row">
-            <span class="note-title">Why constraints make you more creative, not less</span>
-            <span class="note-arrow" aria-hidden="true">→</span>
+        <div class="tool-category reveal" data-delay="1">
+          <h3 class="tool-category-title">Languages</h3>
+          <div class="tool-tags">
+            <span class="tool-tag">Python</span>
+            <span class="tool-tag">JavaScript</span>
+            <span class="tool-tag">HTML</span>
+            <span class="tool-tag">CSS</span>
+            <span class="tool-tag">Swift</span>
+            <span class="tool-tag">SQL</span>
+            <span class="tool-tag">C++</span>
+            <span class="tool-tag">Java</span>
           </div>
-        </a>
+        </div>
 
-        <a class="note-entry reveal" href="notes/tabla.html" data-delay="2">
-          <div class="note-date">Mar 2026</div>
-          <div class="note-row">
-            <span class="note-title">What I actually do when I don't have my tabla</span>
-            <span class="note-arrow" aria-hidden="true">→</span>
+        <div class="tool-category reveal" data-delay="2">
+          <h3 class="tool-category-title">Frameworks &amp; Libraries</h3>
+          <div class="tool-tags">
+            <span class="tool-tag">React 18</span>
+            <span class="tool-tag">TailwindCSS</span>
+            <span class="tool-tag">SwiftUI</span>
+            <span class="tool-tag">FastAPI</span>
+            <span class="tool-tag">REST API Design</span>
+            <span class="tool-tag">Uvicorn</span>
+            <span class="tool-tag">Pydantic v2</span>
           </div>
-        </a>
+        </div>
 
-        <a class="note-entry reveal" href="notes/moodflow.html" data-delay="3">
-          <div class="note-date">Mar 2026</div>
-          <div class="note-row">
-            <span class="note-title">Building an AI music therapist in 36 hours</span>
-            <span class="note-arrow" aria-hidden="true">→</span>
+        <div class="tool-category reveal" data-delay="3">
+          <h3 class="tool-category-title">AI &amp; Machine Learning</h3>
+          <div class="tool-tags">
+            <span class="tool-tag">Groq API</span>
+            <span class="tool-tag">LangChain</span>
+            <span class="tool-tag">RAG</span>
+            <span class="tool-tag">LLM Integration</span>
+            <span class="tool-tag">Sentence Transformers</span>
+            <span class="tool-tag">Cross-Encoder Reranking</span>
+            <span class="tool-tag">Scikit-learn</span>
+            <span class="tool-tag">Pandas</span>
+            <span class="tool-tag">Seaborn</span>
+            <span class="tool-tag">Data Analysis &amp; EDA</span>
+            <span class="tool-tag">Classification &amp; Regression</span>
           </div>
-        </a>
+        </div>
+
+        <div class="tool-category reveal" data-delay="4">
+          <h3 class="tool-category-title">Databases</h3>
+          <div class="tool-tags">
+            <span class="tool-tag">PostgreSQL</span>
+            <span class="tool-tag">pgvector</span>
+            <span class="tool-tag">Supabase</span>
+            <span class="tool-tag">MongoDB</span>
+            <span class="tool-tag">Neo4j</span>
+          </div>
+        </div>
+
+        <div class="tool-category reveal" data-delay="5">
+          <h3 class="tool-category-title">DevOps &amp; Tools</h3>
+          <div class="tool-tags">
+            <span class="tool-tag">Docker</span>
+            <span class="tool-tag">Git &amp; GitHub</span>
+            <span class="tool-tag">Jupyter Notebooks</span>
+            <span class="tool-tag">Vercel</span>
+            <span class="tool-tag">Render</span>
+            <span class="tool-tag">Streamlit</span>
+            <span class="tool-tag">PyMuPDF</span>
+            <span class="tool-tag">Power BI</span>
+            <span class="tool-tag">Gephi</span>
+          </div>
+        </div>
 
       </div>
     </div>
@@ -222,7 +274,7 @@
     <div class="projects-inner">
 
       <div class="projects-header">
-        <h2 class="section-heading reveal" data-delay="0">Work</h2>
+        <h2 class="section-heading reveal" data-delay="0">Projects</h2>
       </div>
 
       <!-- Card 1: MoodFlow -->
@@ -263,7 +315,47 @@
   </section>
 
   <!-- ─────────────────────────────────────────────────────── -->
-  <!-- SECTION 6 — CONTACT                                      -->
+  <!-- SECTION 6 — NOTES                                        -->
+  <!-- ─────────────────────────────────────────────────────── -->
+  <section id="notes">
+    <div class="notes-inner">
+
+      <div class="notes-header">
+        <h2 class="section-heading reveal" data-delay="0">Notes</h2>
+      </div>
+
+      <div class="notes-list">
+
+        <a class="note-entry reveal" href="notes/constraints.html" data-delay="1">
+          <div class="note-date">Apr 2026</div>
+          <div class="note-row">
+            <span class="note-title">Why constraints make you more creative, not less</span>
+            <span class="note-arrow" aria-hidden="true">→</span>
+          </div>
+        </a>
+
+        <a class="note-entry reveal" href="notes/tabla.html" data-delay="2">
+          <div class="note-date">Mar 2026</div>
+          <div class="note-row">
+            <span class="note-title">What I actually do when I don't have my tabla</span>
+            <span class="note-arrow" aria-hidden="true">→</span>
+          </div>
+        </a>
+
+        <a class="note-entry reveal" href="notes/moodflow.html" data-delay="3">
+          <div class="note-date">Mar 2026</div>
+          <div class="note-row">
+            <span class="note-title">Building an AI music therapist in 36 hours</span>
+            <span class="note-arrow" aria-hidden="true">→</span>
+          </div>
+        </a>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ─────────────────────────────────────────────────────── -->
+  <!-- SECTION 7 — CONTACT                                      -->
   <!-- ─────────────────────────────────────────────────────── -->
   <section id="contact">
 
