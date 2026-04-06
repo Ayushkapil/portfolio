@@ -29,7 +29,7 @@
   }
 
   // ── Active section detection ──────────────────────────────
-  var sectionIds = ['about', 'pillars', 'seen', 'notes', 'projects', 'contact'];
+  var sectionIds = ['about', 'drives', 'gallery', 'tools', 'projects', 'notes', 'contact'];
   var navLinks = nav.querySelectorAll('.nav-links a[data-section]');
 
   function updateActiveSection() {
