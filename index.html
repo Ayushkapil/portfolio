@@ -47,7 +47,7 @@
   <!-- ─────────────────────────────────────────────────────── -->
   <nav id="sticky-nav" role="navigation" aria-label="Site navigation">
     <a href="#landing" class="nav-name" aria-label="Home">
-      <svg class="nav-home-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+      <svg class="nav-home-icon" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
         <path d="M3 9.5L12 3l9 6.5V20a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V9.5z"/>
         <polyline points="9 22 9 12 15 12 15 22"/>
       </svg>
@@ -55,29 +55,46 @@
     <div class="nav-links">
       <a href="#about" data-section="about">About Me</a>
       <a href="#drives" data-section="drives">What Drives Me</a>
-      <a href="#gallery" data-section="gallery">Gallery</a>
       <a href="#tools" data-section="tools">Tools</a>
       <a href="#projects" data-section="projects">Projects</a>
-      <a href="#notes" data-section="notes">Notes</a>
+      <a href="#notes" data-section="notes">Blogs</a>
+      <a href="#resume" data-section="resume">Resume</a>
+      <a href="#gallery" data-section="gallery">Gallery</a>
       <a href="#contact" data-section="contact">Contact</a>
     </div>
     <div class="nav-right">
       <span id="clock-nav" class="clock-nav">00:00:00</span>
       <button class="nav-theme-toggle" aria-label="Toggle dark mode">☾</button>
+      <!-- Hamburger — mobile only -->
+      <button class="nav-hamburger" id="navHamburger" aria-label="Open menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
     </div>
   </nav>
+
+  <!-- Mobile nav drawer -->
+  <div class="mobile-nav-drawer" id="mobileNavDrawer" aria-hidden="true">
+    <a href="#about" class="mobile-nav-link">About Me</a>
+    <a href="#drives" class="mobile-nav-link">What Drives Me</a>
+    <a href="#tools" class="mobile-nav-link">Tools</a>
+    <a href="#projects" class="mobile-nav-link">Projects</a>
+    <a href="#notes" class="mobile-nav-link">Blogs</a>
+    <a href="#resume" class="mobile-nav-link">Resume</a>
+    <a href="#gallery" class="mobile-nav-link">Gallery</a>
+    <a href="#contact" class="mobile-nav-link">Contact</a>
+  </div>
 
   <!-- ─────────────────────────────────────────────────────── -->
   <!-- SECTION 0 — LANDING                                      -->
   <!-- ─────────────────────────────────────────────────────── -->
   <section id="landing">
     <div class="landing-content">
-      <p class="landing-greeting">Hey there</p>
+      <p class="landing-greeting">Hey there!</p>
       <h1 class="landing-name">I'm Ayush Kapileshwar</h1>
       <div class="landing-tagline">
-        <p>Trying to become a better student every day.</p>
-        <p>Devoted to Indian classical music.</p>
-        <p>I code sometimes; but more often, I love to capture moments that tell stories.</p>
+        <p> I love working at the intersection of machine learning, thoughtful ideas, and human curiosity.</p>
+        <p>grounded by my love for Indian classical music and the art of visual storytelling.</p>
+        <p>Aspiring to build AI systems that are not just powerful, but meaningful.</p>
       </div>
     </div>
     <a href="#about" class="scroll-indicator" aria-label="Scroll to content">↓</a>
@@ -90,17 +107,11 @@
     <div class="content-col">
       <div class="section-label section-number reveal" data-delay="0">About Me</div>
       <div class="about-text">
-        <p class="reveal" data-delay="1">I'm a first-year MS in Data Science student at Indiana University Bloomington. Most of my time right now goes into building things with AI and figuring out what I actually think about it.</p>
+        <p class="reveal" data-delay="1">I'm a first-year MS in Data Science student at Indiana University Bloomington, focused on ML/AI research and Large Language Models</p>
 
-        <p class="reveal" data-delay="1">I've been learning tabla for about nine years — four of those with formal training, the rest just practice and a lot of listening. I don't have my tabla with me right now, so I play rhythms on my balcony railing, which sounds ridiculous but is actually how I get through most days. Tabla taught me something I keep coming back to: you express yourself better inside constraints. Give me a fixed cycle, a specific taal, and I can find something to say inside it. Give me infinite space and it turns into noise.</p>
+        <p class="reveal" data-delay="1">I care about building things that are meaningful in proportion to how much thought went into them.Not on how impressive they sound in a sentence, or as an idea. My approach is pretty much simple; learn it, build with it, find where it breaks, unlearn what was wrong, and start again. Recently I helped build an app that generates music journeys based on emotion and the user's biometrics. Not as some deliberate convergence of my interests, just the problem I wanted to solve happening to live exactly at that intersection. That keeps happening, which tells me I'm probably looking in the right direction.</p>
 
-        <p class="reveal" data-delay="1">I also take photographs — street stuff mostly. Flowers, light, reflections. I've done a couple of wildlife trips, including Masai Mara and Tanzania, and those mattered to me, but I'm not a wildlife photographer. I just like looking at things carefully.</p>
-
-        <p class="reveal" data-delay="1">Recently I helped build an app that uses AI to generate music journeys based on emotion and biometrics. I didn't plan that as some grand intersection of my interests — it just turned out the thing I wanted to build sat exactly where music and data overlap. That keeps happening.</p>
-
-        <p class="reveal" data-delay="1">I also cook. That's not a pillar. It's just true.</p>
-
-        <p class="reveal" data-delay="1">I tend to approach most things slowly.</p>
+        <p class="reveal" data-delay="1">The rest of my time goes into music, cooking, and writing.Three things that, like most things I care about, reward patience more than speed.</p>
 
         <p class="reveal currently-line" data-delay="1"><span class="currently-label">Currently:</span> building AeroOps Copilot · listening to Pt. Shivkumar Sharma, Rahul Sharma &amp; Ut. Zakir Hussain in Raag Hansadhwani · cooking too much pasta</p>
       </div>
@@ -118,8 +129,8 @@
         <div class="pillar-number reveal" data-delay="0">01</div>
         <h2 class="pillar-title reveal" data-delay="1">Data &amp; Patterns</h2>
         <div class="pillar-divider reveal" data-delay="2"></div>
-        <p class="pillar-quote reveal" data-delay="3">"Most of my models don't work. The interesting part is figuring out why."</p>
-        <p class="pillar-tags reveal" data-delay="4">ML&nbsp;&nbsp;·&nbsp;&nbsp;Mathematics&nbsp;&nbsp;·&nbsp;&nbsp;Data Science</p>
+        <p class="pillar-quote reveal" data-delay="3">"Working toward building solutions that solve problems people actually care about — one at a time."</p>
+        <p class="pillar-tags reveal" data-delay="4">ML&nbsp;&nbsp;·&nbsp;&nbsp;Gen AI&nbsp;&nbsp;·&nbsp;&nbsp;Data Science</p>
       </div>
     </div>
 
@@ -127,10 +138,10 @@
     <div class="pillar">
       <div class="pillar-inner">
         <div class="pillar-number reveal" data-delay="0">02</div>
-        <h2 class="pillar-title reveal" data-delay="1">Rhythm &amp; Constraints</h2>
+        <h2 class="pillar-title reveal" data-delay="1">Rhythm &amp; Patience</h2>
         <div class="pillar-divider reveal" data-delay="2"></div>
-        <p class="pillar-quote reveal" data-delay="3">"When a rhythm clicks, I don't want it to stop. That's how I know it worked."</p>
-        <p class="pillar-tags reveal" data-delay="4">Tabla&nbsp;&nbsp;·&nbsp;&nbsp;Taal&nbsp;&nbsp;·&nbsp;&nbsp;Listening</p>
+        <p class="pillar-quote reveal" data-delay="3">"Years of Indian classical music taught me that mastery is never linear — you repeat, you refine, you unlearn. I wish to bring that same patience to every problem I work with."</p>
+        <p class="pillar-tags reveal" data-delay="4">Music&nbsp;&nbsp;·&nbsp;&nbsp;Iteration&nbsp;&nbsp;·&nbsp;&nbsp;Listening</p>
       </div>
     </div>
 
@@ -148,54 +159,7 @@
   </section>
 
   <!-- ─────────────────────────────────────────────────────── -->
-  <!-- SECTION 3 — GALLERY                                      -->
-  <!-- ─────────────────────────────────────────────────────── -->
-  <section id="gallery">
-
-    <div class="gallery-header">
-      <h2 class="section-heading reveal" data-delay="0">Gallery</h2>
-    </div>
-
-    <!-- Full-bleed 1 -->
-    <figure class="photo-full-bleed photo-reveal">
-      <img src="images/IMG_0487.jpg" alt="Few highlights from Masai Mara." loading="lazy">
-      <figcaption class="photo-caption-wrap caption">The light lasted about four seconds.</figcaption>
-    </figure>
-
-    <!-- Pair 1 -->
-    <div class="photo-pair photo-reveal">
-      <figure class="photo-item">
-        <img src="images/IMG_0856%202.JPG" alt="Was hard to spot by , Masai Mara." loading="lazy">
-        <figcaption class="photo-caption-wrap caption">I almost walked past this.</figcaption>
-      </figure>
-      <figure class="photo-item">
-        <img src="images/IMG_1136.JPG" alt="He had been there longer than I had." loading="lazy">
-        <figcaption class="photo-caption-wrap caption">He had been there longer than I had.</figcaption>
-      </figure>
-    </div>
-
-    <!-- Full-bleed 2 -->
-    <figure class="photo-full-bleed photo-reveal">
-      <img src="images/IMG_1435.JPG" alt="Exploring Lake Naivasha." loading="lazy">
-      <figcaption class="photo-caption-wrap caption">Bloomington, on a morning I nearly stayed in.</figcaption>
-    </figure>
-
-    <!-- Pair 2 -->
-    <div class="photo-pair photo-reveal">
-      <figure class="photo-item">
-        <img src="images/IMG_1522%202.JPG" alt="Somewhere between dusk and dark." loading="lazy">
-        <figcaption class="photo-caption-wrap caption">Somewhere between dusk and dark.</figcaption>
-      </figure>
-      <figure class="photo-item">
-        <img src="images/Snapseed.jpeg" alt="A beast with feathers of Strength - Pench, India." loading="lazy">
-        <figcaption class="photo-caption-wrap caption">Still and quiet.</figcaption>
-      </figure>
-    </div>
-
-  </section>
-
-  <!-- ─────────────────────────────────────────────────────── -->
-  <!-- SECTION 4 — TOOLS                                        -->
+  <!-- SECTION 3 — TOOLS                                        -->
   <!-- ─────────────────────────────────────────────────────── -->
   <section id="tools">
     <div class="tools-inner">
@@ -208,70 +172,153 @@
         <div class="tool-category reveal" data-delay="1">
           <h3 class="tool-category-title">Languages</h3>
           <div class="tool-tags">
-            <span class="tool-tag">Python</span>
-            <span class="tool-tag">JavaScript</span>
-            <span class="tool-tag">HTML</span>
-            <span class="tool-tag">CSS</span>
-            <span class="tool-tag">Swift</span>
-            <span class="tool-tag">SQL</span>
-            <span class="tool-tag">C++</span>
-            <span class="tool-tag">Java</span>
+            <a class="tool-tag" href="https://www.python.org" target="_blank" rel="noopener noreferrer">
+              <img class="tool-icon" src="https://cdn.simpleicons.org/python" alt="" width="32" height="32" loading="lazy"><span>Python</span>
+            </a>
+            <a class="tool-tag" href="https://developer.mozilla.org/en-US/docs/Web/JavaScript" target="_blank" rel="noopener noreferrer">
+              <img class="tool-icon" src="https://cdn.simpleicons.org/javascript" alt="" width="32" height="32" loading="lazy"><span>JavaScript</span>
+            </a>
+            <a class="tool-tag" href="https://developer.mozilla.org/en-US/docs/Web/HTML" target="_blank" rel="noopener noreferrer">
+              <img class="tool-icon" src="https://cdn.simpleicons.org/html5" alt="" width="32" height="32" loading="lazy"><span>HTML</span>
+            </a>
+            <a class="tool-tag" href="https://developer.mozilla.org/en-US/docs/Web/CSS" target="_blank" rel="noopener noreferrer">
+              <img class="tool-icon" src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/css3/css3-original.svg" alt="" width="32" height="32" loading="lazy"><span>CSS</span>
+            </a>
+            <a class="tool-tag" href="https://swift.org" target="_blank" rel="noopener noreferrer">
+              <img class="tool-icon" src="https://cdn.simpleicons.org/swift" alt="" width="32" height="32" loading="lazy"><span>Swift</span>
+            </a>
+            <a class="tool-tag" href="https://www.w3schools.com/sql/" target="_blank" rel="noopener noreferrer">
+              <img class="tool-icon" src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/mysql/mysql-original.svg" alt="" width="32" height="32" loading="lazy"><span>SQL</span>
+            </a>
+            <a class="tool-tag" href="https://isocpp.org" target="_blank" rel="noopener noreferrer">
+              <img class="tool-icon" src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/cplusplus/cplusplus-original.svg" alt="" width="32" height="32" loading="lazy"><span>C++</span>
+            </a>
+            <a class="tool-tag" href="https://www.java.com" target="_blank" rel="noopener noreferrer">
+              <img class="tool-icon" src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/java/java-original.svg" alt="" width="32" height="32" loading="lazy"><span>Java</span>
+            </a>
           </div>
         </div>
 
         <div class="tool-category reveal" data-delay="2">
           <h3 class="tool-category-title">Frameworks &amp; Libraries</h3>
           <div class="tool-tags">
-            <span class="tool-tag">React 18</span>
-            <span class="tool-tag">TailwindCSS</span>
-            <span class="tool-tag">SwiftUI</span>
-            <span class="tool-tag">FastAPI</span>
-            <span class="tool-tag">REST API Design</span>
-            <span class="tool-tag">Uvicorn</span>
-            <span class="tool-tag">Pydantic v2</span>
+            <a class="tool-tag" href="https://react.dev" target="_blank" rel="noopener noreferrer">
+              <img class="tool-icon" src="https://cdn.simpleicons.org/react" alt="" width="32" height="32" loading="lazy"><span>React 18</span>
+            </a>
+            <a class="tool-tag" href="https://tailwindcss.com" target="_blank" rel="noopener noreferrer">
+              <img class="tool-icon" src="https://cdn.simpleicons.org/tailwindcss" alt="" width="32" height="32" loading="lazy"><span>TailwindCSS</span>
+            </a>
+            <a class="tool-tag" href="https://developer.apple.com/xcode/swiftui/" target="_blank" rel="noopener noreferrer">
+              <img class="tool-icon" src="https://cdn.simpleicons.org/swift" alt="" width="32" height="32" loading="lazy"><span>SwiftUI</span>
+            </a>
+            <a class="tool-tag" href="https://fastapi.tiangolo.com" target="_blank" rel="noopener noreferrer">
+              <img class="tool-icon" src="https://cdn.simpleicons.org/fastapi" alt="" width="32" height="32" loading="lazy"><span>FastAPI</span>
+            </a>
+            <a class="tool-tag" href="https://www.uvicorn.org" target="_blank" rel="noopener noreferrer">
+              <svg class="tool-icon" width="32" height="32" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M2 4.5L6.5 8L2 11.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><line x1="8.5" y1="11" x2="14" y2="11" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg><span>Uvicorn</span>
+            </a>
+            <a class="tool-tag" href="https://docs.pydantic.dev" target="_blank" rel="noopener noreferrer">
+              <img class="tool-icon" src="https://cdn.simpleicons.org/pydantic" alt="" width="32" height="32" loading="lazy"><span>Pydantic v2</span>
+            </a>
           </div>
         </div>
 
         <div class="tool-category reveal" data-delay="3">
           <h3 class="tool-category-title">AI &amp; Machine Learning</h3>
           <div class="tool-tags">
-            <span class="tool-tag">Groq API</span>
-            <span class="tool-tag">LangChain</span>
-            <span class="tool-tag">RAG</span>
-            <span class="tool-tag">LLM Integration</span>
-            <span class="tool-tag">Sentence Transformers</span>
-            <span class="tool-tag">Cross-Encoder Reranking</span>
-            <span class="tool-tag">Scikit-learn</span>
-            <span class="tool-tag">Pandas</span>
-            <span class="tool-tag">Seaborn</span>
-            <span class="tool-tag">Data Analysis &amp; EDA</span>
-            <span class="tool-tag">Classification &amp; Regression</span>
+            <a class="tool-tag" href="https://groq.com" target="_blank" rel="noopener noreferrer">
+              <svg class="tool-icon" width="32" height="32" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M9.5 1.5L5 8h4.5L6.5 14.5l7-8H9L9.5 1.5z" stroke="currentColor" stroke-width="1.3" fill="none" stroke-linejoin="round" stroke-linecap="round"/></svg><span>Groq API</span>
+            </a>
+            <a class="tool-tag" href="https://www.langchain.com" target="_blank" rel="noopener noreferrer">
+              <img class="tool-icon" src="https://cdn.simpleicons.org/langchain" alt="" width="32" height="32" loading="lazy"><span>LangChain</span>
+            </a>
+            <a class="tool-tag" href="https://python.langchain.com/docs/concepts/rag/" target="_blank" rel="noopener noreferrer">
+              <svg class="tool-icon" width="32" height="32" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M2 2h6l2 2v8H2z" stroke="currentColor" stroke-width="1.2" fill="none" stroke-linejoin="round"/><path d="M8 2v2h2" stroke="currentColor" stroke-width="1.2" fill="none"/><line x1="3.5" y1="7" x2="7" y2="7" stroke="currentColor" stroke-width="1" stroke-linecap="round"/><line x1="3.5" y1="9" x2="6" y2="9" stroke="currentColor" stroke-width="1" stroke-linecap="round"/><circle cx="12" cy="10.5" r="2.5" stroke="currentColor" stroke-width="1.2" fill="none"/><line x1="13.8" y1="12.3" x2="15.2" y2="13.7" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg><span>RAG</span>
+            </a>
+            <a class="tool-tag" href="https://sbert.net" target="_blank" rel="noopener noreferrer">
+              <img class="tool-icon" src="https://cdn.simpleicons.org/huggingface" alt="" width="32" height="32" loading="lazy"><span>Sentence Transformers</span>
+            </a>
+            <a class="tool-tag" href="https://sbert.net/examples/applications/cross-encoder/README.html" target="_blank" rel="noopener noreferrer">
+              <svg class="tool-icon" width="32" height="32" viewBox="0 0 16 16" fill="none" aria-hidden="true"><rect x="1" y="2" width="13" height="2.5" rx="0.5" stroke="currentColor" stroke-width="1.2"/><rect x="1" y="6.5" width="9" height="2.5" rx="0.5" stroke="currentColor" stroke-width="1.2"/><rect x="1" y="11" width="5.5" height="2.5" rx="0.5" stroke="currentColor" stroke-width="1.2"/></svg><span>Cross-Encoder Reranking</span>
+            </a>
+            <a class="tool-tag" href="https://scikit-learn.org" target="_blank" rel="noopener noreferrer">
+              <img class="tool-icon" src="https://cdn.simpleicons.org/scikitlearn" alt="" width="32" height="32" loading="lazy"><span>Scikit-learn</span>
+            </a>
+            <a class="tool-tag" href="https://pandas.pydata.org" target="_blank" rel="noopener noreferrer">
+              <img class="tool-icon" src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/pandas/pandas-original.svg" alt="" width="32" height="32" loading="lazy"><span>Pandas</span>
+            </a>
+            <a class="tool-tag" href="https://numpy.org" target="_blank" rel="noopener noreferrer">
+              <img class="tool-icon" src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/numpy/numpy-original.svg" alt="" width="32" height="32" loading="lazy"><span>NumPy</span>
+            </a>
+            <a class="tool-tag" href="https://seaborn.pydata.org" target="_blank" rel="noopener noreferrer">
+              <svg class="tool-icon" width="32" height="32" viewBox="0 0 16 16" fill="none" aria-hidden="true"><line x1="2" y1="14" x2="2" y2="2" stroke="currentColor" stroke-width="1.1" stroke-linecap="round"/><line x1="2" y1="14" x2="14" y2="14" stroke="currentColor" stroke-width="1.1" stroke-linecap="round"/><line x1="3" y1="12" x2="13" y2="4" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-dasharray="2 1.5"/><circle cx="4" cy="11" r="1.2" fill="currentColor"/><circle cx="7" cy="9" r="1.2" fill="currentColor"/><circle cx="10" cy="6.5" r="1.2" fill="currentColor"/><circle cx="12.5" cy="5" r="1.2" fill="currentColor"/></svg><span>Seaborn</span>
+            </a>
+            <a class="tool-tag" href="https://www.tensorflow.org" target="_blank" rel="noopener noreferrer">
+              <img class="tool-icon" src="https://cdn.simpleicons.org/tensorflow" alt="" width="32" height="32" loading="lazy"><span>TensorFlow</span>
+            </a>
+            <a class="tool-tag" href="https://pytorch.org" target="_blank" rel="noopener noreferrer">
+              <img class="tool-icon" src="https://cdn.simpleicons.org/pytorch" alt="" width="32" height="32" loading="lazy"><span>PyTorch</span>
+            </a>
+            <a class="tool-tag" href="https://huggingface.co" target="_blank" rel="noopener noreferrer">
+              <img class="tool-icon" src="https://cdn.simpleicons.org/huggingface" alt="" width="32" height="32" loading="lazy"><span>HuggingFace</span>
+            </a>
           </div>
         </div>
 
         <div class="tool-category reveal" data-delay="4">
           <h3 class="tool-category-title">Databases</h3>
           <div class="tool-tags">
-            <span class="tool-tag">PostgreSQL</span>
-            <span class="tool-tag">pgvector</span>
-            <span class="tool-tag">Supabase</span>
-            <span class="tool-tag">MongoDB</span>
-            <span class="tool-tag">Neo4j</span>
+            <a class="tool-tag" href="https://www.postgresql.org" target="_blank" rel="noopener noreferrer">
+              <img class="tool-icon" src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/postgresql/postgresql-original.svg" alt="" width="32" height="32" loading="lazy"><span>PostgreSQL</span>
+            </a>
+            <a class="tool-tag" href="https://github.com/pgvector/pgvector" target="_blank" rel="noopener noreferrer">
+              <img class="tool-icon" src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/postgresql/postgresql-original.svg" alt="" width="32" height="32" loading="lazy"><span>pgvector</span>
+            </a>
+            <a class="tool-tag" href="https://supabase.com" target="_blank" rel="noopener noreferrer">
+              <img class="tool-icon" src="https://cdn.simpleicons.org/supabase" alt="" width="32" height="32" loading="lazy"><span>Supabase</span>
+            </a>
+            <a class="tool-tag" href="https://www.mongodb.com" target="_blank" rel="noopener noreferrer">
+              <img class="tool-icon" src="https://cdn.simpleicons.org/mongodb" alt="" width="32" height="32" loading="lazy"><span>MongoDB</span>
+            </a>
+            <a class="tool-tag" href="https://neo4j.com" target="_blank" rel="noopener noreferrer">
+              <img class="tool-icon" src="https://cdn.simpleicons.org/neo4j" alt="" width="32" height="32" loading="lazy"><span>Neo4j</span>
+            </a>
           </div>
         </div>
 
         <div class="tool-category reveal" data-delay="5">
           <h3 class="tool-category-title">DevOps &amp; Tools</h3>
           <div class="tool-tags">
-            <span class="tool-tag">Docker</span>
-            <span class="tool-tag">Git &amp; GitHub</span>
-            <span class="tool-tag">Jupyter Notebooks</span>
-            <span class="tool-tag">Vercel</span>
-            <span class="tool-tag">Render</span>
-            <span class="tool-tag">Streamlit</span>
-            <span class="tool-tag">PyMuPDF</span>
-            <span class="tool-tag">Power BI</span>
-            <span class="tool-tag">Gephi</span>
+            <a class="tool-tag" href="https://www.docker.com" target="_blank" rel="noopener noreferrer">
+              <img class="tool-icon" src="https://cdn.simpleicons.org/docker" alt="" width="32" height="32" loading="lazy"><span>Docker</span>
+            </a>
+            <a class="tool-tag" href="https://github.com" target="_blank" rel="noopener noreferrer">
+              <img class="tool-icon" src="https://cdn.simpleicons.org/github" alt="" width="32" height="32" loading="lazy"><span>Git &amp; GitHub</span>
+            </a>
+            <a class="tool-tag" href="https://jupyter.org" target="_blank" rel="noopener noreferrer">
+              <img class="tool-icon" src="https://cdn.simpleicons.org/jupyter" alt="" width="32" height="32" loading="lazy"><span>Jupyter Notebooks</span>
+            </a>
+            <a class="tool-tag" href="https://vercel.com" target="_blank" rel="noopener noreferrer">
+              <img class="tool-icon" src="https://cdn.simpleicons.org/vercel" alt="" width="32" height="32" loading="lazy"><span>Vercel</span>
+            </a>
+            <a class="tool-tag" href="https://render.com" target="_blank" rel="noopener noreferrer">
+              <img class="tool-icon" src="https://cdn.simpleicons.org/render" alt="" width="32" height="32" loading="lazy"><span>Render</span>
+            </a>
+            <a class="tool-tag" href="https://streamlit.io" target="_blank" rel="noopener noreferrer">
+              <img class="tool-icon" src="https://cdn.simpleicons.org/streamlit" alt="" width="32" height="32" loading="lazy"><span>Streamlit</span>
+            </a>
+            <a class="tool-tag" href="https://pymupdf.readthedocs.io" target="_blank" rel="noopener noreferrer">
+              <svg class="tool-icon" width="32" height="32" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 1.5h7l3 3v10H3z" stroke="currentColor" stroke-width="1.2" fill="none" stroke-linejoin="round"/><path d="M10 1.5v3h3" stroke="currentColor" stroke-width="1.2" fill="none"/><line x1="5" y1="8" x2="11" y2="8" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/><line x1="5" y1="10.5" x2="11" y2="10.5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/><line x1="5" y1="13" x2="8" y2="13" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg><span>PyMuPDF</span>
+            </a>
+            <a class="tool-tag" href="https://www.microsoft.com/en-us/power-platform/products/power-bi" target="_blank" rel="noopener noreferrer">
+              <svg class="tool-icon" width="32" height="32" viewBox="0 0 16 16" fill="none" aria-hidden="true"><rect x="2" y="9" width="3" height="5" rx="0.5" stroke="currentColor" stroke-width="1.2"/><rect x="6.5" y="5" width="3" height="9" rx="0.5" stroke="currentColor" stroke-width="1.2"/><rect x="11" y="1.5" width="3" height="12.5" rx="0.5" stroke="currentColor" stroke-width="1.2"/><line x1="1" y1="14.5" x2="15" y2="14.5" stroke="currentColor" stroke-width="1" stroke-linecap="round"/></svg><span>Power BI</span>
+            </a>
+            <a class="tool-tag" href="https://gephi.org" target="_blank" rel="noopener noreferrer">
+              <svg class="tool-icon" width="32" height="32" viewBox="0 0 16 16" fill="none" aria-hidden="true"><circle cx="8" cy="8" r="1.8" stroke="currentColor" stroke-width="1.2"/><circle cx="3" cy="3.5" r="1.3" stroke="currentColor" stroke-width="1.2"/><circle cx="13" cy="3.5" r="1.3" stroke="currentColor" stroke-width="1.2"/><circle cx="3" cy="12.5" r="1.3" stroke="currentColor" stroke-width="1.2"/><circle cx="13" cy="12.5" r="1.3" stroke="currentColor" stroke-width="1.2"/><line x1="6.7" y1="6.8" x2="4.2" y2="4.7" stroke="currentColor" stroke-width="1"/><line x1="9.3" y1="6.8" x2="11.8" y2="4.7" stroke="currentColor" stroke-width="1"/><line x1="6.7" y1="9.2" x2="4.2" y2="11.3" stroke="currentColor" stroke-width="1"/><line x1="9.3" y1="9.2" x2="11.8" y2="11.3" stroke="currentColor" stroke-width="1"/></svg><span>Gephi</span>
+            </a>
+            <a class="tool-tag" href="https://www.tableau.com" target="_blank" rel="noopener noreferrer">
+              <svg class="tool-icon" width="32" height="32" viewBox="0 0 16 16" fill="none" aria-hidden="true"><rect x="2" y="2" width="5" height="5" rx="0.5" stroke="currentColor" stroke-width="1.2"/><rect x="9" y="2" width="5" height="5" rx="0.5" stroke="currentColor" stroke-width="1.2"/><rect x="2" y="9" width="5" height="5" rx="0.5" stroke="currentColor" stroke-width="1.2"/><rect x="9" y="9" width="5" height="5" rx="0.5" stroke="currentColor" stroke-width="1.2"/></svg><span>Tableau</span>
+            </a>
           </div>
         </div>
 
@@ -293,7 +340,12 @@
       <article class="project-card reveal-card">
         <div class="project-header">
           <h3 class="project-title">MoodFlow</h3>
-          <span class="project-tag">hackathon</span>
+          <div class="project-header-right">
+            <span class="project-tag">hackathon</span>
+            <a class="project-github-link" href="https://github.com/jumandas/Moodflow" target="_blank" rel="noopener noreferrer" aria-label="MoodFlow on GitHub">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2C6.477 2 2 6.477 2 12c0 4.418 2.865 8.166 6.839 9.489.5.092.682-.217.682-.482 0-.237-.009-.868-.013-1.703-2.782.604-3.369-1.342-3.369-1.342-.454-1.154-1.11-1.462-1.11-1.462-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.578 9.578 0 0 1 12 6.836a9.59 9.59 0 0 1 2.504.337c1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.202 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.741 0 .267.18.578.688.48C19.138 20.163 22 16.418 22 12c0-5.523-4.477-10-10-10z"/></svg>
+            </a>
+          </div>
         </div>
         <p class="project-desc">An iOS app that builds AI-generated music journeys based on how you're feeling — emotionally and physiologically — and plays them live through Spotify. You pick your mood, enter biometrics, choose where you want to end up, and the AI builds a four-stage path to get you there. Built at an AI hackathon at IU Bloomington, team of four.</p>
 
@@ -310,7 +362,12 @@
       <article class="project-card reveal-card">
         <div class="project-header">
           <h3 class="project-title">AeroOps Copilot</h3>
-          <span class="project-tag">in progress</span>
+          <div class="project-header-right">
+            <span class="project-tag">in progress</span>
+            <a class="project-github-link" href="https://github.com/Ayushkapil/aeroops-copilot" target="_blank" rel="noopener noreferrer" aria-label="AeroOps Copilot on GitHub">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2C6.477 2 2 6.477 2 12c0 4.418 2.865 8.166 6.839 9.489.5.092.682-.217.682-.482 0-.237-.009-.868-.013-1.703-2.782.604-3.369-1.342-3.369-1.342-.454-1.154-1.11-1.462-1.11-1.462-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.578 9.578 0 0 1 12 6.836a9.59 9.59 0 0 1 2.504.337c1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.202 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.741 0 .267.18.578.688.48C19.138 20.163 22 16.418 22 12c0-5.523-4.477-10-10-10z"/></svg>
+            </a>
+          </div>
         </div>
         <p class="project-desc">A modular AI system for aviation safety. Three modules — SOP retrieval via RAG with cross-encoder reranking, structured incident analysis from PDF reports, and fatigue risk scoring from pilot schedules — connected through an LLM-based intent router that chains them automatically.</p>
 
@@ -333,7 +390,7 @@
     <div class="notes-inner">
 
       <div class="notes-header">
-        <h2 class="section-heading reveal" data-delay="0">Notes</h2>
+        <h2 class="section-heading reveal" data-delay="0">Blogs</h2>
       </div>
 
       <div class="notes-list">
@@ -367,7 +424,93 @@
   </section>
 
   <!-- ─────────────────────────────────────────────────────── -->
-  <!-- SECTION 7 — CONTACT                                      -->
+  <!-- SECTION 7 — RESUME                                       -->
+  <!-- ─────────────────────────────────────────────────────── -->
+  <section id="resume">
+
+    <div class="resume-inner">
+      <h2 class="section-heading reveal" data-delay="0">Resume</h2>
+
+      <div class="resume-actions reveal" data-delay="1">
+        <a class="resume-download-btn" href="resume/resume.pdf" download>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+            <polyline points="7 10 12 15 17 10"/>
+            <line x1="12" y1="15" x2="12" y2="3"/>
+          </svg>
+          Download PDF
+        </a>
+      </div>
+
+      <div class="resume-embed-wrap reveal" data-delay="2">
+        <iframe
+          class="resume-frame"
+          src="resume/resume.pdf"
+          title="Ayush Kapileshwar — Resume"
+          loading="lazy">
+          <p class="resume-fallback">
+            Your browser can't display PDFs inline.
+            <a href="resume/resume.pdf" download>Download the resume instead.</a>
+          </p>
+        </iframe>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- ─────────────────────────────────────────────────────── -->
+  <!-- SECTION — GALLERY                                        -->
+  <!-- ─────────────────────────────────────────────────────── -->
+  <section id="gallery">
+
+    <div class="gallery-header">
+      <h2 class="section-heading reveal" data-delay="0">Gallery</h2>
+      <p class="gallery-subline reveal" data-delay="1">One of my hobbies being photography, would like to show some of my memories.</p>
+    </div>
+
+    <div class="gallery-carousel-wrap">
+      <div class="gallery-track" id="galleryTrack">
+
+        <figure class="gallery-slide">
+          <img src="images/IMG_01.jpg" alt="" loading="lazy">
+        </figure>
+
+        <figure class="gallery-slide">
+          <img src="images/IMG_02.jpg" alt="" loading="lazy">
+        </figure>
+
+        <figure class="gallery-slide">
+          <img src="images/IMG_03.jpg" alt="" loading="lazy">
+        </figure>
+
+        <figure class="gallery-slide">
+          <img src="images/IMG_04.jpg" alt="" loading="lazy">
+        </figure>
+
+        <figure class="gallery-slide">
+          <img src="images/IMG_05.jpg" alt="" loading="lazy">
+        </figure>
+
+      </div>
+
+      <!-- Nav arrows -->
+      <button class="gallery-arrow gallery-arrow--prev" aria-label="Previous photo" id="galleryPrev">&#8592;</button>
+      <button class="gallery-arrow gallery-arrow--next" aria-label="Next photo" id="galleryNext">&#8594;</button>
+    </div>
+
+    <!-- Dot indicators -->
+    <div class="gallery-dots" id="galleryDots">
+      <span class="gallery-dot active"></span>
+      <span class="gallery-dot"></span>
+      <span class="gallery-dot"></span>
+      <span class="gallery-dot"></span>
+      <span class="gallery-dot"></span>
+    </div>
+
+  </section>
+
+  <!-- ─────────────────────────────────────────────────────── -->
+  <!-- SECTION — CONTACT                                        -->
   <!-- ─────────────────────────────────────────────────────── -->
   <section id="contact">
 
@@ -378,7 +521,7 @@
     <div class="contact-links reveal" data-delay="1">
       <a class="contact-email" href="mailto:ayushkapileshwar@gmail.com">ayushkapileshwar@gmail.com</a>
       <span class="contact-divider-text">·</span>
-      <a class="contact-link" href="https://www.linkedin.com/in/ayushkapil" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+      <a class="contact-link" href="https://www.linkedin.com/in/ayush-kapileshwar-30609515b/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
       <span class="contact-divider-text">·</span>
       <a class="contact-link" href="https://github.com/Ayushkapil" target="_blank" rel="noopener noreferrer">GitHub</a>
     </div>
@@ -392,6 +535,134 @@
     </footer>
 
   </section>
+
+  <!-- Gallery carousel — infinite loop -->
+  <script>
+    (function () {
+      var track   = document.getElementById('galleryTrack');
+      var dotsEl  = document.querySelectorAll('.gallery-dot');
+      var prevBtn = document.getElementById('galleryPrev');
+      var nextBtn = document.getElementById('galleryNext');
+      if (!track) return;
+
+      var realSlides = Array.from(track.querySelectorAll('.gallery-slide'));
+      var N = realSlides.length;
+
+      /* Clone first and last slide to both ends for seamless wrap */
+      realSlides.forEach(function (s) {
+        var clone = s.cloneNode(true);
+        clone.setAttribute('aria-hidden', 'true');
+        clone.classList.add('gallery-clone');
+        track.appendChild(clone);
+      });
+      realSlides.slice().reverse().forEach(function (s) {
+        var clone = s.cloneNode(true);
+        clone.setAttribute('aria-hidden', 'true');
+        clone.classList.add('gallery-clone');
+        track.insertBefore(clone, track.firstChild);
+      });
+
+      /* Start at the first real slide (index N after N clones prepended) */
+      var current = N; /* index among ALL slides including clones */
+
+      function slideWidth() {
+        return track.querySelector('.gallery-slide').offsetWidth;
+      }
+
+      function jumpTo(idx, animated) {
+        track.style.transition = animated ? 'transform 0.45s cubic-bezier(0.25, 0.46, 0.45, 0.94)' : 'none';
+        track.style.transform  = 'translateX(-' + (idx * slideWidth()) + 'px)';
+        current = idx;
+        updateDots();
+      }
+
+      /* Use transform instead of scroll so we can teleport silently */
+      track.style.willChange = 'transform';
+      jumpTo(N, false);
+
+      function updateDots() {
+        var real = ((current - N) % N + N) % N;
+        dotsEl.forEach(function (d, i) {
+          d.classList.toggle('active', i === real);
+        });
+      }
+
+      function go(dir) {
+        jumpTo(current + dir, true);
+      }
+
+      /* After transition ends, silently teleport if we're on a clone */
+      track.addEventListener('transitionend', function () {
+        var allSlides = track.querySelectorAll('.gallery-slide');
+        var total = allSlides.length; /* N real + N clones each side = 3N */
+        if (current < N) {
+          jumpTo(current + N, false);
+        } else if (current >= 2 * N) {
+          jumpTo(current - N, false);
+        }
+      });
+
+      prevBtn && prevBtn.addEventListener('click', function () { go(-1); });
+      nextBtn && nextBtn.addEventListener('click', function () { go(1); });
+
+      /* Dot clicks */
+      dotsEl.forEach(function (d, i) {
+        d.addEventListener('click', function () { jumpTo(N + i, true); });
+      });
+
+      /* Keyboard */
+      document.addEventListener('keydown', function (e) {
+        if (e.key === 'ArrowLeft')  go(-1);
+        if (e.key === 'ArrowRight') go(1);
+      });
+
+      /* Touch/swipe */
+      var touchStartX = 0;
+      track.parentElement.addEventListener('touchstart', function (e) {
+        touchStartX = e.touches[0].clientX;
+      }, { passive: true });
+      track.parentElement.addEventListener('touchend', function (e) {
+        var dx = touchStartX - e.changedTouches[0].clientX;
+        if (Math.abs(dx) > 40) go(dx > 0 ? 1 : -1);
+      }, { passive: true });
+
+      /* Resize: recalculate position without animation */
+      window.addEventListener('resize', function () { jumpTo(current, false); });
+    })();
+  </script>
+
+  <!-- Mobile nav hamburger -->
+  <script>
+    (function () {
+      var btn    = document.getElementById('navHamburger');
+      var drawer = document.getElementById('mobileNavDrawer');
+      if (!btn || !drawer) return;
+
+      function close() {
+        btn.classList.remove('open');
+        drawer.classList.remove('open');
+        btn.setAttribute('aria-expanded', 'false');
+        drawer.setAttribute('aria-hidden', 'true');
+      }
+
+      btn.addEventListener('click', function () {
+        var isOpen = drawer.classList.toggle('open');
+        btn.classList.toggle('open', isOpen);
+        btn.setAttribute('aria-expanded', String(isOpen));
+        drawer.setAttribute('aria-hidden', String(!isOpen));
+      });
+
+      /* Close on link tap */
+      drawer.querySelectorAll('.mobile-nav-link').forEach(function (a) {
+        a.addEventListener('click', close);
+      });
+
+      /* Close on outside tap */
+      document.addEventListener('click', function (e) {
+        if (!btn.contains(e.target) && !drawer.contains(e.target)) close();
+      });
+    })();
+  </script>
 
   <!-- JavaScript — deferred -->
   <script src="js/theme.js" defer></script>

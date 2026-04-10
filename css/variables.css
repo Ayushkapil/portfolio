@@ -20,17 +20,17 @@ html.light {
 
 /* Dark Mode */
 html.dark {
-  --color-bg: #1F1F1F;
-  --color-text: #F5F5F5;
-  --color-purple: #8B5CF6;
+  --color-bg: #141616;
+  --color-text: #E8E4DC;
+  --color-purple: #A78BFA;
   --color-accent: #FACC15;
   --color-teal: #2DD4BF;
   --color-rose: #FB7185;
   --color-sky: #38BDF8;
-  --color-border: #2E2E2E;
-  --color-bg-nav: rgba(31, 31, 31, 0.85);
-  --color-bg-raw: 31, 31, 31;
-  --color-text-raw: 245, 245, 245;
+  --color-border: #252727;
+  --color-bg-nav: rgba(20, 22, 22, 0.85);
+  --color-bg-raw: 20, 22, 22;
+  --color-text-raw: 232, 228, 220;
 }
 
 /* Typography tokens */

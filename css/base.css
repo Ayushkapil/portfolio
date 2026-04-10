@@ -9,6 +9,22 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+/* Dark mode: reinforce smoothing + stabilise thin display strokes */
+html.dark body {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+html.dark .section-heading,
+html.dark .landing-name,
+html.dark .pillar-title,
+html.dark .reading-title,
+html.dark .contact-quote {
+  font-weight: 400;
+  letter-spacing: 0.01em;
+}
+
 body {
   font-family: var(--font-body);
   font-size: 18px;
