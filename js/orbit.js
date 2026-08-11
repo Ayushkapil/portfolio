@@ -76,6 +76,16 @@
     bgCanvas.style.pointerEvents = opacity > 0 ? 'auto' : 'none';
   });
 
+  /* theme.js calls this after a theme switch. Without it the particles kept
+     the palette they were spawned with, so the light colours stayed on screen
+     after switching to dark. */
+  window.orbitUpdateTheme = function () {
+    const palette = COLORS[getTheme()];
+    dustParticles.forEach(function (d) {
+      d.color = palette[Math.floor(Math.random() * palette.length)];
+    });
+  };
+
   let resizeTimer = null;
   window.addEventListener('resize', function () {
     clearTimeout(resizeTimer);

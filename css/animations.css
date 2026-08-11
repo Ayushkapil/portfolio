@@ -30,6 +30,7 @@
 .reveal[data-delay="2"]   { transition-delay: 0.30s; }
 .reveal[data-delay="3"]   { transition-delay: 0.45s; }
 .reveal[data-delay="4"]   { transition-delay: 0.60s; }
+.reveal[data-delay="5"]   { transition-delay: 0.75s; }
 
 /* Project card reveals */
 .reveal-card {
@@ -43,46 +44,34 @@
   transform: translateY(0);
 }
 
-/* ── Pillar divider expansion ── */
-.pillar-divider {
-  transition: width 0.6s ease;
-}
-
 /* ── Note hover: title slides right ── */
-.note-entry:hover .note-title {
+.note-entry:hover .note-title,
+.note-entry:focus-visible .note-title {
   transform: translateX(4px);
 }
 
-/* ── Project card hover: left border ── */
-.project-card {
-  transition: border-color var(--transition-fast);
+/* ── Project card hover: left border ──
+   The transition itself lives in layout.css alongside the rest of the card's
+   properties; redeclaring it here used to replace that shorthand and drop the
+   card's background and shadow transitions. */
+.project-card:nth-of-type(1):hover,
+.project-card:nth-of-type(1):focus-within {
+  border-left-color: var(--color-rose);
 }
 
-.project-card:hover {
-  border-left-color: var(--color-purple);
-}
-
-.project-card:nth-of-type(1):hover {
-  border-left-color: var(--color-purple);
-}
-
-.project-card:nth-of-type(2):hover {
+.project-card:nth-of-type(2):hover,
+.project-card:nth-of-type(2):focus-within {
   border-left-color: var(--color-teal);
 }
 
-/* ── Theme transition on body ── */
-body {
-  transition: background-color 0.4s ease, color 0.4s ease;
+.project-card:nth-of-type(3):hover,
+.project-card:nth-of-type(3):focus-within {
+  border-left-color: var(--color-purple);
 }
 
 /* ── Canvas fade on scroll ── */
 #orbit-canvas {
   transition: opacity 0.3s ease;
-}
-
-/* ── Sticky nav fade in ── */
-#sticky-nav {
-  transition: opacity 0.4s ease;
 }
 
 /* ── Photo fade in ── */

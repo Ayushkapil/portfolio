@@ -5,6 +5,16 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Ayush Kapileshwar</title>
   <meta name="description" content="Ayush Kapileshwar — Data science student, tabla player, occasional photographer." />
+  <meta name="theme-color" content="#F5F2EB" media="(prefers-color-scheme: light)" />
+  <meta name="theme-color" content="#141616" media="(prefers-color-scheme: dark)" />
+
+  <!-- Social preview -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Ayush Kapileshwar" />
+  <meta property="og:description" content="Data science student, tabla player, occasional photographer." />
+
+  <!-- Inline favicon — avoids a 404 round-trip for a file that doesn't exist -->
+  <link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2032%2032'%3E%3Ctext%20y='25'%20x='5'%20font-size='26'%20font-family='Georgia,serif'%3EA%3C/text%3E%3C/svg%3E" />
 
   <!-- Preload key fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -36,16 +46,17 @@
   <!-- Orbit Canvas -->
   <canvas id="orbit-canvas" aria-hidden="true"></canvas>
 
-  <!-- Pre-scroll clock (visible before nav appears) -->
-  <span id="clock-fixed" class="clock-fixed" aria-live="polite">00:00:00</span>
+  <!-- Pre-scroll clock (visible before nav appears).
+       aria-hidden: it ticks every second and would otherwise be announced every second. -->
+  <span id="clock-fixed" class="clock-fixed" aria-hidden="true">00:00:00</span>
 
   <!-- Theme Toggle (fixed, top-right) -->
-  <button class="theme-toggle" aria-label="Toggle dark mode">☾</button>
+  <button class="theme-toggle" type="button" aria-label="Toggle dark mode">☾</button>
 
   <!-- ─────────────────────────────────────────────────────── -->
   <!-- STICKY NAVIGATION                                        -->
   <!-- ─────────────────────────────────────────────────────── -->
-  <nav id="sticky-nav" role="navigation" aria-label="Site navigation">
+  <nav id="sticky-nav" aria-label="Site navigation">
     <a href="#landing" class="nav-name" aria-label="Home">
       <svg class="nav-home-icon" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
         <path d="M3 9.5L12 3l9 6.5V20a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V9.5z"/>
@@ -63,17 +74,17 @@
       <a href="#contact" data-section="contact">Contact</a>
     </div>
     <div class="nav-right">
-      <span id="clock-nav" class="clock-nav">00:00:00</span>
-      <button class="nav-theme-toggle" aria-label="Toggle dark mode">☾</button>
+      <span id="clock-nav" class="clock-nav" aria-hidden="true">00:00:00</span>
+      <button class="nav-theme-toggle" type="button" aria-label="Toggle dark mode">☾</button>
       <!-- Hamburger — mobile only -->
-      <button class="nav-hamburger" id="navHamburger" aria-label="Open menu" aria-expanded="false">
+      <button class="nav-hamburger" type="button" id="navHamburger" aria-label="Open menu" aria-expanded="false" aria-controls="mobileNavDrawer">
         <span></span><span></span><span></span>
       </button>
     </div>
   </nav>
 
   <!-- Mobile nav drawer -->
-  <div class="mobile-nav-drawer" id="mobileNavDrawer" aria-hidden="true">
+  <nav class="mobile-nav-drawer" id="mobileNavDrawer" aria-label="Site navigation">
     <a href="#about" class="mobile-nav-link">About Me</a>
     <a href="#drives" class="mobile-nav-link">What Drives Me</a>
     <a href="#tools" class="mobile-nav-link">Tools</a>
@@ -82,19 +93,21 @@
     <a href="#resume" class="mobile-nav-link">Resume</a>
     <a href="#gallery" class="mobile-nav-link">Gallery</a>
     <a href="#contact" class="mobile-nav-link">Contact</a>
-  </div>
+  </nav>
+
+  <main id="content">
 
   <!-- ─────────────────────────────────────────────────────── -->
   <!-- SECTION 0 — LANDING                                      -->
   <!-- ─────────────────────────────────────────────────────── -->
-  <section id="landing">
+  <section id="landing" aria-label="Introduction">
     <div class="landing-content">
       <p class="landing-greeting">Hey there!</p>
       <h1 class="landing-name">I'm Ayush Kapileshwar</h1>
       <div class="landing-tagline">
-        <p> I love working at the intersection of machine learning, thoughtful ideas, and human curiosity.</p>
-        <p>grounded by my love for Indian classical music and the art of visual storytelling.</p>
-        <p>Aspiring to build AI systems that are not just powerful, but meaningful.</p>
+        <p>I work on machine learning — mostly language models.</p>
+        <p>Away from that: tabla, and a camera I don't use enough.</p>
+        <p>Trying to build things that hold up, not things that sound good.</p>
       </div>
     </div>
     <a href="#about" class="scroll-indicator" aria-label="Scroll to content">↓</a>
@@ -103,15 +116,15 @@
   <!-- ─────────────────────────────────────────────────────── -->
   <!-- SECTION 1 — ABOUT                                        -->
   <!-- ─────────────────────────────────────────────────────── -->
-  <section id="about">
+  <section id="about" aria-labelledby="about-heading">
     <div class="content-col">
-      <div class="section-label section-number reveal" data-delay="0">About Me</div>
+      <h2 id="about-heading" class="section-label section-number reveal" data-delay="0">About Me</h2>
       <div class="about-text">
-        <p class="reveal" data-delay="1">I'm a first-year MS in Data Science student at Indiana University Bloomington, focused on ML/AI research and Large Language Models</p>
+        <p class="reveal" data-delay="1">I'm a first-year MS in Data Science student at Indiana University Bloomington, focused on ML/AI research and large language models.</p>
 
-        <p class="reveal" data-delay="1">I care about building things that are meaningful in proportion to how much thought went into them.Not on how impressive they sound in a sentence, or as an idea. My approach is pretty much simple; learn it, build with it, find where it breaks, unlearn what was wrong, and start again. Recently I helped build an app that generates music journeys based on emotion and the user's biometrics. Not as some deliberate convergence of my interests, just the problem I wanted to solve happening to live exactly at that intersection. That keeps happening, which tells me I'm probably looking in the right direction.</p>
+        <p class="reveal" data-delay="1">I care about building things that are meaningful in proportion to how much thought went into them — not how impressive they sound in a sentence, or as an idea. The approach is simple: learn it, build with it, find where it breaks, unlearn what was wrong, start again. Recently I helped build an app that generates music journeys based on emotion and the user's biometrics. Not as some deliberate convergence of my interests, just the problem I wanted to solve happening to live exactly at that intersection. That keeps happening, which tells me I'm probably looking in the right direction.</p>
 
-        <p class="reveal" data-delay="1">The rest of my time goes into music, cooking, and writing.Three things that, like most things I care about, reward patience more than speed.</p>
+        <p class="reveal" data-delay="1">The rest of my time goes into music, cooking, and writing. Three things that, like most things I care about, reward patience more than speed.</p>
 
         <p class="reveal currently-line" data-delay="1"><span class="currently-label">Currently:</span> building AeroOps Copilot · listening to Pt. Shivkumar Sharma, Rahul Sharma &amp; Ut. Zakir Hussain in Raag Hansadhwani · cooking too much pasta</p>
       </div>
@@ -121,7 +134,7 @@
   <!-- ─────────────────────────────────────────────────────── -->
   <!-- SECTION 2 — WHAT DRIVES ME                               -->
   <!-- ─────────────────────────────────────────────────────── -->
-  <section id="drives">
+  <section id="drives" aria-label="What drives me">
 
     <!-- Pillar 01 -->
     <div class="pillar">
@@ -129,7 +142,7 @@
         <div class="pillar-number reveal" data-delay="0">01</div>
         <h2 class="pillar-title reveal" data-delay="1">Data &amp; Patterns</h2>
         <div class="pillar-divider reveal" data-delay="2"></div>
-        <p class="pillar-quote reveal" data-delay="3">"Working toward building solutions that solve problems people actually care about — one at a time."</p>
+        <p class="pillar-quote reveal" data-delay="3">"I'd rather solve one problem someone actually has than five that only sound interesting."</p>
         <p class="pillar-tags reveal" data-delay="4">ML&nbsp;&nbsp;·&nbsp;&nbsp;Gen AI&nbsp;&nbsp;·&nbsp;&nbsp;Data Science</p>
       </div>
     </div>
@@ -140,7 +153,7 @@
         <div class="pillar-number reveal" data-delay="0">02</div>
         <h2 class="pillar-title reveal" data-delay="1">Rhythm &amp; Patience</h2>
         <div class="pillar-divider reveal" data-delay="2"></div>
-        <p class="pillar-quote reveal" data-delay="3">"Years of Indian classical music taught me that mastery is never linear — you repeat, you refine, you unlearn. I wish to bring that same patience to every problem I work with."</p>
+        <p class="pillar-quote reveal" data-delay="3">"Indian classical music taught me that getting good is never linear — you repeat, you refine, you unlearn. I try to work the same way."</p>
         <p class="pillar-tags reveal" data-delay="4">Music&nbsp;&nbsp;·&nbsp;&nbsp;Iteration&nbsp;&nbsp;·&nbsp;&nbsp;Listening</p>
       </div>
     </div>
@@ -161,10 +174,10 @@
   <!-- ─────────────────────────────────────────────────────── -->
   <!-- SECTION 3 — TOOLS                                        -->
   <!-- ─────────────────────────────────────────────────────── -->
-  <section id="tools">
+  <section id="tools" aria-labelledby="tools-heading">
     <div class="tools-inner">
       <div class="tools-header">
-        <h2 class="section-heading reveal" data-delay="0">Tools</h2>
+        <h2 id="tools-heading" class="section-heading reveal" data-delay="0">Tools</h2>
       </div>
 
       <div class="tools-grid">
@@ -172,7 +185,7 @@
         <div class="tool-category reveal" data-delay="1">
           <h3 class="tool-category-title">Languages</h3>
           <div class="tool-tags">
-            <a class="tool-tag" href="https://www.python.org" target="_blank" rel="noopener noreferrer">
+            <a class="tool-tag" href="https://docs.python.org/3/" target="_blank" rel="noopener noreferrer">
               <img class="tool-icon" src="https://cdn.simpleicons.org/python" alt="" width="32" height="32" loading="lazy"><span>Python</span>
             </a>
             <a class="tool-tag" href="https://developer.mozilla.org/en-US/docs/Web/JavaScript" target="_blank" rel="noopener noreferrer">
@@ -184,16 +197,16 @@
             <a class="tool-tag" href="https://developer.mozilla.org/en-US/docs/Web/CSS" target="_blank" rel="noopener noreferrer">
               <img class="tool-icon" src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/css3/css3-original.svg" alt="" width="32" height="32" loading="lazy"><span>CSS</span>
             </a>
-            <a class="tool-tag" href="https://swift.org" target="_blank" rel="noopener noreferrer">
+            <a class="tool-tag" href="https://www.swift.org/documentation/" target="_blank" rel="noopener noreferrer">
               <img class="tool-icon" src="https://cdn.simpleicons.org/swift" alt="" width="32" height="32" loading="lazy"><span>Swift</span>
             </a>
-            <a class="tool-tag" href="https://www.w3schools.com/sql/" target="_blank" rel="noopener noreferrer">
+            <a class="tool-tag" href="https://dev.mysql.com/doc/" target="_blank" rel="noopener noreferrer">
               <img class="tool-icon" src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/mysql/mysql-original.svg" alt="" width="32" height="32" loading="lazy"><span>SQL</span>
             </a>
-            <a class="tool-tag" href="https://isocpp.org" target="_blank" rel="noopener noreferrer">
+            <a class="tool-tag" href="https://en.cppreference.com/w/" target="_blank" rel="noopener noreferrer">
               <img class="tool-icon" src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/cplusplus/cplusplus-original.svg" alt="" width="32" height="32" loading="lazy"><span>C++</span>
             </a>
-            <a class="tool-tag" href="https://www.java.com" target="_blank" rel="noopener noreferrer">
+            <a class="tool-tag" href="https://docs.oracle.com/en/java/javase/" target="_blank" rel="noopener noreferrer">
               <img class="tool-icon" src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/java/java-original.svg" alt="" width="32" height="32" loading="lazy"><span>Java</span>
             </a>
           </div>
@@ -205,16 +218,21 @@
             <a class="tool-tag" href="https://react.dev" target="_blank" rel="noopener noreferrer">
               <img class="tool-icon" src="https://cdn.simpleicons.org/react" alt="" width="32" height="32" loading="lazy"><span>React 18</span>
             </a>
-            <a class="tool-tag" href="https://tailwindcss.com" target="_blank" rel="noopener noreferrer">
+            <a class="tool-tag" href="https://tailwindcss.com/docs" target="_blank" rel="noopener noreferrer">
               <img class="tool-icon" src="https://cdn.simpleicons.org/tailwindcss" alt="" width="32" height="32" loading="lazy"><span>TailwindCSS</span>
             </a>
-            <a class="tool-tag" href="https://developer.apple.com/xcode/swiftui/" target="_blank" rel="noopener noreferrer">
+            <a class="tool-tag" href="https://developer.apple.com/documentation/swiftui" target="_blank" rel="noopener noreferrer">
               <img class="tool-icon" src="https://cdn.simpleicons.org/swift" alt="" width="32" height="32" loading="lazy"><span>SwiftUI</span>
+            </a>
+            <a class="tool-tag" href="https://developer.apple.com/documentation/swiftdata" target="_blank" rel="noopener noreferrer">
+              <img class="tool-icon" src="https://cdn.simpleicons.org/swift" alt="" width="32" height="32" loading="lazy"><span>SwiftData</span>
             </a>
             <a class="tool-tag" href="https://fastapi.tiangolo.com" target="_blank" rel="noopener noreferrer">
               <img class="tool-icon" src="https://cdn.simpleicons.org/fastapi" alt="" width="32" height="32" loading="lazy"><span>FastAPI</span>
             </a>
-            <a class="tool-tag" href="https://www.uvicorn.org" target="_blank" rel="noopener noreferrer">
+            <!-- uvicorn.org stopped resolving (SERVFAIL at both Google and
+                 Cloudflare DNS); the repo README is the live documentation. -->
+            <a class="tool-tag" href="https://github.com/encode/uvicorn#readme" target="_blank" rel="noopener noreferrer">
               <svg class="tool-icon" width="32" height="32" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M2 4.5L6.5 8L2 11.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><line x1="8.5" y1="11" x2="14" y2="11" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg><span>Uvicorn</span>
             </a>
             <a class="tool-tag" href="https://docs.pydantic.dev" target="_blank" rel="noopener noreferrer">
@@ -226,10 +244,10 @@
         <div class="tool-category reveal" data-delay="3">
           <h3 class="tool-category-title">AI &amp; Machine Learning</h3>
           <div class="tool-tags">
-            <a class="tool-tag" href="https://groq.com" target="_blank" rel="noopener noreferrer">
+            <a class="tool-tag" href="https://console.groq.com/docs" target="_blank" rel="noopener noreferrer">
               <svg class="tool-icon" width="32" height="32" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M9.5 1.5L5 8h4.5L6.5 14.5l7-8H9L9.5 1.5z" stroke="currentColor" stroke-width="1.3" fill="none" stroke-linejoin="round" stroke-linecap="round"/></svg><span>Groq API</span>
             </a>
-            <a class="tool-tag" href="https://www.langchain.com" target="_blank" rel="noopener noreferrer">
+            <a class="tool-tag" href="https://python.langchain.com/docs/introduction/" target="_blank" rel="noopener noreferrer">
               <img class="tool-icon" src="https://cdn.simpleicons.org/langchain" alt="" width="32" height="32" loading="lazy"><span>LangChain</span>
             </a>
             <a class="tool-tag" href="https://python.langchain.com/docs/concepts/rag/" target="_blank" rel="noopener noreferrer">
@@ -241,25 +259,25 @@
             <a class="tool-tag" href="https://sbert.net/examples/applications/cross-encoder/README.html" target="_blank" rel="noopener noreferrer">
               <svg class="tool-icon" width="32" height="32" viewBox="0 0 16 16" fill="none" aria-hidden="true"><rect x="1" y="2" width="13" height="2.5" rx="0.5" stroke="currentColor" stroke-width="1.2"/><rect x="1" y="6.5" width="9" height="2.5" rx="0.5" stroke="currentColor" stroke-width="1.2"/><rect x="1" y="11" width="5.5" height="2.5" rx="0.5" stroke="currentColor" stroke-width="1.2"/></svg><span>Cross-Encoder Reranking</span>
             </a>
-            <a class="tool-tag" href="https://scikit-learn.org" target="_blank" rel="noopener noreferrer">
+            <a class="tool-tag" href="https://scikit-learn.org/stable/user_guide.html" target="_blank" rel="noopener noreferrer">
               <img class="tool-icon" src="https://cdn.simpleicons.org/scikitlearn" alt="" width="32" height="32" loading="lazy"><span>Scikit-learn</span>
             </a>
-            <a class="tool-tag" href="https://pandas.pydata.org" target="_blank" rel="noopener noreferrer">
+            <a class="tool-tag" href="https://pandas.pydata.org/docs/" target="_blank" rel="noopener noreferrer">
               <img class="tool-icon" src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/pandas/pandas-original.svg" alt="" width="32" height="32" loading="lazy"><span>Pandas</span>
             </a>
-            <a class="tool-tag" href="https://numpy.org" target="_blank" rel="noopener noreferrer">
+            <a class="tool-tag" href="https://numpy.org/doc/stable/" target="_blank" rel="noopener noreferrer">
               <img class="tool-icon" src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/numpy/numpy-original.svg" alt="" width="32" height="32" loading="lazy"><span>NumPy</span>
             </a>
-            <a class="tool-tag" href="https://seaborn.pydata.org" target="_blank" rel="noopener noreferrer">
+            <a class="tool-tag" href="https://seaborn.pydata.org/tutorial.html" target="_blank" rel="noopener noreferrer">
               <svg class="tool-icon" width="32" height="32" viewBox="0 0 16 16" fill="none" aria-hidden="true"><line x1="2" y1="14" x2="2" y2="2" stroke="currentColor" stroke-width="1.1" stroke-linecap="round"/><line x1="2" y1="14" x2="14" y2="14" stroke="currentColor" stroke-width="1.1" stroke-linecap="round"/><line x1="3" y1="12" x2="13" y2="4" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-dasharray="2 1.5"/><circle cx="4" cy="11" r="1.2" fill="currentColor"/><circle cx="7" cy="9" r="1.2" fill="currentColor"/><circle cx="10" cy="6.5" r="1.2" fill="currentColor"/><circle cx="12.5" cy="5" r="1.2" fill="currentColor"/></svg><span>Seaborn</span>
             </a>
-            <a class="tool-tag" href="https://www.tensorflow.org" target="_blank" rel="noopener noreferrer">
+            <a class="tool-tag" href="https://www.tensorflow.org/api_docs" target="_blank" rel="noopener noreferrer">
               <img class="tool-icon" src="https://cdn.simpleicons.org/tensorflow" alt="" width="32" height="32" loading="lazy"><span>TensorFlow</span>
             </a>
-            <a class="tool-tag" href="https://pytorch.org" target="_blank" rel="noopener noreferrer">
+            <a class="tool-tag" href="https://pytorch.org/docs/stable/index.html" target="_blank" rel="noopener noreferrer">
               <img class="tool-icon" src="https://cdn.simpleicons.org/pytorch" alt="" width="32" height="32" loading="lazy"><span>PyTorch</span>
             </a>
-            <a class="tool-tag" href="https://huggingface.co" target="_blank" rel="noopener noreferrer">
+            <a class="tool-tag" href="https://huggingface.co/docs" target="_blank" rel="noopener noreferrer">
               <img class="tool-icon" src="https://cdn.simpleicons.org/huggingface" alt="" width="32" height="32" loading="lazy"><span>HuggingFace</span>
             </a>
           </div>
@@ -268,20 +286,23 @@
         <div class="tool-category reveal" data-delay="4">
           <h3 class="tool-category-title">Databases</h3>
           <div class="tool-tags">
-            <a class="tool-tag" href="https://www.postgresql.org" target="_blank" rel="noopener noreferrer">
+            <a class="tool-tag" href="https://www.postgresql.org/docs/current/" target="_blank" rel="noopener noreferrer">
               <img class="tool-icon" src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/postgresql/postgresql-original.svg" alt="" width="32" height="32" loading="lazy"><span>PostgreSQL</span>
             </a>
             <a class="tool-tag" href="https://github.com/pgvector/pgvector" target="_blank" rel="noopener noreferrer">
               <img class="tool-icon" src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/postgresql/postgresql-original.svg" alt="" width="32" height="32" loading="lazy"><span>pgvector</span>
             </a>
-            <a class="tool-tag" href="https://supabase.com" target="_blank" rel="noopener noreferrer">
+            <a class="tool-tag" href="https://supabase.com/docs" target="_blank" rel="noopener noreferrer">
               <img class="tool-icon" src="https://cdn.simpleicons.org/supabase" alt="" width="32" height="32" loading="lazy"><span>Supabase</span>
             </a>
-            <a class="tool-tag" href="https://www.mongodb.com" target="_blank" rel="noopener noreferrer">
+            <a class="tool-tag" href="https://www.mongodb.com/docs/" target="_blank" rel="noopener noreferrer">
               <img class="tool-icon" src="https://cdn.simpleicons.org/mongodb" alt="" width="32" height="32" loading="lazy"><span>MongoDB</span>
             </a>
-            <a class="tool-tag" href="https://neo4j.com" target="_blank" rel="noopener noreferrer">
+            <a class="tool-tag" href="https://neo4j.com/docs/" target="_blank" rel="noopener noreferrer">
               <img class="tool-icon" src="https://cdn.simpleicons.org/neo4j" alt="" width="32" height="32" loading="lazy"><span>Neo4j</span>
+            </a>
+            <a class="tool-tag" href="https://www.sqlite.org/docs.html" target="_blank" rel="noopener noreferrer">
+              <img class="tool-icon" src="https://cdn.simpleicons.org/sqlite" alt="" width="32" height="32" loading="lazy"><span>SQLite</span>
             </a>
           </div>
         </div>
@@ -289,34 +310,37 @@
         <div class="tool-category reveal" data-delay="5">
           <h3 class="tool-category-title">DevOps &amp; Tools</h3>
           <div class="tool-tags">
-            <a class="tool-tag" href="https://www.docker.com" target="_blank" rel="noopener noreferrer">
+            <a class="tool-tag" href="https://docs.docker.com/" target="_blank" rel="noopener noreferrer">
               <img class="tool-icon" src="https://cdn.simpleicons.org/docker" alt="" width="32" height="32" loading="lazy"><span>Docker</span>
             </a>
-            <a class="tool-tag" href="https://github.com" target="_blank" rel="noopener noreferrer">
+            <a class="tool-tag" href="https://git-scm.com/doc" target="_blank" rel="noopener noreferrer">
               <img class="tool-icon" src="https://cdn.simpleicons.org/github" alt="" width="32" height="32" loading="lazy"><span>Git &amp; GitHub</span>
             </a>
-            <a class="tool-tag" href="https://jupyter.org" target="_blank" rel="noopener noreferrer">
+            <a class="tool-tag" href="https://docs.jupyter.org/en/latest/" target="_blank" rel="noopener noreferrer">
               <img class="tool-icon" src="https://cdn.simpleicons.org/jupyter" alt="" width="32" height="32" loading="lazy"><span>Jupyter Notebooks</span>
             </a>
-            <a class="tool-tag" href="https://vercel.com" target="_blank" rel="noopener noreferrer">
+            <a class="tool-tag" href="https://vercel.com/docs" target="_blank" rel="noopener noreferrer">
               <img class="tool-icon" src="https://cdn.simpleicons.org/vercel" alt="" width="32" height="32" loading="lazy"><span>Vercel</span>
             </a>
-            <a class="tool-tag" href="https://render.com" target="_blank" rel="noopener noreferrer">
+            <a class="tool-tag" href="https://render.com/docs" target="_blank" rel="noopener noreferrer">
               <img class="tool-icon" src="https://cdn.simpleicons.org/render" alt="" width="32" height="32" loading="lazy"><span>Render</span>
             </a>
-            <a class="tool-tag" href="https://streamlit.io" target="_blank" rel="noopener noreferrer">
+            <a class="tool-tag" href="https://docs.sentry.io/" target="_blank" rel="noopener noreferrer">
+              <img class="tool-icon" src="https://cdn.simpleicons.org/sentry" alt="" width="32" height="32" loading="lazy"><span>Sentry</span>
+            </a>
+            <a class="tool-tag" href="https://docs.streamlit.io/" target="_blank" rel="noopener noreferrer">
               <img class="tool-icon" src="https://cdn.simpleicons.org/streamlit" alt="" width="32" height="32" loading="lazy"><span>Streamlit</span>
             </a>
             <a class="tool-tag" href="https://pymupdf.readthedocs.io" target="_blank" rel="noopener noreferrer">
               <svg class="tool-icon" width="32" height="32" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 1.5h7l3 3v10H3z" stroke="currentColor" stroke-width="1.2" fill="none" stroke-linejoin="round"/><path d="M10 1.5v3h3" stroke="currentColor" stroke-width="1.2" fill="none"/><line x1="5" y1="8" x2="11" y2="8" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/><line x1="5" y1="10.5" x2="11" y2="10.5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/><line x1="5" y1="13" x2="8" y2="13" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg><span>PyMuPDF</span>
             </a>
-            <a class="tool-tag" href="https://www.microsoft.com/en-us/power-platform/products/power-bi" target="_blank" rel="noopener noreferrer">
+            <a class="tool-tag" href="https://learn.microsoft.com/en-us/power-bi/" target="_blank" rel="noopener noreferrer">
               <svg class="tool-icon" width="32" height="32" viewBox="0 0 16 16" fill="none" aria-hidden="true"><rect x="2" y="9" width="3" height="5" rx="0.5" stroke="currentColor" stroke-width="1.2"/><rect x="6.5" y="5" width="3" height="9" rx="0.5" stroke="currentColor" stroke-width="1.2"/><rect x="11" y="1.5" width="3" height="12.5" rx="0.5" stroke="currentColor" stroke-width="1.2"/><line x1="1" y1="14.5" x2="15" y2="14.5" stroke="currentColor" stroke-width="1" stroke-linecap="round"/></svg><span>Power BI</span>
             </a>
-            <a class="tool-tag" href="https://gephi.org" target="_blank" rel="noopener noreferrer">
+            <a class="tool-tag" href="https://gephi.org/users/" target="_blank" rel="noopener noreferrer">
               <svg class="tool-icon" width="32" height="32" viewBox="0 0 16 16" fill="none" aria-hidden="true"><circle cx="8" cy="8" r="1.8" stroke="currentColor" stroke-width="1.2"/><circle cx="3" cy="3.5" r="1.3" stroke="currentColor" stroke-width="1.2"/><circle cx="13" cy="3.5" r="1.3" stroke="currentColor" stroke-width="1.2"/><circle cx="3" cy="12.5" r="1.3" stroke="currentColor" stroke-width="1.2"/><circle cx="13" cy="12.5" r="1.3" stroke="currentColor" stroke-width="1.2"/><line x1="6.7" y1="6.8" x2="4.2" y2="4.7" stroke="currentColor" stroke-width="1"/><line x1="9.3" y1="6.8" x2="11.8" y2="4.7" stroke="currentColor" stroke-width="1"/><line x1="6.7" y1="9.2" x2="4.2" y2="11.3" stroke="currentColor" stroke-width="1"/><line x1="9.3" y1="9.2" x2="11.8" y2="11.3" stroke="currentColor" stroke-width="1"/></svg><span>Gephi</span>
             </a>
-            <a class="tool-tag" href="https://www.tableau.com" target="_blank" rel="noopener noreferrer">
+            <a class="tool-tag" href="https://help.tableau.com/current/pro/desktop/en-us/default.htm" target="_blank" rel="noopener noreferrer">
               <svg class="tool-icon" width="32" height="32" viewBox="0 0 16 16" fill="none" aria-hidden="true"><rect x="2" y="2" width="5" height="5" rx="0.5" stroke="currentColor" stroke-width="1.2"/><rect x="9" y="2" width="5" height="5" rx="0.5" stroke="currentColor" stroke-width="1.2"/><rect x="2" y="9" width="5" height="5" rx="0.5" stroke="currentColor" stroke-width="1.2"/><rect x="9" y="9" width="5" height="5" rx="0.5" stroke="currentColor" stroke-width="1.2"/></svg><span>Tableau</span>
             </a>
           </div>
@@ -329,11 +353,11 @@
   <!-- ─────────────────────────────────────────────────────── -->
   <!-- SECTION 5 — PROJECTS                                     -->
   <!-- ─────────────────────────────────────────────────────── -->
-  <section id="projects">
+  <section id="projects" aria-labelledby="projects-heading">
     <div class="projects-inner">
 
       <div class="projects-header">
-        <h2 class="section-heading reveal" data-delay="0">Projects</h2>
+        <h2 id="projects-heading" class="section-heading reveal" data-delay="0">Projects</h2>
       </div>
 
       <!-- Card 1: MoodFlow -->
@@ -380,17 +404,30 @@
         <p class="project-stack">Python&nbsp;·&nbsp;FastAPI&nbsp;·&nbsp;LangChain&nbsp;·&nbsp;pgvector&nbsp;·&nbsp;React&nbsp;·&nbsp;In Progress</p>
       </article>
 
+      <!-- Card 3: Stanley -->
+      <article class="project-card reveal-card">
+        <div class="project-header">
+          <h3 class="project-title">Stanley</h3>
+          <div class="project-header-right">
+            <span class="project-tag">in development</span>
+          </div>
+        </div>
+        <p class="project-desc">A native iOS app for sharing photos with a small, trusted circle. Photos decay over time unless someone holds them — a constraint that makes sharing feel deliberate rather than performative. What gets held goes to a Held archive, a Returned surface brings older photos back around later, and a safety layer sits underneath both. The backend is hardened with auth, WAL mode, and Sentry. Close to TestFlight, not finished.</p>
+
+        <p class="project-stack">Swift&nbsp;·&nbsp;SwiftUI&nbsp;·&nbsp;SwiftData&nbsp;·&nbsp;SQLite (WAL)&nbsp;·&nbsp;Sentry&nbsp;·&nbsp;In Development</p>
+      </article>
+
     </div>
   </section>
 
   <!-- ─────────────────────────────────────────────────────── -->
   <!-- SECTION 6 — NOTES                                        -->
   <!-- ─────────────────────────────────────────────────────── -->
-  <section id="notes">
+  <section id="notes" aria-labelledby="notes-heading">
     <div class="notes-inner">
 
       <div class="notes-header">
-        <h2 class="section-heading reveal" data-delay="0">Blogs</h2>
+        <h2 id="notes-heading" class="section-heading reveal" data-delay="0">Blogs</h2>
       </div>
 
       <div class="notes-list">
@@ -426,10 +463,10 @@
   <!-- ─────────────────────────────────────────────────────── -->
   <!-- SECTION 7 — RESUME                                       -->
   <!-- ─────────────────────────────────────────────────────── -->
-  <section id="resume">
+  <section id="resume" aria-labelledby="resume-heading">
 
     <div class="resume-inner">
-      <h2 class="section-heading reveal" data-delay="0">Resume</h2>
+      <h2 id="resume-heading" class="section-heading reveal" data-delay="0">Resume</h2>
 
       <div class="resume-actions reveal" data-delay="1">
         <a class="resume-download-btn" href="resume/resume.pdf" download>
@@ -442,17 +479,14 @@
         </a>
       </div>
 
+      <!-- iframe's content model is empty — the old inline fallback never
+           rendered anyway, and the download button above covers that case. -->
       <div class="resume-embed-wrap reveal" data-delay="2">
         <iframe
           class="resume-frame"
           src="resume/resume.pdf"
           title="Ayush Kapileshwar — Resume"
-          loading="lazy">
-          <p class="resume-fallback">
-            Your browser can't display PDFs inline.
-            <a href="resume/resume.pdf" download>Download the resume instead.</a>
-          </p>
-        </iframe>
+          loading="lazy"></iframe>
       </div>
     </div>
 
@@ -461,50 +495,50 @@
   <!-- ─────────────────────────────────────────────────────── -->
   <!-- SECTION — GALLERY                                        -->
   <!-- ─────────────────────────────────────────────────────── -->
-  <section id="gallery">
+  <section id="gallery" aria-labelledby="gallery-heading">
 
     <div class="gallery-header">
-      <h2 class="section-heading reveal" data-delay="0">Gallery</h2>
-      <p class="gallery-subline reveal" data-delay="1">One of my hobbies being photography, would like to show some of my memories.</p>
+      <h2 id="gallery-heading" class="section-heading reveal" data-delay="0">Gallery</h2>
+      <p class="gallery-subline reveal" data-delay="1">Photography is the other thing I do. A few of these.</p>
     </div>
 
-    <div class="gallery-carousel-wrap">
+    <div class="gallery-carousel-wrap" role="group" aria-roledescription="carousel" aria-label="Photographs">
       <div class="gallery-track" id="galleryTrack">
 
         <figure class="gallery-slide">
-          <img src="images/IMG_01.jpg" alt="" loading="lazy">
+          <img src="images/IMG_01.jpg" alt="Two cormorants perched on a bare, half-submerged branch in a lake, silhouetted against distant hills." width="4860" height="3645" loading="lazy">
         </figure>
 
         <figure class="gallery-slide">
-          <img src="images/IMG_02.jpg" alt="" loading="lazy">
+          <img src="images/IMG_02.jpg" alt="An elephant walking through open grassland, in black and white, with a low ridge behind it." width="5016" height="3762" loading="lazy">
         </figure>
 
         <figure class="gallery-slide">
-          <img src="images/IMG_03.jpg" alt="" loading="lazy">
+          <img src="images/IMG_03.jpg" alt="A wet city sidewalk at dusk, lit by a row of street lamps and bare trees strung with lights." width="4284" height="5712" loading="lazy">
         </figure>
 
         <figure class="gallery-slide">
-          <img src="images/IMG_04.jpg" alt="" loading="lazy">
+          <img src="images/IMG_04.jpg" alt="Looking up at a glass-and-steel atrium roof wedged between two angled stone walls." width="4032" height="3024" loading="lazy">
         </figure>
 
         <figure class="gallery-slide">
-          <img src="images/IMG_05.jpg" alt="" loading="lazy">
+          <img src="images/IMG_05.jpg" alt="A single cormorant standing on a stump at the water's edge, dead trees blurred behind it." width="2247" height="1499" loading="lazy">
         </figure>
 
       </div>
 
       <!-- Nav arrows -->
-      <button class="gallery-arrow gallery-arrow--prev" aria-label="Previous photo" id="galleryPrev">&#8592;</button>
-      <button class="gallery-arrow gallery-arrow--next" aria-label="Next photo" id="galleryNext">&#8594;</button>
+      <button class="gallery-arrow gallery-arrow--prev" type="button" aria-label="Previous photo" id="galleryPrev">&#8592;</button>
+      <button class="gallery-arrow gallery-arrow--next" type="button" aria-label="Next photo" id="galleryNext">&#8594;</button>
     </div>
 
     <!-- Dot indicators -->
     <div class="gallery-dots" id="galleryDots">
-      <span class="gallery-dot active"></span>
-      <span class="gallery-dot"></span>
-      <span class="gallery-dot"></span>
-      <span class="gallery-dot"></span>
-      <span class="gallery-dot"></span>
+      <button class="gallery-dot active" type="button" aria-label="Go to photo 1"></button>
+      <button class="gallery-dot" type="button" aria-label="Go to photo 2"></button>
+      <button class="gallery-dot" type="button" aria-label="Go to photo 3"></button>
+      <button class="gallery-dot" type="button" aria-label="Go to photo 4"></button>
+      <button class="gallery-dot" type="button" aria-label="Go to photo 5"></button>
     </div>
 
   </section>
@@ -512,10 +546,10 @@
   <!-- ─────────────────────────────────────────────────────── -->
   <!-- SECTION — CONTACT                                        -->
   <!-- ─────────────────────────────────────────────────────── -->
-  <section id="contact">
+  <section id="contact" aria-labelledby="contact-heading">
 
     <div class="reveal">
-      <p class="contact-quote">"If something here resonated,<br>I'd like to hear from you."</p>
+      <h2 id="contact-heading" class="contact-quote">If something here landed,<br>I'd like to hear from you.</h2>
     </div>
 
     <div class="contact-links reveal" data-delay="1">
@@ -526,15 +560,17 @@
       <a class="contact-link" href="https://github.com/Ayushkapil" target="_blank" rel="noopener noreferrer">GitHub</a>
     </div>
 
-    <footer class="site-footer">
-      <hr class="footer-rule" />
-      <div class="footer-inner">
-        <span class="footer-text">Ayush Kapileshwar</span>
-        <span class="footer-text">2026</span>
-      </div>
-    </footer>
-
   </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <hr class="footer-rule" />
+    <div class="footer-inner">
+      <span class="footer-text">Ayush Kapileshwar</span>
+      <span class="footer-text">2026</span>
+    </div>
+  </footer>
 
   <!-- Gallery carousel — infinite loop -->
   <script>
@@ -583,7 +619,13 @@
       function updateDots() {
         var real = ((current - N) % N + N) % N;
         dotsEl.forEach(function (d, i) {
-          d.classList.toggle('active', i === real);
+          var isActive = i === real;
+          d.classList.toggle('active', isActive);
+          if (isActive) {
+            d.setAttribute('aria-current', 'true');
+          } else {
+            d.removeAttribute('aria-current');
+          }
         });
       }
 
@@ -593,8 +635,6 @@
 
       /* After transition ends, silently teleport if we're on a clone */
       track.addEventListener('transitionend', function () {
-        var allSlides = track.querySelectorAll('.gallery-slide');
-        var total = allSlides.length; /* N real + N clones each side = 3N */
         if (current < N) {
           jumpTo(current + N, false);
         } else if (current >= 2 * N) {
@@ -610,18 +650,29 @@
         d.addEventListener('click', function () { jumpTo(N + i, true); });
       });
 
-      /* Keyboard */
+      /* Keyboard — only when the carousel is actually on screen, otherwise
+         arrow keys anywhere on the page would silently advance the gallery. */
+      var wrap = track.parentElement;
+      var inView = false;
+      if ('IntersectionObserver' in window) {
+        new IntersectionObserver(function (entries) {
+          inView = entries[0].isIntersecting;
+        }, { threshold: 0.5 }).observe(wrap);
+      }
+
       document.addEventListener('keydown', function (e) {
-        if (e.key === 'ArrowLeft')  go(-1);
-        if (e.key === 'ArrowRight') go(1);
+        if (e.key !== 'ArrowLeft' && e.key !== 'ArrowRight') return;
+        if (!inView && !wrap.contains(document.activeElement)) return;
+        e.preventDefault();
+        go(e.key === 'ArrowLeft' ? -1 : 1);
       });
 
       /* Touch/swipe */
       var touchStartX = 0;
-      track.parentElement.addEventListener('touchstart', function (e) {
+      wrap.addEventListener('touchstart', function (e) {
         touchStartX = e.touches[0].clientX;
       }, { passive: true });
-      track.parentElement.addEventListener('touchend', function (e) {
+      wrap.addEventListener('touchend', function (e) {
         var dx = touchStartX - e.changedTouches[0].clientX;
         if (Math.abs(dx) > 40) go(dx > 0 ? 1 : -1);
       }, { passive: true });
@@ -638,18 +689,17 @@
       var drawer = document.getElementById('mobileNavDrawer');
       if (!btn || !drawer) return;
 
-      function close() {
-        btn.classList.remove('open');
-        drawer.classList.remove('open');
-        btn.setAttribute('aria-expanded', 'false');
-        drawer.setAttribute('aria-hidden', 'true');
+      function setState(isOpen) {
+        btn.classList.toggle('open', isOpen);
+        drawer.classList.toggle('open', isOpen);
+        btn.setAttribute('aria-expanded', String(isOpen));
+        btn.setAttribute('aria-label', isOpen ? 'Close menu' : 'Open menu');
       }
 
+      function close() { setState(false); }
+
       btn.addEventListener('click', function () {
-        var isOpen = drawer.classList.toggle('open');
-        btn.classList.toggle('open', isOpen);
-        btn.setAttribute('aria-expanded', String(isOpen));
-        drawer.setAttribute('aria-hidden', String(!isOpen));
+        setState(!drawer.classList.contains('open'));
       });
 
       /* Close on link tap */
@@ -660,6 +710,14 @@
       /* Close on outside tap */
       document.addEventListener('click', function (e) {
         if (!btn.contains(e.target) && !drawer.contains(e.target)) close();
+      });
+
+      /* Close on Escape, and hand focus back to the button that opened it */
+      document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape' && drawer.classList.contains('open')) {
+          close();
+          btn.focus();
+        }
       });
     })();
   </script>
