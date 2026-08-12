@@ -615,11 +615,38 @@ html.light .mobile-nav-drawer {
   .nav-name {
     font-size: 17px;
     margin-right: 0;
+    padding: 13px 16px;
   }
 
   .nav-right {
     gap: 8px;
     margin-left: 0;
+  }
+
+  /* 44px minimum tap targets */
+  .nav-theme-toggle,
+  .nav-hamburger {
+    width: 44px;
+    height: 44px;
+  }
+
+  /* The fixed toggle sat at right:32px, which put it directly on top of both
+     nav controls during the crossfade as the nav faded in. Align it to the
+     same gutter so it swaps cleanly with the nav row instead. */
+  .theme-toggle {
+    top: 14px;
+    right: var(--space-sm);
+    width: 44px;
+    height: 44px;
+  }
+
+  .mobile-nav-drawer {
+    top: 70px;
+  }
+
+  .mobile-nav-link {
+    font-size: 15px;
+    padding: 11px 28px;
   }
 
   .reading-title {
@@ -633,6 +660,10 @@ html.light .mobile-nav-drawer {
 
   .reading-container {
     padding: 88px var(--space-sm) var(--space-lg);
+  }
+
+  .back-link {
+    padding: 11px 20px;
   }
 }
 

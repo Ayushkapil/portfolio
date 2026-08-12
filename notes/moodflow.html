@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Building an AI music therapist in 36 hours — Ayush Kapileshwar</title>
+  <title>Building an AI music therapist in 36 hours · Ayush Kapileshwar</title>
   <meta name="description" content="Notes from building MoodFlow at a hackathon." />
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -38,13 +38,13 @@
     <h1 class="reading-title">Building an AI music therapist in 36 hours</h1>
 
     <div class="reading-body">
-      <p>The idea came from a conversation about what music actually does. Not what it feels like to listen to music — most people know that — but the mechanism. The way a tempo change shifts your physiological state. The way a song in a minor key at a slow tempo creates a specific kind of sadness, different from the sadness created by a fast song in the same key. Music therapists have been working with this for decades. We were sitting around at a hackathon wondering if an LLM could be given enough context to approximate it.</p>
+      <p>The idea came from a conversation about what music actually does. Not what it feels like to listen to music, most people know that, but the mechanism. The way a tempo change shifts your physiological state. The way a song in a minor key at a slow tempo creates a specific kind of sadness, different from the sadness created by a fast song in the same key. Music therapists have been working with this for decades. We were sitting around at a hackathon wondering if an LLM could be given enough context to approximate it.</p>
 
-      <p>The core idea for MoodFlow was a journey structure. Not just "here's music that matches your mood," which is what every playlist recommendation engine does. Instead: "here's where you are right now, here's where you want to be, and here is a four-stage path from one to the other." Each stage would transition the listener gradually — tempo, key, energy — until they arrived. We called the LLM's role the music therapist persona: a voice that understood the clinical logic of the journey and could explain each stage in terms of what it was trying to do to you.</p>
+      <p>The core idea for MoodFlow was a journey structure. Not just "here's music that matches your mood," which is what every playlist recommendation engine does. Instead: "here's where you are right now, here's where you want to be, and here is a four-stage path from one to the other." Each stage would transition the listener gradually, shifting tempo, key and energy, until they arrived. We called the LLM's role the music therapist persona: a voice that understood the clinical logic of the journey and could explain each stage in terms of what it was trying to do to you.</p>
 
-      <p>The hardest problem we hit was diversity. The LLM had trained on enough music recommendation data that it had strong priors — strong, narrow priors. Ask for "melancholic indie for stage one of a calming journey" and you'd get the same five songs every time, in slightly different orders. Getting it to be genuinely surprising required a lot of explicit prompting: instruction to avoid recency bias, instruction to draw from different decades and geographies, instruction to deliberately avoid its top-three associations for a given mood. Even then it would drift back.</p>
+      <p>The hardest problem we hit was diversity. The LLM had trained on enough music recommendation data that it had strong priors. Strong, narrow priors. Ask for "melancholic indie for stage one of a calming journey" and you'd get the same five songs every time, in slightly different orders. Getting it to be genuinely surprising required a lot of explicit prompting: instruction to avoid recency bias, instruction to draw from different decades and geographies, instruction to deliberately avoid its top-three associations for a given mood. Even then it would drift back.</p>
 
-      <p>We didn't fully solve it. But we learned something about what diversity in AI recommendations actually means — it's not just a list of different songs, it's a different relationship to the space of possible songs. That's a harder thing to prompt for, and I think it's still an open problem. I keep thinking about it.</p>
+      <p>We didn't fully solve it. But we learned something about what diversity in AI recommendations actually means. It's not just a list of different songs, it's a different relationship to the space of possible songs. That's a harder thing to prompt for, and I think it's still an open problem. I keep thinking about it.</p>
     </div>
   </main>
 

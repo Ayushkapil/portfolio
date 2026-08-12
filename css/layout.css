@@ -21,6 +21,8 @@
   z-index: 1;
   text-align: center;
   pointer-events: none;
+  /* Without this the hero text ran edge to edge on phones */
+  padding: 0 var(--space-sm);
 }
 
 .landing-greeting {
@@ -864,15 +866,29 @@
   }
 
   .landing-name {
-    font-size: 48px;
+    font-size: 42px;
   }
 
   .landing-tagline p {
     font-size: 16px;
   }
 
+  /* 44px tap target without moving the arrow off centre */
+  .scroll-indicator {
+    padding: 10px 16px;
+    bottom: var(--space-sm);
+  }
+
   #about {
     padding: var(--space-lg) var(--space-sm);
+  }
+
+  /* #about already supplies the 16px gutter; .content-col's own 32px stacked
+     on top of it and squeezed the bio to 279px while every other section
+     ran to 343px. */
+  .content-col {
+    padding-left: 0;
+    padding-right: 0;
   }
 
   .pillar {
@@ -893,6 +909,51 @@
     display: none;
   }
 
+  /* Match the 16px gutter the other sections use */
+  .gallery-header {
+    padding: 0 var(--space-sm) var(--space-lg);
+  }
+
+  /* An 8px dot is fine to look at and impossible to hit. Keep the dot the
+     same size but give the button a 44px target via a pseudo-element. */
+  .gallery-dots {
+    gap: 0;
+    padding: 4px 0;
+  }
+
+  /* .active and :hover set a background at higher specificity, so they have to
+     be cleared too or the whole 44px button paints as a solid blob. */
+  .gallery-dot,
+  .gallery-dot:hover,
+  .gallery-dot.active {
+    width: 44px;
+    height: 44px;
+    background: none;
+    position: relative;
+  }
+
+  .gallery-dot::after {
+    content: '';
+    position: absolute;
+    inset: 18px;
+    border-radius: 50%;
+    background: var(--dot);
+    transition: background 0.25s, transform 0.25s;
+  }
+
+  .gallery-dot:hover::after,
+  .gallery-dot.active::after {
+    background: var(--dot-active);
+  }
+
+  .gallery-dot.active {
+    transform: none;
+  }
+
+  .gallery-dot.active::after {
+    transform: scale(1.3);
+  }
+
   #tools {
     padding: var(--space-lg) var(--space-sm);
   }
@@ -902,9 +963,13 @@
   }
 
   .tool-tag {
-    font-size: 12px;
-    padding: 6px 10px;
-    gap: 5px;
+    font-size: 13px;
+    padding: 11px 14px;
+    gap: 6px;
+  }
+
+  .tool-category-title {
+    font-size: 13px;
   }
 
   .tool-icon {
@@ -921,8 +986,29 @@
     padding: var(--space-lg) var(--space-sm);
   }
 
+  .note-date {
+    font-size: 13px;
+  }
+
   #projects {
     padding: var(--space-lg) var(--space-sm);
+  }
+
+  /* 11px and 12px mono are too fine to read on a phone */
+  .project-tag,
+  .project-section-label {
+    font-size: 12px;
+  }
+
+  .project-stack,
+  .pillar-tags {
+    font-size: 13px;
+  }
+
+  /* 18px icon in a 44px target, pulled back out so the row doesn't grow */
+  .project-github-link {
+    padding: 13px;
+    margin: -13px;
   }
 
   /* Resume: hide iframe on mobile, just show download */
@@ -951,5 +1037,30 @@
 
   #contact {
     padding: var(--space-lg) var(--space-sm);
+  }
+
+  /* The row wrapped mid-list and left a separator dangling at the end of the
+     first line. Stack them instead and drop the separators. */
+  .contact-links {
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .contact-divider-text {
+    display: none;
+  }
+
+  .contact-email,
+  .contact-link {
+    display: inline-block;
+    padding: 7px 4px;
+  }
+
+  .site-footer {
+    padding: 0 var(--space-sm) var(--space-sm);
+  }
+
+  .footer-text {
+    font-size: 13px;
   }
 }

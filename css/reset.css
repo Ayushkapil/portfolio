@@ -15,6 +15,11 @@ html {
   -webkit-text-size-adjust: 100%;
   /* Keep anchor targets clear of the fixed nav */
   scroll-padding-top: 88px;
+  /* The fixed nav uses left:0/right:0, which sizes against the initial
+     containing block and so runs under a classic scrollbar, pushing the page
+     a few px wide in a narrow desktop window. `clip` kills that stray scroll
+     without making html a scroll container the way overflow-x:hidden would. */
+  overflow-x: clip;
 }
 
 /* Respect the OS "reduce motion" setting: kill scroll animation, reveal
