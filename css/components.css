@@ -176,7 +176,8 @@ html.dark .nav-name:hover {
     inset 0 -1px 0 rgba(255, 255, 255, 0.15);
 }
 
-/* Per-link accent tint on hover */
+/* Per-link accent tint on hover. Each link gets its own colour — 7 and 8 were
+   both sky, which made Gallery and Contact look like the same item. */
 .nav-links a:nth-child(1):hover, .nav-links a:nth-child(1).active { color: var(--color-text); }
 .nav-links a:nth-child(2):hover, .nav-links a:nth-child(2).active { color: var(--color-purple); }
 .nav-links a:nth-child(3):hover, .nav-links a:nth-child(3).active { color: var(--color-accent); }
@@ -184,7 +185,7 @@ html.dark .nav-name:hover {
 .nav-links a:nth-child(5):hover, .nav-links a:nth-child(5).active { color: var(--color-purple); }
 .nav-links a:nth-child(6):hover, .nav-links a:nth-child(6).active { color: var(--color-teal); }
 .nav-links a:nth-child(7):hover, .nav-links a:nth-child(7).active { color: var(--color-sky); }
-.nav-links a:nth-child(8):hover, .nav-links a:nth-child(8).active { color: var(--color-sky); }
+.nav-links a:nth-child(8):hover, .nav-links a:nth-child(8).active { color: var(--color-rose); }
 
 /* ── Dark mode ── */
 html.dark .nav-links a {
@@ -242,11 +243,11 @@ html.dark .nav-links a.active {
   top: var(--space-sm);
   right: var(--space-md);
   z-index: 200;
-  background: none;
   border: 1px solid var(--color-border);
   color: var(--color-text);
   width: 36px;
   height: 36px;
+  border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -256,11 +257,19 @@ html.dark .nav-links a.active {
   background-color: var(--color-bg);
   opacity: 0.85;
 }
- 
+
 .theme-toggle:hover {
   opacity: 1;
 }
- 
+
+/* Once the nav's own toggle takes over, take this one out entirely —
+   at opacity 0 it stayed clickable and in the tab order. */
+.theme-toggle.is-hidden {
+  opacity: 0;
+  pointer-events: none;
+  visibility: hidden;
+}
+
 /* Nav toggle — frosted glass circle */
 .nav-theme-toggle {
   position: static;
@@ -309,23 +318,6 @@ html.dark .nav-theme-toggle:hover {
   box-shadow:
     0 6px 28px rgba(0, 0, 0, 0.45),
     inset 0 1px 0 rgba(255, 255, 255, 0.22);
-}
- 
-/* ── Photo Placeholder ── */
-.photo-placeholder-div {
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(
-    135deg,
-    rgba(var(--color-text-raw), 0.06) 0%,
-    rgba(var(--color-text-raw), 0.12) 50%,
-    rgba(var(--color-text-raw), 0.06) 100%
-  );
-}
- 
-.photo-item .photo-placeholder-div {
-  width: 100%;
-  height: 100%;
 }
  
 /* ── Notes Reading View Components ── */
@@ -489,9 +481,13 @@ html.dark .nav-hamburger {
 .nav-hamburger.open span:nth-child(2) { opacity: 0; }
 .nav-hamburger.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
 
-/* ── Mobile nav drawer ── */
+/* ── Mobile nav drawer ──
+   Kept in the layout and hidden with visibility rather than display:none, so
+   the open/close actually transitions. visibility:hidden also keeps the links
+   out of the tab order while it's closed. */
 .mobile-nav-drawer {
-  display: none;
+  display: flex;
+  visibility: hidden;
   position: fixed;
   top: 64px;
   left: 50%;
@@ -502,28 +498,38 @@ html.dark .nav-hamburger {
   gap: 6px;
   padding: 12px;
   border-radius: 18px;
-  background: rgba(20, 20, 20, 0.72);
+  background: rgba(20, 22, 22, 0.82);
   backdrop-filter: blur(24px) saturate(1.4);
   -webkit-backdrop-filter: blur(24px) saturate(1.4);
   border: 1px solid rgba(255,255,255,0.1);
   box-shadow: 0 8px 32px rgba(0,0,0,0.3);
   min-width: 200px;
+  max-height: calc(100vh - 96px);
+  overflow-y: auto;
   opacity: 0;
   pointer-events: none;
-  transition: opacity 0.2s ease, transform 0.2s ease;
+  transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s;
   transform: translateX(-50%) translateY(-6px);
 }
 
+/* Never reachable on desktop, where .nav-links is used instead */
+@media (min-width: 768px) {
+  .mobile-nav-drawer {
+    display: none;
+  }
+}
+
+/* Match the page's warm cream rather than a neutral grey */
 html.light .mobile-nav-drawer {
-  background: rgba(240, 240, 240, 0.88);
-  border-color: rgba(0,0,0,0.08);
+  background: rgba(245, 242, 235, 0.94);
+  border-color: rgba(44, 44, 44, 0.10);
   box-shadow: 0 8px 32px rgba(0,0,0,0.12);
 }
 
 .mobile-nav-drawer.open {
-  display: flex;
+  visibility: visible;
   opacity: 1;
-  pointer-events: all;
+  pointer-events: auto;
   transform: translateX(-50%) translateY(0);
 }
 
@@ -541,13 +547,14 @@ html.light .mobile-nav-drawer {
 }
 
 .mobile-nav-link:hover,
-.mobile-nav-link:active {
+.mobile-nav-link:active,
+.mobile-nav-link:focus-visible {
   opacity: 1;
   background: rgba(124, 58, 237, 0.12);
 }
 
-/* ── Medium screens ── */
-@media (max-width: 1100px) and (min-width: 768px) {
+/* ── Medium screens — shrink the pills before the row can overflow ── */
+@media (max-width: 1180px) and (min-width: 768px) {
   .nav-links a {
     font-size: 12px;
     padding: 7px 11px;
@@ -558,8 +565,41 @@ html.light .mobile-nav-drawer {
   }
 }
 
+@media (max-width: 920px) and (min-width: 768px) {
+  #sticky-nav {
+    padding: 0 12px;
+  }
+
+  .nav-links {
+    gap: 3px;
+  }
+
+  .nav-links a {
+    font-size: 11px;
+    padding: 6px 9px;
+  }
+
+  .nav-name {
+    padding: 6px 10px;
+    margin-right: 2px;
+  }
+
+  .nav-theme-toggle {
+    width: 30px;
+    height: 30px;
+    font-size: 12px;
+  }
+}
+
 /* ── Mobile ── */
 @media (max-width: 767px) {
+  /* Home on the left, controls on the right — centred they bunched up
+     in the middle of the bar with dead space either side. */
+  #sticky-nav {
+    justify-content: space-between;
+    padding: 0 16px;
+  }
+
   .nav-links {
     display: none;
   }
@@ -574,6 +614,39 @@ html.light .mobile-nav-drawer {
 
   .nav-name {
     font-size: 17px;
+    margin-right: 0;
+    padding: 13px 16px;
+  }
+
+  .nav-right {
+    gap: 8px;
+    margin-left: 0;
+  }
+
+  /* 44px minimum tap targets */
+  .nav-theme-toggle,
+  .nav-hamburger {
+    width: 44px;
+    height: 44px;
+  }
+
+  /* The fixed toggle sat at right:32px, which put it directly on top of both
+     nav controls during the crossfade as the nav faded in. Align it to the
+     same gutter so it swaps cleanly with the nav row instead. */
+  .theme-toggle {
+    top: 14px;
+    right: var(--space-sm);
+    width: 44px;
+    height: 44px;
+  }
+
+  .mobile-nav-drawer {
+    top: 70px;
+  }
+
+  .mobile-nav-link {
+    font-size: 15px;
+    padding: 11px 28px;
   }
 
   .reading-title {
@@ -583,6 +656,22 @@ html.light .mobile-nav-drawer {
   .reading-body,
   .reading-body p {
     font-size: 18px;
+  }
+
+  .reading-container {
+    padding: 88px var(--space-sm) var(--space-lg);
+  }
+
+  .back-link {
+    padding: 11px 20px;
+  }
+}
+
+/* Very narrow phones — keep the drawer inside the viewport */
+@media (max-width: 380px) {
+  .mobile-nav-drawer {
+    min-width: 0;
+    width: calc(100vw - 32px);
   }
 }
  
@@ -595,7 +684,7 @@ html.light .mobile-nav-drawer {
   font-family: var(--font-mono);
   font-size: 12px;
   color: var(--color-text);
-  opacity: 0.4;
+  opacity: 0.7;
   letter-spacing: 0.05em;
   pointer-events: none;
   transition: opacity 0.3s ease;
@@ -610,7 +699,7 @@ html.light .mobile-nav-drawer {
   font-family: var(--font-mono);
   font-size: 11px;
   color: var(--color-text);
-  opacity: 0.6;
+  opacity: 0.75;
   letter-spacing: 0.05em;
   padding: 8px 14px;
   border-radius: 980px;

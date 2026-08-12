@@ -12,10 +12,23 @@ html.light {
   --color-teal: #0D9488;
   --color-rose: #E11D48;
   --color-sky: #0EA5E9;
-  --color-border: #DDD8D0;
+  --color-border: #D2CCC2;
   --color-bg-nav: rgba(245, 242, 235, 0.85);
   --color-bg-raw: 245, 242, 235;
   --color-text-raw: 44, 44, 44;
+
+  /* Frosted-glass surfaces (cards, list rows).
+     Light mode needs a dark hairline — a white border on cream is invisible. */
+  --glass-bg: linear-gradient(135deg, rgba(255, 255, 255, 0.58) 0%, rgba(255, 255, 255, 0.28) 100%);
+  --glass-bg-hover: linear-gradient(135deg, rgba(255, 255, 255, 0.80) 0%, rgba(255, 255, 255, 0.45) 100%);
+  --glass-border: rgba(44, 44, 44, 0.10);
+  --glass-border-hover: rgba(44, 44, 44, 0.18);
+  --glass-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
+  --glass-shadow-hover: 0 6px 24px rgba(0, 0, 0, 0.09);
+
+  /* Carousel controls — must read against both the page and a photo */
+  --dot: rgba(44, 44, 44, 0.28);
+  --dot-active: rgba(44, 44, 44, 0.78);
 }
 
 /* Dark Mode */
@@ -27,10 +40,20 @@ html.dark {
   --color-teal: #2DD4BF;
   --color-rose: #FB7185;
   --color-sky: #38BDF8;
-  --color-border: #252727;
+  --color-border: #313434;
   --color-bg-nav: rgba(20, 22, 22, 0.85);
   --color-bg-raw: 20, 22, 22;
   --color-text-raw: 232, 228, 220;
+
+  --glass-bg: linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.015) 100%);
+  --glass-bg-hover: linear-gradient(135deg, rgba(255, 255, 255, 0.085) 0%, rgba(255, 255, 255, 0.03) 100%);
+  --glass-border: rgba(255, 255, 255, 0.09);
+  --glass-border-hover: rgba(255, 255, 255, 0.16);
+  --glass-shadow: 0 4px 20px rgba(0, 0, 0, 0.20);
+  --glass-shadow-hover: 0 6px 28px rgba(0, 0, 0, 0.30);
+
+  --dot: rgba(232, 228, 220, 0.30);
+  --dot-active: rgba(232, 228, 220, 0.85);
 }
 
 /* Typography tokens */

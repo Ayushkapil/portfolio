@@ -7,6 +7,9 @@
   position: relative;
   width: 100%;
   height: 100vh;
+  /* svh tracks the visible viewport on mobile, where browser chrome makes
+     100vh taller than the screen and pushes the scroll cue out of sight. */
+  height: 100svh;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -18,6 +21,8 @@
   z-index: 1;
   text-align: center;
   pointer-events: none;
+  /* Without this the hero text ran edge to edge on phones */
+  padding: 0 var(--space-sm);
 }
 
 .landing-greeting {
@@ -25,7 +30,7 @@
   font-size: 20px;
   font-weight: 400;
   color: var(--color-text);
-  opacity: 0.6;
+  opacity: 0.75;
   margin-bottom: var(--space-xs);
   animation: fadeIn 0.6s ease 0.2s both;
   letter-spacing: 0.02em;
@@ -46,15 +51,16 @@
   font-weight: 400;
   line-height: 1.8;
   color: var(--color-text);
-  opacity: 0.8;
+  opacity: 0.85;
   margin-top: var(--space-md);
   animation: fadeIn 0.6s ease 1.0s both;
 }
 
+/* No opacity here — it would compound with the parent's and drop the
+   effective contrast below AA. */
 .landing-tagline p {
   font-size: 18px;
   margin: 0;
-  opacity: 0.8;
 }
 
 .scroll-indicator {
@@ -111,7 +117,7 @@
   font-family: var(--font-mono);
   font-size: 13px;
   letter-spacing: 0.04em;
-  opacity: 0.55;
+  opacity: 0.7;
   margin-top: var(--space-lg);
   line-height: 1.9;
   padding-top: var(--space-sm);
@@ -123,11 +129,8 @@
   font-weight: 400;
 }
 
-/* ── What Drives Me Section ── */
-#drives {
-  /* Container for three full-height pillar blocks */
-}
-
+/* ── What Drives Me Section ──
+   #drives is just a container for three full-height pillar blocks. */
 .pillar {
   min-height: 100vh;
   display: flex;
@@ -201,7 +204,12 @@
   padding-bottom: var(--space-xl);
 }
 
+/* Align the heading with the other sections' content column even though the
+   carousel below it is full-bleed. */
 .gallery-header {
+  width: 100%;
+  max-width: 1000px;
+  margin: 0 auto;
   padding: 0 var(--space-md) var(--space-lg);
 }
 
@@ -209,7 +217,7 @@
   font-family: var(--font-caption);
   font-size: 17px;
   font-style: italic;
-  opacity: 0.5;
+  opacity: 0.7;
   margin-top: 8px;
 }
 
@@ -264,31 +272,33 @@
   border: none;
 }
 
-/* Nav arrows */
+/* Nav arrows — these sit over photographs of unknown brightness, so they
+   carry their own dark scrim rather than relying on the image behind them. */
 .gallery-arrow {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  background: rgba(255,255,255,0.08);
-  border: 1px solid rgba(255,255,255,0.15);
-  color: rgba(255,255,255,0.7);
+  background: rgba(0, 0, 0, 0.42);
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  color: #fff;
   width: 42px;
   height: 42px;
   border-radius: 50%;
   font-size: 1.1rem;
+  line-height: 1;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: background 0.2s, color 0.2s;
+  transition: background 0.2s, border-color 0.2s;
   z-index: 10;
-  backdrop-filter: blur(4px);
-  -webkit-backdrop-filter: blur(4px);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
 }
 
 .gallery-arrow:hover {
-  background: rgba(255,255,255,0.18);
-  color: #fff;
+  background: rgba(0, 0, 0, 0.62);
+  border-color: rgba(255, 255, 255, 0.6);
 }
 
 .gallery-arrow--prev { left: 14px; }
@@ -298,21 +308,28 @@
 .gallery-dots {
   display: flex;
   justify-content: center;
-  gap: 8px;
-  padding: 14px 0 4px;
+  gap: 10px;
+  padding: 16px 0 4px;
 }
 
 .gallery-dot {
-  width: 6px;
-  height: 6px;
+  width: 8px;
+  height: 8px;
+  padding: 0;
+  border: none;
   border-radius: 50%;
-  background: rgba(255,255,255,0.2);
+  /* Was hard-coded white — invisible against the light theme's cream page. */
+  background: var(--dot);
   transition: background 0.25s, transform 0.25s;
   cursor: pointer;
 }
 
+.gallery-dot:hover {
+  background: var(--dot-active);
+}
+
 .gallery-dot.active {
-  background: rgba(255,255,255,0.75);
+  background: var(--dot-active);
   transform: scale(1.3);
 }
 
@@ -344,37 +361,26 @@
   cursor: pointer;
   text-decoration: none;
   color: inherit;
-  border: 1px solid rgba(255,255,255,0.10);
-  background: linear-gradient(135deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.01) 100%);
+  border: 1px solid var(--glass-border);
+  background: var(--glass-bg);
   backdrop-filter: blur(12px) saturate(1.3);
   -webkit-backdrop-filter: blur(12px) saturate(1.3);
-  box-shadow: 0 2px 10px rgba(0,0,0,0.03);
+  box-shadow: var(--glass-shadow);
   transition: background 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
 }
 
-.note-entry:hover {
-  background: linear-gradient(135deg, rgba(255,255,255,0.09) 0%, rgba(255,255,255,0.03) 100%);
-  box-shadow: 0 4px 20px rgba(0,0,0,0.07);
-  border-color: rgba(255,255,255,0.18);
-}
-
-html.dark .note-entry {
-  border-color: rgba(255,255,255,0.07);
-  background: linear-gradient(135deg, rgba(255,255,255,0.04) 0%, rgba(255,255,255,0.01) 100%);
-  box-shadow: 0 2px 12px rgba(0,0,0,0.15);
-}
-
-html.dark .note-entry:hover {
-  background: linear-gradient(135deg, rgba(255,255,255,0.07) 0%, rgba(255,255,255,0.025) 100%);
-  border-color: rgba(255,255,255,0.13);
-  box-shadow: 0 4px 20px rgba(0,0,0,0.25);
+.note-entry:hover,
+.note-entry:focus-visible {
+  background: var(--glass-bg-hover);
+  box-shadow: var(--glass-shadow-hover);
+  border-color: var(--glass-border-hover);
 }
 
 .note-date {
   font-family: var(--font-mono);
   font-size: 12px;
   color: var(--color-text);
-  opacity: 0.5;
+  opacity: 0.7;
   margin-bottom: var(--space-xs);
 }
 
@@ -424,29 +430,19 @@ html.dark .note-entry:hover {
   padding: var(--space-md) var(--space-sm);
   border-radius: 14px;
   margin-bottom: var(--space-sm);
-  border: 1px solid rgba(255, 255, 255, 0.10);
-  background: linear-gradient(135deg, rgba(255,255,255,0.06) 0%, rgba(255,255,255,0.02) 100%);
+  border: 1px solid var(--glass-border);
+  background: var(--glass-bg);
   backdrop-filter: blur(12px) saturate(1.3);
   -webkit-backdrop-filter: blur(12px) saturate(1.3);
-  box-shadow: 0 2px 12px rgba(0,0,0,0.04);
+  box-shadow: var(--glass-shadow);
   border-left: 3px solid transparent;
   transition: border-color 0.2s ease, background 0.2s ease, box-shadow 0.2s ease;
 }
 
-html.dark .project-card {
-  border-color: rgba(255,255,255,0.07);
-  background: linear-gradient(135deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.015) 100%);
-  box-shadow: 0 4px 20px rgba(0,0,0,0.18);
-}
-
-.project-card:hover {
-  background: linear-gradient(135deg, rgba(255,255,255,0.10) 0%, rgba(255,255,255,0.04) 100%);
-  box-shadow: 0 6px 28px rgba(0,0,0,0.08);
-}
-
-html.dark .project-card:hover {
-  background: linear-gradient(135deg, rgba(255,255,255,0.08) 0%, rgba(255,255,255,0.03) 100%);
-  box-shadow: 0 6px 28px rgba(0,0,0,0.28);
+.project-card:hover,
+.project-card:focus-within {
+  background: var(--glass-bg-hover);
+  box-shadow: var(--glass-shadow-hover);
 }
 
 
@@ -466,22 +462,26 @@ html.dark .project-card:hover {
   margin-top: 6px;
 }
 
+/* Kept subtle rather than invisible — at opacity 0 it was still in the tab
+   order, so keyboard users landed on a link they couldn't see. */
 .project-github-link {
   color: var(--color-text);
-  opacity: 0;
-  transform: translateY(4px);
+  opacity: 0.35;
+  transform: translateY(2px);
   transition: opacity 0.25s ease, transform 0.25s ease, color 0.2s ease;
   display: flex;
   align-items: center;
 }
 
 .project-card:hover .project-github-link {
-  opacity: 0.6;
+  opacity: 0.7;
   transform: translateY(0);
 }
 
-.project-github-link:hover {
-  opacity: 1 !important;
+.project-github-link:hover,
+.project-github-link:focus-visible {
+  opacity: 1;
+  transform: translateY(0);
   color: var(--color-purple);
 }
 
@@ -514,6 +514,11 @@ html.dark .project-card:hover {
   border-color: var(--color-teal);
 }
 
+.project-card:nth-of-type(3) .project-tag {
+  color: var(--color-purple);
+  border-color: var(--color-purple);
+}
+
 .project-desc {
   font-family: var(--font-body);
   font-size: 16px;
@@ -528,7 +533,7 @@ html.dark .project-card:hover {
   font-size: 11px;
   letter-spacing: 0.1em;
   color: var(--color-text);
-  opacity: 0.5;
+  opacity: 0.7;
   text-transform: uppercase;
   margin-bottom: var(--space-xs);
   margin-top: var(--space-md);
@@ -548,7 +553,7 @@ html.dark .project-card:hover {
   font-size: 12px;
   letter-spacing: 0.08em;
   color: var(--color-text);
-  opacity: 0.6;
+  opacity: 0.7;
   margin-top: var(--space-md);
 }
 
@@ -578,8 +583,8 @@ html.dark .project-card:hover {
   gap: 8px;
   padding: 10px 22px;
   border-radius: 980px;
-  border: 1px solid rgba(255,255,255,0.30);
-  background: linear-gradient(135deg, rgba(255,255,255,0.18) 0%, rgba(255,255,255,0.06) 100%);
+  border: 1px solid var(--glass-border-hover);
+  background: var(--glass-bg);
   color: var(--color-text);
   font-family: var(--font-body);
   font-size: 0.9rem;
@@ -587,17 +592,12 @@ html.dark .project-card:hover {
   cursor: pointer;
   backdrop-filter: blur(28px) saturate(1.6) brightness(1.04);
   -webkit-backdrop-filter: blur(28px) saturate(1.6) brightness(1.04);
-  box-shadow: 0 4px 20px rgba(0,0,0,0.06), inset 0 1px 0 rgba(255,255,255,0.35);
+  box-shadow: var(--glass-shadow), inset 0 1px 0 rgba(255, 255, 255, 0.35);
   transition: background 0.2s, border-color 0.2s, color 0.2s, box-shadow 0.2s;
 }
 
-html.dark .resume-download-btn {
-  border-color: rgba(255,255,255,0.13);
-  background: linear-gradient(135deg, rgba(255,255,255,0.09) 0%, rgba(255,255,255,0.03) 100%);
-  box-shadow: 0 4px 20px rgba(0,0,0,0.25), inset 0 1px 0 rgba(255,255,255,0.10);
-}
-
-.resume-download-btn:hover {
+.resume-download-btn:hover,
+.resume-download-btn:focus-visible {
   background: rgba(124, 58, 237, 0.15);
   border-color: var(--color-purple);
   color: var(--color-purple);
@@ -607,7 +607,7 @@ html.dark .resume-download-btn {
   width: 100%;
   border-radius: 10px;
   overflow: hidden;
-  border: 1px solid rgba(255,255,255,0.08);
+  border: 1px solid var(--glass-border);
 }
 
 .resume-frame {
@@ -618,21 +618,14 @@ html.dark .resume-download-btn {
   background: #fff;
 }
 
-.resume-fallback {
-  padding: var(--space-md);
-  text-align: center;
-  font-family: var(--font-body);
-}
-
 /* ── Contact Section ── */
 #contact {
-  min-height: 100vh;
+  min-height: 90vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   padding: var(--space-xl) var(--space-md);
-  position: relative;
   text-align: center;
 }
 
@@ -671,7 +664,7 @@ html.dark .resume-download-btn {
   font-family: var(--font-body);
   font-size: 18px;
   color: var(--color-text);
-  opacity: 0.4;
+  opacity: 0.6;
 }
 
 .contact-link {
@@ -686,13 +679,10 @@ html.dark .resume-download-btn {
   color: var(--color-teal);
 }
 
-/* Footer */
+/* Footer — in normal flow after <main>. It used to be absolutely positioned
+   inside #contact, where it collided with the contact links on short viewports. */
 .site-footer {
-  position: absolute;
-  bottom: var(--space-md);
-  left: 0;
-  right: 0;
-  padding: 0 var(--space-md);
+  padding: 0 var(--space-md) var(--space-md);
 }
 
 .footer-rule {
@@ -711,7 +701,7 @@ html.dark .resume-download-btn {
   font-family: var(--font-mono);
   font-size: 12px;
   color: var(--color-text);
-  opacity: 0.4;
+  opacity: 0.7;
 }
 
 /* ── Tools Section ── */
@@ -742,7 +732,7 @@ html.dark .resume-download-btn {
   letter-spacing: 0.1em;
   text-transform: uppercase;
   color: var(--color-text);
-  opacity: 0.5;
+  opacity: 0.7;
   margin-bottom: var(--space-sm);
 }
 
@@ -782,7 +772,7 @@ html.dark .resume-download-btn {
   flex-shrink: 0;
   position: relative;
   z-index: 2;
-  filter: grayscale(1) brightness(1) opacity(0.4) drop-shadow(0 0 0px transparent);
+  filter: grayscale(1) brightness(1) opacity(0.55) drop-shadow(0 0 0px transparent);
   transition: filter 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
@@ -876,15 +866,29 @@ html.dark .resume-download-btn {
   }
 
   .landing-name {
-    font-size: 48px;
+    font-size: 42px;
   }
 
   .landing-tagline p {
     font-size: 16px;
   }
 
+  /* 44px tap target without moving the arrow off centre */
+  .scroll-indicator {
+    padding: 10px 16px;
+    bottom: var(--space-sm);
+  }
+
   #about {
     padding: var(--space-lg) var(--space-sm);
+  }
+
+  /* #about already supplies the 16px gutter; .content-col's own 32px stacked
+     on top of it and squeezed the bio to 279px while every other section
+     ran to 343px. */
+  .content-col {
+    padding-left: 0;
+    padding-right: 0;
   }
 
   .pillar {
@@ -905,6 +909,51 @@ html.dark .resume-download-btn {
     display: none;
   }
 
+  /* Match the 16px gutter the other sections use */
+  .gallery-header {
+    padding: 0 var(--space-sm) var(--space-lg);
+  }
+
+  /* An 8px dot is fine to look at and impossible to hit. Keep the dot the
+     same size but give the button a 44px target via a pseudo-element. */
+  .gallery-dots {
+    gap: 0;
+    padding: 4px 0;
+  }
+
+  /* .active and :hover set a background at higher specificity, so they have to
+     be cleared too or the whole 44px button paints as a solid blob. */
+  .gallery-dot,
+  .gallery-dot:hover,
+  .gallery-dot.active {
+    width: 44px;
+    height: 44px;
+    background: none;
+    position: relative;
+  }
+
+  .gallery-dot::after {
+    content: '';
+    position: absolute;
+    inset: 18px;
+    border-radius: 50%;
+    background: var(--dot);
+    transition: background 0.25s, transform 0.25s;
+  }
+
+  .gallery-dot:hover::after,
+  .gallery-dot.active::after {
+    background: var(--dot-active);
+  }
+
+  .gallery-dot.active {
+    transform: none;
+  }
+
+  .gallery-dot.active::after {
+    transform: scale(1.3);
+  }
+
   #tools {
     padding: var(--space-lg) var(--space-sm);
   }
@@ -914,9 +963,13 @@ html.dark .resume-download-btn {
   }
 
   .tool-tag {
-    font-size: 12px;
-    padding: 6px 10px;
-    gap: 5px;
+    font-size: 13px;
+    padding: 11px 14px;
+    gap: 6px;
+  }
+
+  .tool-category-title {
+    font-size: 13px;
   }
 
   .tool-icon {
@@ -933,8 +986,29 @@ html.dark .resume-download-btn {
     padding: var(--space-lg) var(--space-sm);
   }
 
+  .note-date {
+    font-size: 13px;
+  }
+
   #projects {
     padding: var(--space-lg) var(--space-sm);
+  }
+
+  /* 11px and 12px mono are too fine to read on a phone */
+  .project-tag,
+  .project-section-label {
+    font-size: 12px;
+  }
+
+  .project-stack,
+  .pillar-tags {
+    font-size: 13px;
+  }
+
+  /* 18px icon in a 44px target, pulled back out so the row doesn't grow */
+  .project-github-link {
+    padding: 13px;
+    margin: -13px;
   }
 
   /* Resume: hide iframe on mobile, just show download */
@@ -963,5 +1037,30 @@ html.dark .resume-download-btn {
 
   #contact {
     padding: var(--space-lg) var(--space-sm);
+  }
+
+  /* The row wrapped mid-list and left a separator dangling at the end of the
+     first line. Stack them instead and drop the separators. */
+  .contact-links {
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .contact-divider-text {
+    display: none;
+  }
+
+  .contact-email,
+  .contact-link {
+    display: inline-block;
+    padding: 7px 4px;
+  }
+
+  .site-footer {
+    padding: 0 var(--space-sm) var(--space-sm);
+  }
+
+  .footer-text {
+    font-size: 13px;
   }
 }

@@ -13,23 +13,19 @@
 
   // ── Show/hide nav after landing ──────────────────────────
   function handleNavVisibility() {
-    if (window.scrollY > landingHeight * 0.85) {
-      nav.classList.add('visible');
-      if (themeToggleFixed) {
-        themeToggleFixed.style.opacity = '0';
-        themeToggleFixed.style.pointerEvents = 'none';
-      }
-    } else {
-      nav.classList.remove('visible');
-      if (themeToggleFixed) {
-        themeToggleFixed.style.opacity = '0.85';
-        themeToggleFixed.style.pointerEvents = 'auto';
-      }
+    var showNav = window.scrollY > landingHeight * 0.85;
+    nav.classList.toggle('visible', showNav);
+    // Class rather than inline opacity, so the hidden toggle also leaves the
+    // tab order instead of sitting there invisible but focusable.
+    if (themeToggleFixed) {
+      themeToggleFixed.classList.toggle('is-hidden', showNav);
     }
   }
 
   // ── Active section detection ──────────────────────────────
-  var sectionIds = ['about', 'drives', 'gallery', 'tools', 'projects', 'notes', 'contact'];
+  // In document order, and including every section the nav links to —
+  // 'resume' was missing, so its pill never lit up.
+  var sectionIds = ['about', 'drives', 'tools', 'projects', 'notes', 'resume', 'gallery', 'contact'];
   var navLinks = nav.querySelectorAll('.nav-links a[data-section]');
 
   function updateActiveSection() {
@@ -47,10 +43,12 @@
     });
 
     navLinks.forEach(function (link) {
-      if (link.dataset.section === activeId) {
-        link.classList.add('active');
+      var isActive = link.dataset.section === activeId;
+      link.classList.toggle('active', isActive);
+      if (isActive) {
+        link.setAttribute('aria-current', 'true');
       } else {
-        link.classList.remove('active');
+        link.removeAttribute('aria-current');
       }
     });
   }
@@ -77,9 +75,16 @@
   }
 
   // ── Scroll listener ───────────────────────────────────────
+  // Both handlers read layout, so coalesce them into one frame.
+  var ticking = false;
   window.addEventListener('scroll', function () {
-    handleNavVisibility();
-    updateActiveSection();
+    if (ticking) return;
+    ticking = true;
+    window.requestAnimationFrame(function () {
+      handleNavVisibility();
+      updateActiveSection();
+      ticking = false;
+    });
   }, { passive: true });
 
   // Update landing height on resize
