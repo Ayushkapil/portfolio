@@ -63,6 +63,13 @@ html.dark {
   --font-caption: 'Lora', Georgia, serif;
   --font-mono: 'DM Mono', 'Courier New', monospace;
 
+  /* Layout grid — every section shares one outer measure so headings and
+     content keep the same left edge all the way down the page. Prose is
+     capped narrower *inside* that shell rather than given its own width. */
+  --measure: 1040px;      /* section shell: headings, cards, chip grids */
+  --measure-prose: 720px; /* reading column inside the shell */
+  --gutter: 32px;
+
   /* Spacing — 8-point grid */
   --space-xs: 8px;
   --space-sm: 16px;

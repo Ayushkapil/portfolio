@@ -19,10 +19,10 @@
     return {
       x:     Math.random() * canvas.width,
       y:     Math.random() * canvas.height,
-      r:     0.5 + Math.random() * 1.5,
+      r:     0.6 + Math.random() * 1.6,
       vx:    (Math.random() - 0.5) * 0.3,
       vy:    (Math.random() - 0.5) * 0.3,
-      alpha: 0.06 + Math.random() * 0.12,
+      alpha: 0.18 + Math.random() * 0.30,
       color: palette[Math.floor(Math.random() * palette.length)]
     };
   }
@@ -39,10 +39,19 @@
   let dustParticles = [];
   let animId = null;
 
+  /* Fixed 25 particles read as empty space on a large display. Scale with
+     viewport area instead, clamped so it stays texture rather than noise. */
+  function particleCount() {
+    var area = window.innerWidth * window.innerHeight;
+    return Math.max(40, Math.min(110, Math.round(area / 14000)));
+  }
+
   function init() {
     bgCanvas.width  = window.innerWidth;
     bgCanvas.height = window.innerHeight;
-    dustParticles = Array.from({ length: 25 }, function () { return spawnDust(bgCanvas); });
+    dustParticles = Array.from({ length: particleCount() }, function () {
+      return spawnDust(bgCanvas);
+    });
   }
 
   function animate() {

@@ -104,6 +104,7 @@
     <div class="landing-content">
       <p class="landing-greeting">Hey there!</p>
       <h1 class="landing-name">I'm Ayush Kapileshwar</h1>
+      <div class="landing-rule" aria-hidden="true"></div>
       <div class="landing-tagline">
         <p>I like to learn about Machine Learning, Language Models and Generative Artificial Intelligence.</p>
         <p>Away from that, I have my instrument and a camera to see the world through it.</p>
@@ -134,41 +135,40 @@
   <!-- ─────────────────────────────────────────────────────── -->
   <!-- SECTION 2 — WHAT DRIVES ME                               -->
   <!-- ─────────────────────────────────────────────────────── -->
-  <section id="drives" aria-label="What drives me">
+  <section id="drives" aria-labelledby="drives-heading">
+    <div class="drives-inner">
 
-    <!-- Pillar 01 -->
-    <div class="pillar">
-      <div class="pillar-inner">
-        <div class="pillar-number reveal" data-delay="0">01</div>
-        <h2 class="pillar-title reveal" data-delay="1">Data &amp; Patterns</h2>
-        <div class="pillar-divider reveal" data-delay="2"></div>
-        <p class="pillar-quote reveal" data-delay="3">"I'd rather solve one problem someone actually has than five that only sound interesting."</p>
-        <p class="pillar-tags reveal" data-delay="4">ML&nbsp;&nbsp;·&nbsp;&nbsp;Gen AI&nbsp;&nbsp;·&nbsp;&nbsp;Data Science</p>
+      <div class="drives-header">
+        <h2 id="drives-heading" class="section-heading reveal" data-delay="0">What Drives Me</h2>
       </div>
-    </div>
 
-    <!-- Pillar 02 -->
-    <div class="pillar">
-      <div class="pillar-inner">
-        <div class="pillar-number reveal" data-delay="0">02</div>
-        <h2 class="pillar-title reveal" data-delay="1">Rhythm &amp; Patience</h2>
-        <div class="pillar-divider reveal" data-delay="2"></div>
-        <p class="pillar-quote reveal" data-delay="3">"Indian classical music taught me that mastery is never linear. You repeat, you refine, you unlearn. I try to work the same way."</p>
-        <p class="pillar-tags reveal" data-delay="4">Music&nbsp;&nbsp;·&nbsp;&nbsp;Iteration&nbsp;&nbsp;·&nbsp;&nbsp;Listening</p>
+      <div class="pillars-grid">
+        <article class="pillar">
+          <div class="pillar-number reveal" data-delay="1">01</div>
+          <h3 class="pillar-title reveal" data-delay="1">Data &amp; Patterns</h3>
+          <div class="pillar-divider reveal" data-delay="1"></div>
+          <p class="pillar-quote reveal" data-delay="1">"I'd rather solve one problem someone actually has than five that only sound interesting."</p>
+          <p class="pillar-tags reveal" data-delay="1">ML&nbsp;&nbsp;·&nbsp;&nbsp;Gen AI&nbsp;&nbsp;·&nbsp;&nbsp;Data Science</p>
+        </article>
+
+        <article class="pillar">
+          <div class="pillar-number reveal" data-delay="2">02</div>
+          <h3 class="pillar-title reveal" data-delay="2">Rhythm &amp; Patience</h3>
+          <div class="pillar-divider reveal" data-delay="2"></div>
+          <p class="pillar-quote reveal" data-delay="2">"Indian classical music taught me that mastery is never linear. You repeat, you refine, you unlearn. I try to work the same way."</p>
+          <p class="pillar-tags reveal" data-delay="2">Music&nbsp;&nbsp;·&nbsp;&nbsp;Iteration&nbsp;&nbsp;·&nbsp;&nbsp;Listening</p>
+        </article>
+
+        <article class="pillar">
+          <div class="pillar-number reveal" data-delay="3">03</div>
+          <h3 class="pillar-title reveal" data-delay="3">Looking at Things</h3>
+          <div class="pillar-divider reveal" data-delay="3"></div>
+          <p class="pillar-quote reveal" data-delay="3">"I photograph things that remind me of a time I can't quite place. Mostly I just stop for the light."</p>
+          <p class="pillar-tags reveal" data-delay="3">Photography&nbsp;&nbsp;·&nbsp;&nbsp;Streets&nbsp;&nbsp;·&nbsp;&nbsp;Light</p>
+        </article>
       </div>
-    </div>
 
-    <!-- Pillar 03 -->
-    <div class="pillar">
-      <div class="pillar-inner">
-        <div class="pillar-number reveal" data-delay="0">03</div>
-        <h2 class="pillar-title reveal" data-delay="1">Looking at Things</h2>
-        <div class="pillar-divider reveal" data-delay="2"></div>
-        <p class="pillar-quote reveal" data-delay="3">"I photograph things that remind me of a time I can't quite place. Mostly I just stop for the light."</p>
-        <p class="pillar-tags reveal" data-delay="4">Photography&nbsp;&nbsp;·&nbsp;&nbsp;Streets&nbsp;&nbsp;·&nbsp;&nbsp;Light</p>
-      </div>
     </div>
-
   </section>
 
   <!-- ─────────────────────────────────────────────────────── -->
@@ -362,59 +362,69 @@
 
       <!-- Card 1: MoodFlow -->
       <article class="project-card reveal-card">
-        <div class="project-header">
+        <div class="project-aside">
           <h3 class="project-title">MoodFlow</h3>
-          <div class="project-header-right">
-            <span class="project-tag">hackathon</span>
-            <a class="project-github-link" href="https://github.com/jumandas/Moodflow" target="_blank" rel="noopener noreferrer" aria-label="MoodFlow on GitHub">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2C6.477 2 2 6.477 2 12c0 4.418 2.865 8.166 6.839 9.489.5.092.682-.217.682-.482 0-.237-.009-.868-.013-1.703-2.782.604-3.369-1.342-3.369-1.342-.454-1.154-1.11-1.462-1.11-1.462-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.578 9.578 0 0 1 12 6.836a9.59 9.59 0 0 1 2.504.337c1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.202 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.741 0 .267.18.578.688.48C19.138 20.163 22 16.418 22 12c0-5.523-4.477-10-10-10z"/></svg>
+          <div class="project-meta">
+          <span class="project-tag">hackathon</span>
+          <a class="project-github-link" href="https://github.com/jumandas/Moodflow" target="_blank" rel="noopener noreferrer" aria-label="MoodFlow on GitHub">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2C6.477 2 2 6.477 2 12c0 4.418 2.865 8.166 6.839 9.489.5.092.682-.217.682-.482 0-.237-.009-.868-.013-1.703-2.782.604-3.369-1.342-3.369-1.342-.454-1.154-1.11-1.462-1.11-1.462-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.578 9.578 0 0 1 12 6.836a9.59 9.59 0 0 1 2.504.337c1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.202 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.741 0 .267.18.578.688.48C19.138 20.163 22 16.418 22 12c0-5.523-4.477-10-10-10z"/></svg>
             </a>
           </div>
+          <p class="project-stack">SwiftUI&nbsp;·&nbsp;Groq / Llama 3.3&nbsp;·&nbsp;Spotify SDK&nbsp;·&nbsp;Prompt Engineering&nbsp;·&nbsp;Team of 4</p>
         </div>
+
+        <div class="project-body">
         <p class="project-desc">An iOS app that builds AI-generated music journeys based on how you're feeling, emotionally and physiologically, and plays them live through Spotify. You pick your mood, enter biometrics, choose where you want to end up, and the AI builds a four-stage path to get you there. Built at an AI hackathon at IU Bloomington, team of four.</p>
 
         <div class="project-section-label">What I did</div>
+
         <p class="project-detail">Designed and iterated on the LLM prompts: the music therapist persona, the four-stage journey structure, the mood-to-music mapping logic, and the adaptive re-curation prompts that regenerate remaining stages when a user says the music isn't working.</p>
 
         <div class="project-section-label">What I learned</div>
-        <p class="project-detail">The LLM kept recommending the same songs. Every journey, no matter the mood, same handful of tracks. Getting an AI to be genuinely diverse in its recommendations, not just correct but surprising, turned out to be the hardest prompt engineering problem we hit.</p>
 
-        <p class="project-stack">SwiftUI&nbsp;·&nbsp;Groq / Llama 3.3&nbsp;·&nbsp;Spotify SDK&nbsp;·&nbsp;Prompt Engineering&nbsp;·&nbsp;Team of 4</p>
+        <p class="project-detail">The LLM kept recommending the same songs. Every journey, no matter the mood, same handful of tracks. Getting an AI to be genuinely diverse in its recommendations, not just correct but surprising, turned out to be the hardest prompt engineering problem we hit.</p>
+        </div>
       </article>
 
       <!-- Card 2: AeroOps Copilot -->
       <article class="project-card reveal-card">
-        <div class="project-header">
+        <div class="project-aside">
           <h3 class="project-title">AeroOps Copilot</h3>
-          <div class="project-header-right">
-            <span class="project-tag">in progress</span>
-            <a class="project-github-link" href="https://github.com/Ayushkapil/aeroops-copilot" target="_blank" rel="noopener noreferrer" aria-label="AeroOps Copilot on GitHub">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2C6.477 2 2 6.477 2 12c0 4.418 2.865 8.166 6.839 9.489.5.092.682-.217.682-.482 0-.237-.009-.868-.013-1.703-2.782.604-3.369-1.342-3.369-1.342-.454-1.154-1.11-1.462-1.11-1.462-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.578 9.578 0 0 1 12 6.836a9.59 9.59 0 0 1 2.504.337c1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.202 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.741 0 .267.18.578.688.48C19.138 20.163 22 16.418 22 12c0-5.523-4.477-10-10-10z"/></svg>
+          <div class="project-meta">
+          <span class="project-tag">in progress</span>
+          <a class="project-github-link" href="https://github.com/Ayushkapil/aeroops-copilot" target="_blank" rel="noopener noreferrer" aria-label="AeroOps Copilot on GitHub">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2C6.477 2 2 6.477 2 12c0 4.418 2.865 8.166 6.839 9.489.5.092.682-.217.682-.482 0-.237-.009-.868-.013-1.703-2.782.604-3.369-1.342-3.369-1.342-.454-1.154-1.11-1.462-1.11-1.462-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.578 9.578 0 0 1 12 6.836a9.59 9.59 0 0 1 2.504.337c1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.202 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.741 0 .267.18.578.688.48C19.138 20.163 22 16.418 22 12c0-5.523-4.477-10-10-10z"/></svg>
             </a>
           </div>
+          <p class="project-stack">Python&nbsp;·&nbsp;FastAPI&nbsp;·&nbsp;LangChain&nbsp;·&nbsp;pgvector&nbsp;·&nbsp;React&nbsp;·&nbsp;In Progress</p>
         </div>
+
+        <div class="project-body">
         <p class="project-desc">A modular AI system for aviation safety. Three modules, connected through an LLM-based intent router that chains them automatically: SOP retrieval via RAG with cross-encoder reranking, structured incident analysis from PDF reports, and fatigue risk scoring from pilot schedules.</p>
 
         <div class="project-section-label">What I did</div>
+
         <p class="project-detail">Designed the full system: three-module architecture, cross-module chaining logic, evaluation framework with three research questions, and the data pipeline design from FAA and NASA source documents. Currently building the implementation.</p>
 
         <div class="project-section-label">What I learned</div>
-        <p class="project-detail">I wanted to be a pilot growing up. Didn't happen, but the interest in aviation never went away. Building something for the people who are actually in that world, even as a student project, feels like the right use of what I'm learning. The system isn't built yet. But the design forced me to think about how modules should talk to each other, and I learned that architecture decisions made on paper feel very different once you start writing the first line of code.</p>
 
-        <p class="project-stack">Python&nbsp;·&nbsp;FastAPI&nbsp;·&nbsp;LangChain&nbsp;·&nbsp;pgvector&nbsp;·&nbsp;React&nbsp;·&nbsp;In Progress</p>
+        <p class="project-detail">I wanted to be a pilot growing up. Didn't happen, but the interest in aviation never went away. Building something for the people who are actually in that world, even as a student project, feels like the right use of what I'm learning. The system isn't built yet. But the design forced me to think about how modules should talk to each other, and I learned that architecture decisions made on paper feel very different once you start writing the first line of code.</p>
+        </div>
       </article>
 
       <!-- Card 3: Stanley -->
       <article class="project-card reveal-card">
-        <div class="project-header">
+        <div class="project-aside">
           <h3 class="project-title">Stanley</h3>
-          <div class="project-header-right">
-            <span class="project-tag">in development</span>
+          <div class="project-meta">
+          <span class="project-tag">in development</span>
           </div>
+          <p class="project-stack">Swift&nbsp;·&nbsp;SwiftUI&nbsp;·&nbsp;SwiftData&nbsp;·&nbsp;SQLite (WAL)&nbsp;·&nbsp;Sentry&nbsp;·&nbsp;In Development</p>
         </div>
-        <p class="project-desc">A native iOS app for sharing photos with a small, trusted circle. Photos decay over time unless someone holds them, a constraint that makes sharing feel deliberate rather than performative. What gets held goes to a Held archive, a Returned surface brings older photos back around later, and a safety layer sits underneath both. The backend is hardened with auth, WAL mode, and Sentry. Close to TestFlight, not finished.</p>
 
-        <p class="project-stack">Swift&nbsp;·&nbsp;SwiftUI&nbsp;·&nbsp;SwiftData&nbsp;·&nbsp;SQLite (WAL)&nbsp;·&nbsp;Sentry&nbsp;·&nbsp;In Development</p>
+        <div class="project-body">
+        <p class="project-desc">A native iOS app for sharing photos with a small, trusted circle. Photos decay over time unless someone holds them, a constraint that makes sharing feel deliberate rather than performative. What gets held goes to a Held archive, a Returned surface brings older photos back around later, and a safety layer sits underneath both. The backend is hardened with auth, WAL mode, and Sentry. Close to TestFlight, not finished.</p>
+        </div>
       </article>
 
     </div>

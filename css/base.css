@@ -47,9 +47,11 @@ h3 {
 /* Section headings */
 .section-heading {
   font-family: var(--font-display);
-  font-size: 48px;
+  /* Fluid so headings stay proportionate between phone and large desktop */
+  font-size: clamp(32px, 3.6vw, 50px);
   font-weight: 400;
-  line-height: 1.2;
+  line-height: 1.15;
+  letter-spacing: -0.005em;
   color: var(--color-text);
 }
 
@@ -92,13 +94,16 @@ p {
   color: var(--color-text);
 }
 
-/* Content container */
+/* Content container — shares the page measure so its heading lines up with
+   every other section; the prose inside is capped narrower for readability. */
 .content-col {
-  max-width: 720px;
+  max-width: var(--measure);
   width: 100%;
   margin: 0 auto;
-  padding-left: var(--space-md);
-  padding-right: var(--space-md);
+}
+
+.content-col .about-text {
+  max-width: var(--measure-prose);
 }
 
 /* Cursor pointer for all interactive elements */
@@ -118,10 +123,6 @@ a,
 @media (max-width: 767px) {
   body {
     font-size: 16px;
-  }
-
-  .section-heading {
-    font-size: 32px;
   }
 
   p {

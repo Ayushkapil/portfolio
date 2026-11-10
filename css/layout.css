@@ -36,30 +36,47 @@
   letter-spacing: 0.02em;
 }
 
+/* Fluid, so the name carries the hero at every width instead of sitting at a
+   fixed 72px in a mostly empty viewport. */
 .landing-name {
   font-family: var(--font-display);
-  font-size: 72px;
+  font-size: clamp(42px, 6.4vw, 88px);
   font-weight: 300;
-  line-height: 1.2;
+  line-height: 1.12;
+  letter-spacing: -0.01em;
   color: var(--color-text);
   animation: fadeIn 0.6s ease 0.4s both;
 }
 
+/* A hairline between the name and the tagline — the jump from 88px display
+   type straight to 19px body had nothing bridging it. */
+.landing-rule {
+  width: 64px;
+  height: 1px;
+  margin: var(--space-md) auto 0;
+  background: var(--color-text);
+  opacity: 0.25;
+  animation: fadeIn 0.6s ease 0.8s both;
+}
+
 .landing-tagline {
   font-family: var(--font-body);
-  font-size: 18px;
+  font-size: 19px;
   font-weight: 400;
-  line-height: 1.8;
+  /* Tighter than the page default so the three lines read as one block */
+  line-height: 1.65;
   color: var(--color-text);
   opacity: 0.85;
   margin-top: var(--space-md);
+  /* No max-width: each line is a standalone thought and should hold one line
+     on desktop. Capping the measure broke them mid-sentence. */
   animation: fadeIn 0.6s ease 1.0s both;
 }
 
 /* No opacity here — it would compound with the parent's and drop the
    effective contrast below AA. */
 .landing-tagline p {
-  font-size: 18px;
+  font-size: inherit;
   margin: 0;
 }
 
@@ -91,7 +108,7 @@
 
 /* ── About Section ── */
 #about {
-  padding: var(--space-xl) var(--space-md);
+  padding: var(--space-xl) var(--gutter);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -130,16 +147,33 @@
 }
 
 /* ── What Drives Me Section ──
-   #drives is just a container for three full-height pillar blocks. */
-.pillar {
-  min-height: 100vh;
+   Was three consecutive 100vh blocks, each holding five short lines — about
+   2,700px of mostly empty screen. Now one section with the three ideas side
+   by side, so they read as a set instead of three sparse slides. */
+#drives {
+  padding: var(--space-xl) var(--gutter);
   display: flex;
-  align-items: center;
-  padding: var(--space-xl) var(--space-xl);
+  justify-content: center;
 }
 
-.pillar-inner {
-  max-width: 720px;
+.drives-inner {
+  width: 100%;
+  max-width: var(--measure);
+}
+
+.drives-header {
+  margin-bottom: var(--space-lg);
+}
+
+.pillars-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-lg);
+}
+
+.pillar {
+  display: flex;
+  flex-direction: column;
 }
 
 .pillar-number {
@@ -162,9 +196,9 @@
 
 .pillar-title {
   font-family: var(--font-display);
-  font-size: 40px;
+  font-size: 30px;
   font-weight: 400;
-  line-height: 1.2;
+  line-height: 1.25;
   color: var(--color-text);
   margin-bottom: var(--space-sm);
 }
@@ -177,17 +211,20 @@
   transition: width 0.6s ease;
 }
 
+/* Reads as an accent rule under the title rather than a near-full-width line */
 .pillar-divider.expanded {
-  width: 240px;
+  width: 56px;
 }
 
 .pillar-quote {
   font-family: var(--font-caption);
   font-style: italic;
-  font-size: 20px;
-  line-height: 1.6;
+  font-size: 19px;
+  line-height: 1.65;
   color: var(--color-text);
   margin-bottom: var(--space-md);
+  /* Pushes the tag row to the bottom so all three line up */
+  flex: 1 1 auto;
 }
 
 .pillar-tags {
@@ -208,9 +245,12 @@
    carousel below it is full-bleed. */
 .gallery-header {
   width: 100%;
-  max-width: 1000px;
+  /* The carousel below is full-bleed, so #gallery can't carry the gutter and
+     the header supplies its own. Widen the shell by two gutters so the text
+     still lands on the same left edge as every other section. */
+  max-width: calc(var(--measure) + var(--gutter) * 2);
   margin: 0 auto;
-  padding: 0 var(--space-md) var(--space-lg);
+  padding: 0 var(--gutter) var(--space-lg);
 }
 
 .gallery-subline {
@@ -335,14 +375,14 @@
 
 /* ── Notes Section ── */
 #notes {
-  padding: var(--space-xl) var(--space-md);
+  padding: var(--space-xl) var(--gutter);
   display: flex;
   justify-content: center;
 }
 
 .notes-inner {
   width: 100%;
-  max-width: 720px;
+  max-width: var(--measure);
 }
 
 .notes-header {
@@ -412,24 +452,30 @@
 
 /* ── Projects Section ── */
 #projects {
-  padding: var(--space-xl) var(--space-md);
+  padding: var(--space-xl) var(--gutter);
   display: flex;
   justify-content: center;
 }
 
 .projects-inner {
   width: 100%;
-  max-width: 720px;
+  max-width: var(--measure);
 }
 
 .projects-header {
   margin-bottom: var(--space-lg);
 }
 
+/* Two columns on desktop: a meta rail (title, status, stack) beside the prose.
+   As one flat text column the cards were ~400px of uniform body copy with
+   nothing to scan. */
 .project-card {
-  padding: var(--space-md) var(--space-sm);
+  display: grid;
+  grid-template-columns: 240px minmax(0, 1fr);
+  gap: var(--space-md);
+  padding: var(--space-md);
   border-radius: 14px;
-  margin-bottom: var(--space-sm);
+  margin-bottom: var(--space-md);
   border: 1px solid var(--glass-border);
   background: var(--glass-bg);
   backdrop-filter: blur(12px) saturate(1.3);
@@ -446,21 +492,24 @@
 }
 
 
-.project-header {
+.project-aside {
   display: flex;
+  flex-direction: column;
   align-items: flex-start;
-  justify-content: space-between;
-  margin-bottom: var(--space-sm);
+  gap: var(--space-sm);
 }
 
-.project-header-right {
+.project-meta {
   display: flex;
   align-items: center;
   gap: 10px;
-  flex-shrink: 0;
-  margin-left: var(--space-sm);
-  margin-top: 6px;
+  flex-wrap: wrap;
 }
+
+.project-body {
+  max-width: var(--measure-prose);
+}
+
 
 /* Kept subtle rather than invisible — at opacity 0 it was still in the tab
    order, so keyboard users landed on a link they couldn't see. */
@@ -524,7 +573,7 @@
   font-size: 16px;
   line-height: 1.8;
   color: var(--color-text);
-  margin-bottom: var(--space-md);
+  margin-bottom: 0;
   opacity: 0.9;
 }
 
@@ -551,22 +600,23 @@
 .project-stack {
   font-family: var(--font-mono);
   font-size: 12px;
+  line-height: 1.9;
   letter-spacing: 0.08em;
   color: var(--color-text);
   opacity: 0.7;
-  margin-top: var(--space-md);
+  margin-top: var(--space-xs);
 }
 
 /* ── Resume Section ── */
 #resume {
-  padding: var(--space-xl) var(--space-md);
+  padding: var(--space-xl) var(--gutter);
   display: flex;
   justify-content: center;
 }
 
 .resume-inner {
   width: 100%;
-  max-width: 860px;
+  max-width: var(--measure);
   display: flex;
   flex-direction: column;
   gap: var(--space-lg);
@@ -682,19 +732,24 @@
 /* Footer — in normal flow after <main>. It used to be absolutely positioned
    inside #contact, where it collided with the contact links on short viewports. */
 .site-footer {
-  padding: 0 var(--space-md) var(--space-md);
+  padding: 0 var(--gutter) var(--space-md);
 }
 
 .footer-rule {
   border: none;
   border-top: 1px solid var(--color-border);
-  margin-bottom: var(--space-xs);
+  margin: 0 auto var(--space-xs);
+  width: 100%;
+  max-width: var(--measure);
 }
 
 .footer-inner {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  width: 100%;
+  max-width: var(--measure);
+  margin: 0 auto;
 }
 
 .footer-text {
@@ -706,14 +761,14 @@
 
 /* ── Tools Section ── */
 #tools {
-  padding: var(--space-xl) var(--space-md);
+  padding: var(--space-xl) var(--gutter);
   display: flex;
   justify-content: center;
 }
 
 .tools-inner {
   width: 100%;
-  max-width: 1000px;
+  max-width: var(--measure);
 }
 
 .tools-header {
@@ -849,9 +904,22 @@
 }
 
 /* ── Responsive ── */
+@media (max-width: 1100px) and (min-width: 768px) {
+  .project-card {
+    grid-template-columns: 190px minmax(0, 1fr);
+  }
+}
+
+/* Three columns need roughly 900px; below that the ideas stack. */
 @media (max-width: 1023px) {
-  .pillar {
-    padding: var(--space-xl) var(--space-md);
+  .pillars-grid {
+    grid-template-columns: 1fr;
+    gap: var(--space-lg);
+  }
+
+  .pillar-quote {
+    flex: 0 1 auto;
+    max-width: var(--measure-prose);
   }
 
   .gallery-slide {
@@ -865,10 +933,7 @@
     font-size: 16px;
   }
 
-  .landing-name {
-    font-size: 42px;
-  }
-
+  .landing-tagline,
   .landing-tagline p {
     font-size: 16px;
   }
@@ -891,13 +956,16 @@
     padding-right: 0;
   }
 
-  .pillar {
+  #drives {
     padding: var(--space-lg) var(--space-sm);
-    min-height: 100vh;
+  }
+
+  .pillars-grid {
+    gap: var(--space-md);
   }
 
   .pillar-title {
-    font-size: 28px;
+    font-size: 26px;
   }
 
   .gallery-slide {
@@ -993,6 +1061,26 @@
   #projects {
     padding: var(--space-lg) var(--space-sm);
   }
+
+  /* Stacked, and reordered so the rail's stack line lands after the prose
+     instead of above it — on one column it otherwise reads as a header
+     before you know what the project is. display:contents lets the aside's
+     children take part in the card's own flex order. */
+  .project-card {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+    padding: var(--space-md) var(--space-sm);
+  }
+
+  .project-aside {
+    display: contents;
+  }
+
+  .project-title { order: 1; }
+  .project-meta  { order: 2; }
+  .project-body  { order: 3; }
+  .project-stack { order: 4; margin-top: 0; }
 
   /* 11px and 12px mono are too fine to read on a phone */
   .project-tag,
