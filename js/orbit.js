@@ -14,6 +14,12 @@
     return document.documentElement.classList.contains('dark') ? 'dark' : 'light';
   }
 
+  /* The same alpha that reads as a starfield on near-black reads as specks of
+     dust on cream, so light mode gets a much softer field. */
+  function alphaScale() {
+    return getTheme() === 'light' ? 0.4 : 1;
+  }
+
   function spawnDust(canvas) {
     const palette = COLORS[getTheme()];
     return {
@@ -39,6 +45,26 @@
   let dustParticles = [];
   let animId = null;
 
+  /* Cursor light. Particles inside GLOW_RADIUS brighten and drift gently
+     toward the pointer, so the field feels responsive without ever becoming
+     a focal point. Honours the OS reduce-motion setting. */
+  const GLOW_RADIUS = 190;
+  const reduceMotion = window.matchMedia
+    ? window.matchMedia('(prefers-reduced-motion: reduce)')
+    : { matches: false };
+
+  let pointer = { x: -9999, y: -9999, active: false };
+
+  window.addEventListener('pointermove', function (e) {
+    pointer.x = e.clientX;
+    pointer.y = e.clientY;
+    pointer.active = true;
+  }, { passive: true });
+
+  window.addEventListener('pointerleave', function () {
+    pointer.active = false;
+  }, { passive: true });
+
   /* Fixed 25 particles read as empty space on a large display. Scale with
      viewport area instead, clamped so it stays texture rather than noise. */
   function particleCount() {
@@ -57,20 +83,44 @@
   function animate() {
     bgCtx.clearRect(0, 0, bgCanvas.width, bgCanvas.height);
 
+    const lit = pointer.active && !reduceMotion.matches;
+
     dustParticles.forEach(function (d) {
       d.x += d.vx;
       d.y += d.vy;
+
+      let alpha = d.alpha * alphaScale();
+      let radius = d.r;
+      let blur = 6;
+
+      if (lit) {
+        const dx = pointer.x - d.x;
+        const dy = pointer.y - d.y;
+        const dist = Math.hypot(dx, dy);
+        if (dist < GLOW_RADIUS) {
+          /* 1 at the pointer, easing to 0 at the edge of the radius */
+          const pull = 1 - dist / GLOW_RADIUS;
+          const ease = pull * pull;
+          alpha  = Math.min(0.85, (d.alpha + ease * 0.55) * alphaScale());
+          radius = d.r + ease * 1.1;
+          blur   = 6 + ease * 10;
+          /* a nudge toward the cursor, not a snap */
+          d.x += (dx / (dist || 1)) * ease * 0.45;
+          d.y += (dy / (dist || 1)) * ease * 0.45;
+        }
+      }
+
       if (d.x < 0) d.x = bgCanvas.width;
       if (d.x > bgCanvas.width)  d.x = 0;
       if (d.y < 0) d.y = bgCanvas.height;
       if (d.y > bgCanvas.height) d.y = 0;
 
       bgCtx.save();
-      bgCtx.globalAlpha = d.alpha;
+      bgCtx.globalAlpha = alpha;
       bgCtx.shadowColor = d.color;
-      bgCtx.shadowBlur  = 6;
+      bgCtx.shadowBlur  = blur;
       bgCtx.beginPath();
-      bgCtx.arc(d.x, d.y, d.r, 0, Math.PI * 2);
+      bgCtx.arc(d.x, d.y, radius, 0, Math.PI * 2);
       bgCtx.fillStyle = d.color;
       bgCtx.fill();
       bgCtx.restore();

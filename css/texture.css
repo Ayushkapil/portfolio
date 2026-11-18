@@ -1,0 +1,170 @@
+/* ============================================================
+   TEXTURE — grain overlay and ambient light
+   Additive only: nothing here affects layout or hit testing.
+   ============================================================ */
+
+/* ── Film grain ──
+   An SVG turbulence tile rather than a raster, so it costs one inlined
+   string and stays crisp on any DPR. Fixed + pointer-events:none so it
+   never participates in scrolling or clicks. */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 9000;
+  pointer-events: none;
+  opacity: 0.05;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.82' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* Cream reflects more, so the same grain reads louder in light mode */
+html.light body::after {
+  opacity: 0.035;
+}
+
+/* ── Ambient glow behind the hero ──
+   Fills the empty upper viewport with light instead of another element. */
+#landing::before {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 46%;
+  width: min(1100px, 130vw);
+  height: min(1100px, 130vw);
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  z-index: 0;
+  /* Light mode: a warm lift, not a tint. A purple glow here turned the warm
+     cream page cold lavender and fought the palette. */
+  background: radial-gradient(
+    circle,
+    rgba(249, 115, 22, 0.05) 0%,
+    rgba(249, 115, 22, 0.02) 40%,
+    transparent 70%
+  );
+}
+
+html.dark #landing::before {
+  background: radial-gradient(
+    circle,
+    rgba(167, 139, 250, 0.15) 0%,
+    rgba(45, 212, 191, 0.05) 38%,
+    transparent 70%
+  );
+}
+
+/* ── Scroll progress ──
+   A hairline across the very top, tinted with the palette. */
+.scroll-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 2px;
+  width: 100%;
+  transform: scaleX(0);
+  transform-origin: 0 50%;
+  z-index: 9500;
+  pointer-events: none;
+  background: linear-gradient(
+    90deg,
+    var(--color-purple) 0%,
+    var(--color-teal) 50%,
+    var(--color-accent) 100%
+  );
+  opacity: 0.85;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .scroll-progress {
+    transition: none !important;
+  }
+}
+
+/* ── Surface polish ──
+   The cards already use the glass tokens; these add the light behaviour the
+   navbar pills have but the cards never did. */
+
+/* A sheen that sweeps the top edge, revealed on hover */
+.project-card,
+.note-entry {
+  position: relative;
+  overflow: hidden;
+}
+
+.project-card::before,
+.note-entry::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0;
+  background: linear-gradient(
+    115deg,
+    rgba(255, 255, 255, 0.10) 0%,
+    rgba(255, 255, 255, 0.03) 30%,
+    transparent 60%
+  );
+  transition: opacity 0.35s ease;
+}
+
+.project-card:hover::before,
+.project-card:focus-within::before,
+.note-entry:hover::before,
+.note-entry:focus-visible::before {
+  opacity: 1;
+}
+
+/* Lift, so the cards respond to the pointer rather than only recolouring */
+.project-card,
+.note-entry {
+  transition: background 0.25s ease,
+              box-shadow 0.25s ease,
+              border-color 0.25s ease,
+              transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.project-card:hover,
+.note-entry:hover {
+  transform: translateY(-3px);
+}
+
+/* The blog arrow travels on hover instead of sitting still */
+.note-arrow {
+  transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.note-entry:hover .note-arrow {
+  transform: translateX(6px);
+}
+
+/* Section headings get a hairline that draws in as they reveal */
+.section-heading {
+  position: relative;
+}
+
+.section-heading::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -14px;
+  height: 1px;
+  width: 0;
+  background: linear-gradient(90deg, var(--color-purple), transparent);
+  transition: width 0.8s cubic-bezier(0.22, 1, 0.36, 1) 0.15s;
+}
+
+.section-heading.visible::after {
+  width: 120px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .project-card:hover,
+  .note-entry:hover {
+    transform: none;
+  }
+
+  .section-heading::after {
+    width: 120px;
+    transition: none;
+  }
+}
